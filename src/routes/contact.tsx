@@ -41,6 +41,8 @@ const timelines = ["As soon as possible", "1–3 months", "3–6 months", "Flexi
 type Errors = Record<string, string>;
 
 function ContactPage() {
+  const { service: requestedService } = Route.useSearch();
+  const preselected = publishedServices.find((s) => s.slug === requestedService);
   const [errors, setErrors] = useState<Errors>({});
   const [validated, setValidated] = useState(false);
 
@@ -83,7 +85,13 @@ function ContactPage() {
               </div>
 
               <div className="grid gap-6 sm:grid-cols-2">
-                <SelectField label="Service" name="service" error={errors["service"]} required>
+                <SelectField
+                  label="Service"
+                  name="service"
+                  error={errors["service"]}
+                  defaultValue={preselected?.slug ?? ""}
+                  required
+                >
                   <option value="">Select a service</option>
                   {publishedServices.map((s) => (
                     <option key={s.id} value={s.slug}>
