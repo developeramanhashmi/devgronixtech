@@ -33,17 +33,18 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 pt-3 sm:pt-5">
+    // Floating nav sits clear of the viewport edge: 20px on mobile, 28px from sm up.
+    <header className="fixed inset-x-0 top-0 z-50 pt-5 sm:pt-7">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-8 lg:px-12">
         <nav
           aria-label="Primary"
-          className={`flex items-center justify-between gap-4 rounded-full border px-4 py-2.5 transition-all duration-300 sm:px-5 ${
+          className={`flex items-center justify-between gap-4 rounded-full border px-4 transition-all duration-300 sm:px-5 ${
             scrolled
-              ? "border-border bg-background/85 shadow-sm backdrop-blur-xl"
-              : "border-transparent bg-background/40 backdrop-blur-md"
+              ? "border-border bg-background/85 py-2 shadow-sm backdrop-blur-xl"
+              : "border-transparent bg-background/40 py-2.5 backdrop-blur-md"
           }`}
         >
-          <Link to="/" aria-label="DEVGRONIX home" className="shrink-0">
+          <Link to="/" aria-label="DEVGRONIX home" className="interactive shrink-0">
             <Logo />
           </Link>
 
@@ -53,8 +54,8 @@ export function Header() {
                 <Link
                   to={item.to}
                   activeOptions={{ exact: item.to === "/" }}
-                  activeProps={{ className: "text-foreground bg-secondary" }}
-                  className="rounded-full px-3.5 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                  activeProps={{ className: "text-foreground" }}
+                  className="nav-link inline-flex rounded-full px-3.5 py-2 text-sm font-medium text-muted-foreground hover:text-foreground"
                 >
                   {item.label}
                 </Link>
@@ -66,7 +67,7 @@ export function Header() {
             <ThemeToggle />
             <Link
               to="/contact"
-              className="hidden rounded-full bg-brand px-4 py-2 text-sm font-semibold text-brand-foreground transition-opacity hover:opacity-90 sm:inline-flex"
+              className="interactive hidden rounded-full bg-brand px-4 py-2 text-sm font-semibold text-brand-foreground hover:opacity-90 sm:inline-flex"
             >
               Get a Quote
             </Link>
@@ -75,7 +76,7 @@ export function Header() {
               onClick={() => setOpen(true)}
               aria-label="Open menu"
               aria-expanded={open}
-              className="inline-flex size-9 items-center justify-center rounded-full border border-border text-foreground lg:hidden"
+              className="interactive inline-flex size-9 items-center justify-center rounded-full border border-border text-foreground lg:hidden"
             >
               <Menu className="size-4" />
             </button>
@@ -91,7 +92,7 @@ export function Header() {
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Close menu"
-              className="inline-flex size-9 items-center justify-center rounded-full border border-border text-foreground"
+              className="interactive inline-flex size-9 items-center justify-center rounded-full border border-border text-foreground"
             >
               <X className="size-4" />
             </button>
@@ -102,6 +103,8 @@ export function Header() {
                 <Link
                   to={item.to}
                   onClick={() => setOpen(false)}
+                  activeOptions={{ exact: item.to === "/" }}
+                  activeProps={{ className: "text-brand" }}
                   className="flex items-baseline gap-4 py-4 font-display text-2xl font-bold text-foreground"
                 >
                   <span className="rule-label">{String(i + 1).padStart(2, "0")}</span>
@@ -114,7 +117,7 @@ export function Header() {
             <Link
               to="/contact"
               onClick={() => setOpen(false)}
-              className="flex w-full items-center justify-center rounded-full bg-brand px-5 py-3.5 font-semibold text-brand-foreground"
+              className="interactive flex w-full items-center justify-center rounded-full bg-brand px-5 py-3.5 font-semibold text-brand-foreground"
             >
               Get a Quote
             </Link>

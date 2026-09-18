@@ -29,7 +29,7 @@ export function ProjectCard({
     <Link
       to="/works/$slug"
       params={{ slug: project.slug }}
-      className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface transition-colors hover:border-brand/60"
+      className="card-interactive group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface"
     >
       <div
         className={cn(
@@ -37,7 +37,21 @@ export function ProjectCard({
           size === "lg" ? "aspect-[16/10]" : size === "sm" ? "aspect-[16/9]" : "aspect-[4/3]",
         )}
       >
-        <ProjectCover pattern={project.thumbnail} className="transition-transform duration-700 group-hover:scale-[1.04]" />
+        <ProjectCover
+          pattern={project.thumbnail}
+          className="transition-transform duration-700 group-hover:scale-[1.04]"
+        />
+        {/* Restrained overlay + arrow, hover only (no mobile dependency). */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-foreground/0 transition-colors duration-300 group-hover:bg-foreground/[0.06]"
+        />
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute right-4 top-4 inline-flex size-9 translate-y-1 items-center justify-center rounded-full bg-background/90 text-brand opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+        >
+          <ArrowUpRight className="size-4" />
+        </span>
       </div>
       <div className="flex flex-1 flex-col p-6">
         <div className="flex items-center gap-3">
@@ -47,18 +61,20 @@ export function ProjectCard({
         </div>
         <h3
           className={cn(
-            "mt-3 font-bold leading-snug text-foreground",
+            "mt-3 font-bold leading-snug text-foreground transition-transform duration-300 group-hover:translate-x-0.5",
             size === "lg" ? "text-2xl" : "text-lg",
           )}
         >
           {project.title}
         </h3>
-        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{project.shortDescription}</p>
+        <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+          {project.shortDescription}
+        </p>
         <div className="mt-5 flex items-center justify-between gap-3 pt-1">
           {project.contentType === "demo" ? <DemoBadge /> : <span />}
           <span className="inline-flex items-center gap-1.5 text-sm font-medium text-brand">
             View case study
-            <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </span>
         </div>
       </div>

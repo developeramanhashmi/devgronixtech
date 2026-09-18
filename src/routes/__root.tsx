@@ -102,6 +102,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
+    scripts: [
+      {
+        // Light is the default. Re-apply a previously chosen dark theme before
+        // first paint so there is no flash. System preference is ignored.
+        children:
+          "try{if(localStorage.getItem('devgronix-theme')==='dark'){document.documentElement.classList.add('dark')}}catch(e){}",
+      },
+    ],
   }),
 
   shellComponent: RootShell,
@@ -112,7 +120,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <HeadContent />
       </head>

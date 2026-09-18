@@ -3,7 +3,7 @@ import { Search } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { pageMeta } from "@/lib/seo";
-import { projectCategories, publishedProjects } from "@/lib/content/projects";
+import { projectServiceFilters, publishedProjects } from "@/lib/content/projects";
 import { PageHero } from "@/components/site/PageHero";
 import { Section } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
@@ -23,21 +23,21 @@ export const Route = createFileRoute("/works/")({
 });
 
 function WorksPage() {
-  const [category, setCategory] = useState("All");
+  const [serviceFilter, setServiceFilter] = useState("all");
   const [query, setQuery] = useState("");
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return publishedProjects.filter((p) => {
-      const matchesCategory = category === "All" || p.category === category;
+      const matchesService = serviceFilter === "all" || p.serviceIds.includes(serviceFilter);
       const matchesQuery =
         q.length === 0 ||
         p.title.toLowerCase().includes(q) ||
         p.shortDescription.toLowerCase().includes(q) ||
         p.technologies.some((t) => t.toLowerCase().includes(q));
-      return matchesCategory && matchesQuery;
+      return matchesService && matchesQuery;
     });
-  }, [category, query]);
+  }, [serviceFilter, query]);
 
   return (
     <>
@@ -49,21 +49,25 @@ function WorksPage() {
 
       <Section>
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-          <div role="group" aria-label="Filter by category" className="flex flex-wrap gap-2">
-            {projectCategories.map((c) => (
+          <div
+            role="group"
+            aria-label="Filter by service"
+            className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 lg:mx-0 lg:flex-wrap lg:overflow-visible lg:px-0"
+          >
+            {projectServiceFilters.map((f) => (
               <button
-                key={c}
+                key={f.id}
                 type="button"
-                onClick={() => setCategory(c)}
-                aria-pressed={category === c}
+                onClick={() => setServiceFilter(f.id)}
+                aria-pressed={serviceFilter === f.id}
                 className={cn(
-                  "rounded-full border px-4 py-2 text-sm font-medium transition-colors",
-                  category === c
+                  "interactive whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium",
+                  serviceFilter === f.id
                     ? "border-brand bg-brand text-brand-foreground"
                     : "border-border text-muted-foreground hover:border-border-strong hover:text-foreground",
                 )}
               >
-                {c}
+                {f.title}
               </button>
             ))}
           </div>
@@ -92,15 +96,15 @@ function WorksPage() {
           <div className="mt-12 rounded-xl border border-dashed border-border-strong p-14 text-center">
             <h2 className="font-display text-lg font-bold text-foreground">No projects match that</h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Try a different category or clear your search.
+              Try a different service or clear your search.
             </p>
             <button
               type="button"
               onClick={() => {
-                setCategory("All");
+                setServiceFilter("all");
                 setQuery("");
               }}
-              className="mt-6 rounded-full border border-border-strong px-5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-brand hover:text-brand"
+              className="interactive mt-6 rounded-full border border-border-strong px-5 py-2.5 text-sm font-semibold text-foreground hover:border-brand hover:text-brand"
             >
               Reset filters
             </button>

@@ -1,4 +1,5 @@
 import type { Project } from "./types";
+import { publishedServices } from "./services";
 
 const now = "2026-03-01";
 
@@ -17,6 +18,7 @@ export const projects: Project[] = [
     slug: "ai-job-discovery-platform",
     category: "AI",
     serviceId: "svc-ai",
+    serviceIds: ["svc-ai", "svc-web", "svc-software"],
     shortDescription: "A matching engine that ranks roles against a candidate's real skill history.",
     description:
       "A concept platform where candidates describe their experience once and receive ranked, explained matches instead of an endless keyword feed.",
@@ -52,6 +54,7 @@ export const projects: Project[] = [
     slug: "ecommerce-experience",
     category: "Web Development",
     serviceId: "svc-web",
+    serviceIds: ["svc-web", "svc-uiux", "svc-marketing"],
     shortDescription: "A storefront concept tuned for mobile browsing and fast checkout.",
     description:
       "A retail storefront concept built around a short path from discovery to paid order, with merchandising the team can run themselves.",
@@ -87,6 +90,7 @@ export const projects: Project[] = [
     slug: "business-management-software",
     category: "Software",
     serviceId: "svc-software",
+    serviceIds: ["svc-software", "svc-data", "svc-uiux"],
     shortDescription: "Quotes, jobs, invoicing and team scheduling in one internal system.",
     description:
       "An internal operations concept replacing a stack of spreadsheets with a single system covering quotes through invoicing.",
@@ -122,6 +126,7 @@ export const projects: Project[] = [
     slug: "saas-analytics-dashboard",
     category: "UI/UX",
     serviceId: "svc-uiux",
+    serviceIds: ["svc-uiux", "svc-data", "svc-saas"],
     shortDescription: "A dashboard system that answers one question per screen.",
     description:
       "A analytics interface concept designed around the three questions product teams ask daily, rather than a wall of charts.",
@@ -157,6 +162,7 @@ export const projects: Project[] = [
     slug: "healthcare-digital-platform",
     category: "Mobile Apps",
     serviceId: "svc-mobile",
+    serviceIds: ["svc-mobile", "svc-uiux", "svc-software"],
     shortDescription: "Appointments, records and reminders in a patient-facing app.",
     description:
       "A patient app concept covering booking, visit history and medication reminders, with careful handling of sensitive data.",
@@ -192,6 +198,7 @@ export const projects: Project[] = [
     slug: "brand-identity-system",
     category: "Branding",
     serviceId: "svc-brand",
+    serviceIds: ["svc-brand", "svc-graphic", "svc-uiux"],
     shortDescription: "A digital-first identity kit built to survive real-world use.",
     description:
       "An identity concept for a technology services brand: monogram, type scale, colour system and a written usage guide.",
@@ -227,6 +234,7 @@ export const projects: Project[] = [
     slug: "corporate-website-refresh",
     category: "Marketing",
     serviceId: "svc-marketing",
+    serviceIds: ["svc-marketing", "svc-seo", "svc-web"],
     shortDescription: "A structural rebuild aimed at organic search and enquiries.",
     description:
       "A concept rebuild of a services company website, restructured around how buyers search rather than how the company is organised.",
@@ -262,6 +270,7 @@ export const projects: Project[] = [
     slug: "cloud-automation-product",
     category: "Cloud",
     serviceId: "svc-cloud",
+    serviceIds: ["svc-cloud", "svc-software", "svc-data"],
     shortDescription: "Environment provisioning and deploy pipelines as a product surface.",
     description:
       "A concept internal platform that turns environment setup and deployment into a reviewed, repeatable action.",
@@ -297,22 +306,28 @@ export const publishedProjects = projects.filter((p) => p.status === "published"
 
 export const featuredProjects = publishedProjects.filter((p) => p.featured);
 
-export const projectCategories = [
-  "All",
-  "Web Development",
-  "Mobile Apps",
-  "UI/UX",
-  "Software",
-  "AI",
-  "Branding",
-  "Marketing",
-  "Cloud",
+/**
+ * Works filters, derived from service data — adding a service that has
+ * published projects automatically adds its filter.
+ */
+export const projectServiceFilters = [
+  { id: "all", title: "All" },
+  ...publishedServices
+    .filter((s) => publishedProjects.some((p) => p.serviceIds.includes(s.id)))
+    .map((s) => ({ id: s.id, title: s.title })),
 ];
 
 export function getProjectBySlug(slug: string) {
   return publishedProjects.find((p) => p.slug === slug);
 }
 
+/** Every project assigned to a service, primary or secondary. */
 export function getProjectsByService(serviceId: string) {
-  return publishedProjects.filter((p) => p.serviceId === serviceId);
+  return publishedProjects.filter((p) => p.serviceIds.includes(serviceId));
+}
+
+export function getRelatedProjects(project: Project, limit = 3) {
+  return publishedProjects
+    .filter((p) => p.id !== project.id && p.serviceIds.some((id) => project.serviceIds.includes(id)))
+    .slice(0, limit);
 }
