@@ -71,7 +71,13 @@ function ContactPage() {
         label="Contact"
         title="Tell us what you're building."
         description="Share the goal, the constraints and your timeline. We'll reply with questions, a suggested approach and a quote range."
-      />
+      >
+        {preselected && (
+          <p className="inline-flex items-center gap-2 rounded-full border border-brand/50 bg-brand-soft px-4 py-2 text-sm text-foreground">
+            Enquiring about <span className="font-semibold">{preselected.title}</span>
+          </p>
+        )}
+      </PageHero>
 
       <Section>
         <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
