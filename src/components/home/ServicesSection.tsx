@@ -24,7 +24,7 @@ export function ServicesSection() {
             <Link
               to="/services/$slug"
               params={{ slug: lead.slug }}
-              className="card-interactive group flex h-full flex-col justify-between overflow-hidden rounded-xl border border-border bg-surface p-7"
+              className="card-interactive group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface p-7"
             >
               <div>
                 <div className="flex items-center justify-between">
@@ -40,7 +40,7 @@ export function ServicesSection() {
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{lead.description}</p>
               </div>
-              <ul className="mt-8 flex flex-col gap-2 border-t border-border pt-6">
+              <ul className="mt-8 flex flex-col gap-2 border-t border-border pt-6 lg:mt-auto">
                 {lead.offers.slice(0, 4).map((c) => (
                   <li key={c} className="flex items-start gap-2 text-sm text-muted-foreground">
                     <span aria-hidden="true" className="mt-2 size-1 shrink-0 rounded-full bg-brand" />
