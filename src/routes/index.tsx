@@ -1,24 +1,38 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+import { pageMeta } from "@/lib/seo";
+import { Hero } from "@/components/home/Hero";
+import { ServicesSection } from "@/components/home/ServicesSection";
+import { FeaturedWork } from "@/components/home/FeaturedWork";
+import { WhySection } from "@/components/home/WhySection";
+import { ProcessSection } from "@/components/home/ProcessSection";
+import { TechnologySection } from "@/components/home/TechnologySection";
+import { TestimonialsSection } from "@/components/home/TestimonialsSection";
+import { CtaSection } from "@/components/site/CtaSection";
+
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: pageMeta({
+      title: "DEVGRONIX — Create. Develop. Grow.",
+      description:
+        "DEVGRONIX designs and builds websites, software, mobile apps, AI automation and cloud solutions for businesses in India and international markets.",
+      withSite: false,
+    }),
+  }),
+  component: HomePage,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function HomePage() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <>
+      <Hero />
+      <ServicesSection />
+      <FeaturedWork />
+      <WhySection />
+      <ProcessSection />
+      <TechnologySection />
+      <TestimonialsSection />
+      <CtaSection />
+    </>
   );
 }
