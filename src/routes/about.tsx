@@ -26,8 +26,6 @@ const values = [
   { title: "Build to hand over", body: "Documentation and clean code, so you're never locked to one agency." },
 ];
 
-export default function noop() {}
-
 function AboutPage() {
   return (
     <>
