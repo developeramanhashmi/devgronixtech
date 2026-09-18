@@ -21,7 +21,7 @@ export function FeaturedWork() {
         <Reveal delay={100} className="shrink-0">
           <Link
             to="/works"
-            className="inline-flex items-center gap-2 rounded-full border border-border-strong px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-brand hover:text-brand"
+            className="inline-flex items-center gap-2 rounded-full border border-border-strong px-5 py-3 text-sm font-semibold text-foreground interactive hover:border-brand hover:text-brand"
           >
             All work
             <ArrowRight className="size-4" />
