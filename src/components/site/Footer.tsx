@@ -48,7 +48,7 @@ export function Footer() {
             </p>
             <Link
               to="/contact"
-              className="mt-1 inline-flex w-fit rounded-full border border-border-strong px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-brand hover:text-brand"
+              className="mt-1 inline-flex w-fit rounded-full border border-border-strong px-4 py-2 text-sm font-medium text-foreground interactive hover:border-brand hover:text-brand"
             >
               Start a project
             </Link>

@@ -13,7 +13,7 @@ export function Hero() {
       <div aria-hidden="true" className="absolute inset-0 grid-field opacity-40" />
       <div
         aria-hidden="true"
-        className="absolute -left-40 top-10 size-[30rem] rounded-full bg-brand/15 blur-3xl"
+        className="hero-drift absolute -left-40 top-10 size-[30rem] rounded-full bg-brand/15 blur-3xl"
       />
       <Container className="relative pt-36 pb-16 sm:pt-44 sm:pb-20 lg:pt-48">
         <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
@@ -39,14 +39,14 @@ export function Hero() {
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
                 <Link
                   to={hero.primaryCta.to}
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground transition-opacity hover:opacity-90"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground interactive hover:opacity-90"
                 >
                   {hero.primaryCta.label}
                   <ArrowRight className="size-4" />
                 </Link>
                 <Link
                   to={hero.secondaryCta.to}
-                  className="inline-flex items-center justify-center rounded-full border border-border-strong px-6 py-3.5 text-sm font-semibold text-foreground transition-colors hover:border-brand hover:text-brand"
+                  className="inline-flex items-center justify-center rounded-full border border-border-strong px-6 py-3.5 text-sm font-semibold text-foreground interactive hover:border-brand hover:text-brand"
                 >
                   {hero.secondaryCta.label}
                 </Link>
