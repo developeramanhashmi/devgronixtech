@@ -10,6 +10,14 @@ import { Reveal } from "@/components/site/Reveal";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/contact")({
+  /**
+   * `?service=<slug>` preselects the service dropdown, so a visitor arriving
+   * from a service or pricing page doesn't re-enter what they were reading.
+   */
+  validateSearch: (search: Record<string, unknown>): { service?: string } => {
+    const value = search["service"];
+    return typeof value === "string" && value.length > 0 ? { service: value } : {};
+  },
   head: () => ({
     meta: pageMeta({
       title: "Contact",
@@ -228,12 +236,14 @@ function SelectField({
   name,
   error,
   required,
+  defaultValue = "",
   children,
 }: {
   label: string;
   name: string;
   error?: string | undefined;
   required?: boolean;
+  defaultValue?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -245,7 +255,7 @@ function SelectField({
       <select
         id={name}
         name={name}
-        defaultValue=""
+        defaultValue={defaultValue}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? `${name}-error` : undefined}
         className={cn(fieldClass, error ? "border-destructive" : "border-border focus:border-brand")}
