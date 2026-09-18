@@ -46,10 +46,10 @@ function ContactPage() {
     const service = String(data.get("service") ?? "");
     const description = String(data.get("description") ?? "").trim();
 
-    if (name.length < 2) next.name = "Please enter your name.";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) next.email = "Please enter a valid email address.";
-    if (!service) next.service = "Please choose a service.";
-    if (description.length < 20) next.description = "Please describe the project in at least 20 characters.";
+    if (name.length < 2) next["name"] = "Please enter your name.";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) next["email"] = "Please enter a valid email address.";
+    if (!service) next["service"] = "Please choose a service.";
+    if (description.length < 20) next["description"] = "Please describe the project in at least 20 characters.";
 
     setErrors(next);
     setValidated(Object.keys(next).length === 0);
@@ -68,14 +68,14 @@ function ContactPage() {
           <Reveal>
             <form noValidate onSubmit={handleSubmit} className="flex flex-col gap-6">
               <div className="grid gap-6 sm:grid-cols-2">
-                <Field label="Name" name="name" error={errors.name} required />
-                <Field label="Email" name="email" type="email" error={errors.email} required />
+                <Field label="Name" name="name" error={errors["name"]} required />
+                <Field label="Email" name="email" type="email" error={errors["email"]} required />
                 <Field label="Company" name="company" />
                 <Field label="Country" name="country" />
               </div>
 
               <div className="grid gap-6 sm:grid-cols-2">
-                <SelectField label="Service" name="service" error={errors.service} required>
+                <SelectField label="Service" name="service" error={errors["service"]} required>
                   <option value="">Select a service</option>
                   {publishedServices.map((s) => (
                     <option key={s.id} value={s.slug}>
@@ -97,7 +97,7 @@ function ContactPage() {
               <TextareaField
                 label="Project description"
                 name="description"
-                error={errors.description}
+                error={errors["description"]}
                 required
                 rows={5}
                 placeholder="What are you building, who is it for, and what needs to be true at launch?"
@@ -195,7 +195,7 @@ function Field({
   label: string;
   name: string;
   type?: string;
-  error?: string;
+  error?: string | undefined;
   required?: boolean;
   placeholder?: string;
 }) {
@@ -232,7 +232,7 @@ function SelectField({
 }: {
   label: string;
   name: string;
-  error?: string;
+  error?: string | undefined;
   required?: boolean;
   children: React.ReactNode;
 }) {
@@ -271,7 +271,7 @@ function TextareaField({
 }: {
   label: string;
   name: string;
-  error?: string;
+  error?: string | undefined;
   required?: boolean;
   rows?: number;
   placeholder?: string;
