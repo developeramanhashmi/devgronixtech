@@ -34,14 +34,14 @@ export function CtaSection({
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link
                 to={primaryCta.to}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground transition-opacity hover:opacity-90"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground interactive hover:opacity-90"
               >
                 {primaryCta.label}
                 <ArrowRight className="size-4" />
               </Link>
               <Link
                 to={secondaryCta.to}
-                className="inline-flex items-center justify-center rounded-full border border-border-strong px-6 py-3.5 text-sm font-semibold text-foreground transition-colors hover:border-brand hover:text-brand"
+                className="inline-flex items-center justify-center rounded-full border border-border-strong px-6 py-3.5 text-sm font-semibold text-foreground interactive hover:border-brand hover:text-brand"
               >
                 {secondaryCta.label}
               </Link>

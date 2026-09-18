@@ -10,6 +10,14 @@ import { Reveal } from "@/components/site/Reveal";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/contact")({
+  /**
+   * `?service=<slug>` preselects the service dropdown, so a visitor arriving
+   * from a service or pricing page doesn't re-enter what they were reading.
+   */
+  validateSearch: (search: Record<string, unknown>): { service?: string } => {
+    const value = search["service"];
+    return typeof value === "string" && value.length > 0 ? { service: value } : {};
+  },
   head: () => ({
     meta: pageMeta({
       title: "Contact",
@@ -33,6 +41,8 @@ const timelines = ["As soon as possible", "1–3 months", "3–6 months", "Flexi
 type Errors = Record<string, string>;
 
 function ContactPage() {
+  const { service: requestedService } = Route.useSearch();
+  const preselected = publishedServices.find((s) => s.slug === requestedService);
   const [errors, setErrors] = useState<Errors>({});
   const [validated, setValidated] = useState(false);
 
@@ -61,7 +71,13 @@ function ContactPage() {
         label="Contact"
         title="Tell us what you're building."
         description="Share the goal, the constraints and your timeline. We'll reply with questions, a suggested approach and a quote range."
-      />
+      >
+        {preselected && (
+          <p className="inline-flex items-center gap-2 rounded-full border border-brand/50 bg-brand-soft px-4 py-2 text-sm text-foreground">
+            Enquiring about <span className="font-semibold">{preselected.title}</span>
+          </p>
+        )}
+      </PageHero>
 
       <Section>
         <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
@@ -75,7 +91,13 @@ function ContactPage() {
               </div>
 
               <div className="grid gap-6 sm:grid-cols-2">
-                <SelectField label="Service" name="service" error={errors["service"]} required>
+                <SelectField
+                  label="Service"
+                  name="service"
+                  error={errors["service"]}
+                  defaultValue={preselected?.slug ?? ""}
+                  required
+                >
                   <option value="">Select a service</option>
                   {publishedServices.map((s) => (
                     <option key={s.id} value={s.slug}>
@@ -228,12 +250,14 @@ function SelectField({
   name,
   error,
   required,
+  defaultValue = "",
   children,
 }: {
   label: string;
   name: string;
   error?: string | undefined;
   required?: boolean;
+  defaultValue?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -245,7 +269,7 @@ function SelectField({
       <select
         id={name}
         name={name}
-        defaultValue=""
+        defaultValue={defaultValue}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? `${name}-error` : undefined}
         className={cn(fieldClass, error ? "border-destructive" : "border-border focus:border-brand")}

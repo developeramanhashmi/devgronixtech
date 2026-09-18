@@ -225,6 +225,98 @@
   transform: none;
 }
 
+/*
+ * Unified interaction language.
+ * One easing, one timing band (150–300ms) across links, buttons and cards.
+ */
+
+/* Nav item: colour shift plus an underline that grows from the left. */
+@utility nav-link {
+  position: relative;
+  transition: color 200ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0.875rem;
+    right: 0.875rem;
+    bottom: 0.3rem;
+    height: 1.5px;
+    border-radius: 2px;
+    background: var(--color-brand);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  &:hover::after,
+  &[data-status="active"]::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Any button or CTA: subtle lift on hover, small press on click. */
+@utility interactive {
+  transition:
+    background-color 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    color 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 240ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.985);
+  }
+}
+
+/* Cards and list rows: border, surface and elevation respond together. */
+@utility card-interactive {
+  transition:
+    border-color 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 260ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:hover {
+    border-color: color-mix(in oklab, var(--color-brand) 55%, transparent);
+    box-shadow: 0 14px 40px -24px color-mix(in oklab, var(--color-foreground) 45%, transparent);
+    transform: translateY(-2px);
+  }
+}
+
+/* Accent rule that expands when its group is hovered. */
+@utility accent-rule {
+  display: block;
+  height: 2px;
+  width: 1.75rem;
+  border-radius: 2px;
+  background: var(--color-brand);
+  transition: width 260ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  .group:hover & {
+    width: 3.5rem;
+  }
+}
+
+/* Slow drift used behind the hero composition only. */
+@utility hero-drift {
+  animation: hero-drift 26s ease-in-out infinite alternate;
+}
+
+@keyframes hero-drift {
+  from {
+    transform: translate3d(-1.5%, -1%, 0) scale(1.02);
+  }
+  to {
+    transform: translate3d(1.5%, 1.5%, 0) scale(1.06);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

@@ -1,13 +1,15 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 import { pageMeta } from "@/lib/seo";
-import { getProjectBySlug, publishedProjects } from "@/lib/content/projects";
+import { getProjectBySlug, getRelatedProjects } from "@/lib/content/projects";
 import { getServiceById } from "@/lib/content/services";
 import { PageHero } from "@/components/site/PageHero";
 import { Section, SectionHeading } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
 import { ProjectCover } from "@/components/site/ProjectCover";
 import { ProjectCard, DemoBadge } from "@/components/site/ProjectCard";
+import { ServiceIcon } from "@/components/site/ServiceIcon";
 import { CtaSection } from "@/components/site/CtaSection";
 
 export const Route = createFileRoute("/works/$slug")({
@@ -53,23 +55,38 @@ function ProjectNotFound() {
 
 function ProjectDetailPage() {
   const { project } = Route.useLoaderData();
-  const service = getServiceById(project.serviceId);
-  const related = publishedProjects.filter((p) => p.id !== project.id).slice(0, 3);
+  const primaryService = getServiceById(project.serviceId);
+  const services = project.serviceIds
+    .map((id) => getServiceById(id))
+    .filter((s): s is NonNullable<typeof s> => Boolean(s));
+  const related = getRelatedProjects(project, 3);
 
   return (
     <>
       <PageHero label={`${project.category} · ${project.year}`} title={project.title} description={project.description}>
-        <div className="flex flex-wrap items-center gap-3">
-          {project.contentType === "demo" && <DemoBadge />}
-          {service && (
-            <Link
-              to="/services/$slug"
-              params={{ slug: service.slug }}
-              className="inline-flex rounded-full border border-border-strong px-3.5 py-1.5 text-xs font-medium text-foreground transition-colors hover:border-brand hover:text-brand"
-            >
-              {service.title}
-            </Link>
-          )}
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-wrap items-center gap-3">
+            {project.contentType === "demo" && <DemoBadge />}
+            <span className="rule-label">Services used</span>
+            {services.map((s) => (
+              <Link
+                key={s.id}
+                to="/services/$slug"
+                params={{ slug: s.slug }}
+                className="interactive inline-flex rounded-full border border-border-strong px-3.5 py-1.5 text-xs font-medium text-foreground hover:border-brand hover:text-brand"
+              >
+                {s.title}
+              </Link>
+            ))}
+          </div>
+          <Link
+            to="/contact"
+            search={primaryService ? { service: primaryService.slug } : {}}
+            className="interactive inline-flex w-fit items-center gap-2 rounded-full bg-brand px-5 py-3 text-sm font-semibold text-brand-foreground hover:opacity-90"
+          >
+            Start a project like this
+            <ArrowRight className="size-4" />
+          </Link>
         </div>
       </PageHero>
 
@@ -136,15 +153,47 @@ function ProjectDetailPage() {
       )}
 
       <Section className="border-b border-border">
-        <SectionHeading label="Related work" title="More concept projects." />
+        <SectionHeading
+          label="Related services"
+          title="The services behind this project."
+          description="Each service page carries its own capabilities, pricing and selected work."
+        />
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {related.map((p, i) => (
-            <Reveal key={p.id} delay={i * 60}>
-              <ProjectCard project={p} size="sm" />
+          {services.map((s, i) => (
+            <Reveal key={s.id} delay={i * 60}>
+              <Link
+                to="/services/$slug"
+                params={{ slug: s.slug }}
+                className="card-interactive group flex h-full flex-col rounded-xl border border-border bg-surface p-6"
+              >
+                <ServiceIcon
+                  name={s.icon}
+                  className="size-5 text-foreground transition-all duration-300 group-hover:-translate-y-0.5 group-hover:text-brand"
+                />
+                <h3 className="mt-5 font-display text-lg font-bold text-foreground">{s.title}</h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{s.tagline}</p>
+                <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand">
+                  Explore service
+                  <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </span>
+              </Link>
             </Reveal>
           ))}
         </div>
       </Section>
+
+      {related.length > 0 && (
+        <Section className="border-b border-border bg-surface/40">
+          <SectionHeading label="Related projects" title="More concept work in this space." />
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {related.map((p, i) => (
+              <Reveal key={p.id} delay={i * 60}>
+                <ProjectCard project={p} size="sm" />
+              </Reveal>
+            ))}
+          </div>
+        </Section>
+      )}
 
       <CtaSection title="Want something like this, for real?" />
     </>
