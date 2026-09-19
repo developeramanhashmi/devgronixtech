@@ -2,11 +2,11 @@
 
 hi
 
-This project was built with [Lovable](https://lovable.dev).
+This project was built with Devgronix.
 
-**Live app**: https://devgronixtech.lovable.app
+**Live app**: https://devgronix.com
 
-## Build with Lovable
+## Build with Love
 
 Continue developing this project in the [Lovable editor](https://lovable.dev/projects/3e656e6a-3bdf-4b9e-b5d9-0d558ca960a1).
 
