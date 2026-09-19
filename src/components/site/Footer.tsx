@@ -56,8 +56,8 @@ export function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col gap-3 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} DEVGRONIX. All rights reserved.</p>
-          <p>Portfolio and testimonial entries shown are concept/sample content.</p>
+          <p>© {new Date().getFullYear()} Devgronix. All rights reserved.</p>
+          <p>Design and Developed by AMAN HASHMI</p>
         </div>
       </Container>
     </footer>
