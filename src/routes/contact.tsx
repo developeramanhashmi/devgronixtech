@@ -29,10 +29,10 @@ export const Route = createFileRoute("/contact")({
 });
 
 const budgets = [
-  "Under ₹1,00,000",
-  "₹1,00,000 – ₹5,00,000",
-  "₹5,00,000 – ₹15,00,000",
-  "₹15,00,000+",
+  "Under ₹4,999",
+  "₹5,000 – ₹10,000",
+  "₹10,000 – ₹15,000",
+  "₹15,000+",
   "Not sure yet",
 ];
 
@@ -141,7 +141,7 @@ function ContactPage() {
                 type="submit"
                 className="inline-flex w-fit items-center justify-center rounded-full bg-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground transition-opacity hover:opacity-90"
               >
-                Check and prepare enquiry
+                Submit enquiry
               </button>
 
               {validated && (
@@ -170,7 +170,7 @@ function ContactPage() {
               <h2 className="rule-label">Direct contact</h2>
               <p className="mt-3 flex items-start gap-2.5 text-sm text-muted-foreground">
                 <Mail aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-brand" />
-                Business email not yet provided — add it and we'll display it here.
+                admin@devgronix.in
               </p>
             </div>
             <div className="border-t border-border pt-6">
