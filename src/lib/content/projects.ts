@@ -539,7 +539,9 @@ export function getProjectBySlug(slug: string) {
 
 /** Every project assigned to a service, primary or secondary. */
 export function getProjectsByService(serviceId: string) {
-  return publishedProjects.filter((p) => p.serviceIds.includes(serviceId));
+  return publishedProjects
+    .filter((p) => p.serviceIds.includes(serviceId))
+    .sort((a, b) => Number(b.serviceId === serviceId) - Number(a.serviceId === serviceId));
 }
 
 export function getRelatedProjects(project: Project, limit = 3) {
