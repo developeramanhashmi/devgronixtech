@@ -300,6 +300,222 @@ export const projects: Project[] = [
     createdAt: now,
     updatedAt: now,
   },
+  {
+    id: "prj-9",
+    title: "Product Launch Motion Campaign",
+    slug: "product-launch-motion-campaign",
+    category: "Video & Motion",
+    serviceId: "svc-video",
+    serviceIds: ["svc-video", "svc-graphic", "svc-marketing"],
+    shortDescription: "A modular launch-film system adapted for social, presentations and product pages.",
+    description:
+      "A concept motion campaign for a new technology product, designed as one visual system rather than a collection of unrelated edits.",
+    challenge:
+      "A product launch needed to explain a technical offer quickly across channels with different formats, durations and viewing habits.",
+    approach:
+      "We planned the campaign around reusable scenes, motion rules and message beats before adapting each cut to its destination.",
+    solution:
+      "A launch film, short-form cutdowns, animated feature explainers and reusable title sequences built from a shared motion toolkit.",
+    features: [
+      "Launch film story edit",
+      "Short-form social cutdowns",
+      "Animated product callouts",
+      "Caption and subtitle system",
+      "Multi-aspect delivery package",
+    ],
+    technologies: ["Adobe Premiere Pro", "After Effects", "DaVinci Resolve", "Motion design"],
+    thumbnail: "mesh",
+    gallery: ["mesh", "lines", "grid"],
+    featured: false,
+    status: "published",
+    contentType: "demo",
+    clientName: null,
+    clientCountry: null,
+    year: "2026",
+    publishedAt: now,
+    createdAt: now,
+    updatedAt: now,
+  },
+  {
+    id: "prj-10",
+    title: "Premium Brand Video Series",
+    slug: "premium-brand-video-series",
+    category: "Video & Motion",
+    serviceId: "svc-video",
+    serviceIds: ["svc-video", "svc-brand", "svc-content"],
+    shortDescription: "A repeatable editorial video format for brand stories, interviews and product detail.",
+    description:
+      "A concept video series that gives a premium business a consistent visual and editorial language across long-form and short-form content.",
+    challenge:
+      "Individual videos felt disconnected because pacing, titles, framing and sound choices changed from one release to the next.",
+    approach:
+      "We defined repeatable episode structures, motion templates, sound direction and cutdown rules before producing the first set of edits.",
+    solution:
+      "A cohesive series package with interview edits, product stories, opening titles, lower thirds and platform-ready cutdowns.",
+    features: [
+      "Editorial series format",
+      "Interview and product edits",
+      "Motion title toolkit",
+      "Sound and pacing guidelines",
+      "Reusable export presets",
+    ],
+    technologies: ["Adobe Premiere Pro", "After Effects", "Audition", "Motion design"],
+    thumbnail: "lines",
+    gallery: ["lines", "mesh"],
+    featured: false,
+    status: "published",
+    contentType: "demo",
+    clientName: null,
+    clientCountry: null,
+    year: "2026",
+    publishedAt: now,
+    createdAt: now,
+    updatedAt: now,
+  },
+  {
+    id: "prj-11",
+    title: "Technology Brand Social System",
+    slug: "technology-brand-social-system",
+    category: "Social Media",
+    serviceId: "svc-social",
+    serviceIds: ["svc-social", "svc-content", "svc-graphic"],
+    shortDescription: "A monthly publishing system that turns technical topics into clear social content.",
+    description:
+      "A concept social media operation for a technology brand that needed a consistent calendar, recognisable creative and useful technical storytelling.",
+    challenge:
+      "Subject-matter expertise existed inside the business, but irregular planning and inconsistent formats kept it from becoming useful public content.",
+    approach:
+      "We grouped topics into editorial themes, established repeatable post formats and designed a monthly review and publishing workflow.",
+    solution:
+      "A channel-ready content calendar with carousel templates, short-form scripts, caption guidance and a concise reporting structure.",
+    features: [
+      "Monthly editorial calendar",
+      "Technical carousel templates",
+      "Short-form video scripts",
+      "Caption and response guidelines",
+      "Channel reporting framework",
+    ],
+    technologies: ["Figma", "Scheduling tools", "Analytics", "Adobe Creative Suite"],
+    thumbnail: "grid",
+    gallery: ["grid", "mesh", "lines"],
+    featured: false,
+    status: "published",
+    contentType: "demo",
+    clientName: null,
+    clientCountry: null,
+    year: "2026",
+    publishedAt: now,
+    createdAt: now,
+    updatedAt: now,
+  },
+  {
+    id: "prj-12",
+    title: "Saudi Business Social Presence",
+    slug: "saudi-business-social-presence",
+    category: "Social Media",
+    serviceId: "svc-social",
+    serviceIds: ["svc-social", "svc-content", "svc-video"],
+    shortDescription: "A bilingual-ready content framework for a professional services brand in Saudi Arabia.",
+    description:
+      "A concept social presence designed for a Saudi professional services business communicating clearly across English and Arabic content workflows.",
+    challenge:
+      "The brand needed a consistent professional presence without relying on last-minute posts or treating translation as an afterthought.",
+    approach:
+      "We designed the calendar, approvals and creative templates around bilingual coordination and platform-specific publishing needs.",
+    solution:
+      "A structured monthly programme covering leadership content, service explainers, company updates and short-form video briefs.",
+    features: [
+      "Bilingual-ready content calendar",
+      "Approval and translation workflow",
+      "Professional post templates",
+      "Short-form content briefs",
+      "Community response guidance",
+    ],
+    technologies: ["Figma", "Scheduling tools", "Analytics", "Editorial workflow"],
+    thumbnail: "mesh",
+    gallery: ["mesh", "grid"],
+    featured: false,
+    status: "published",
+    contentType: "demo",
+    clientName: null,
+    clientCountry: null,
+    year: "2026",
+    publishedAt: now,
+    createdAt: now,
+    updatedAt: now,
+  },
+  {
+    id: "prj-13",
+    title: "Technology Brand Content System",
+    slug: "technology-brand-content-system",
+    category: "Content & Creative",
+    serviceId: "svc-content",
+    serviceIds: ["svc-content", "svc-seo", "svc-web"],
+    shortDescription: "A practical messaging and editorial system for complex technology services.",
+    description:
+      "A concept content system that helps a technology company explain its services consistently across its website, articles and sales material.",
+    challenge:
+      "Different teams described the same services in different ways, creating vague pages and an inconsistent buying experience.",
+    approach:
+      "We established message pillars, buyer questions, tone rules and reusable page structures before writing individual assets.",
+    solution:
+      "A central messaging guide supported by service-page copy, article briefs, case-study structures and editorial governance.",
+    features: [
+      "Messaging and positioning framework",
+      "Service-page content templates",
+      "Tone of voice guidelines",
+      "SEO-aware article briefs",
+      "Editorial review workflow",
+    ],
+    technologies: ["Editorial workflow", "SEO tooling", "Content modelling"],
+    thumbnail: "lines",
+    gallery: ["lines", "grid", "mesh"],
+    featured: false,
+    status: "published",
+    contentType: "demo",
+    clientName: null,
+    clientCountry: null,
+    year: "2026",
+    publishedAt: now,
+    createdAt: now,
+    updatedAt: now,
+  },
+  {
+    id: "prj-14",
+    title: "Corporate Content & Creative Campaign",
+    slug: "corporate-content-and-creative-campaign",
+    category: "Content & Creative",
+    serviceId: "svc-content",
+    serviceIds: ["svc-content", "svc-graphic", "svc-marketing"],
+    shortDescription: "A coordinated campaign toolkit for a complex corporate service launch.",
+    description:
+      "A concept campaign bringing long-form copy, visual direction and channel assets into one coherent launch narrative.",
+    challenge:
+      "The offer needed detailed explanation for decision-makers while still producing concise material for campaign and sales channels.",
+    approach:
+      "We built a message hierarchy first, then adapted it into page copy, campaign assets, presentation content and supporting articles.",
+    solution:
+      "A connected creative package with a campaign landing page, executive overview, social assets and reusable content briefs.",
+    features: [
+      "Campaign message hierarchy",
+      "Landing page copy",
+      "Executive overview content",
+      "Social creative direction",
+      "Reusable campaign briefs",
+    ],
+    technologies: ["Figma", "Editorial workflow", "Content modelling", "SEO tooling"],
+    thumbnail: "grid",
+    gallery: ["grid", "lines"],
+    featured: false,
+    status: "published",
+    contentType: "demo",
+    clientName: null,
+    clientCountry: null,
+    year: "2026",
+    publishedAt: now,
+    createdAt: now,
+    updatedAt: now,
+  },
 ];
 
 export const publishedProjects = projects.filter((p) => p.status === "published");
@@ -323,7 +539,9 @@ export function getProjectBySlug(slug: string) {
 
 /** Every project assigned to a service, primary or secondary. */
 export function getProjectsByService(serviceId: string) {
-  return publishedProjects.filter((p) => p.serviceIds.includes(serviceId));
+  return publishedProjects
+    .filter((p) => p.serviceIds.includes(serviceId))
+    .sort((a, b) => Number(b.serviceId === serviceId) - Number(a.serviceId === serviceId));
 }
 
 export function getRelatedProjects(project: Project, limit = 3) {

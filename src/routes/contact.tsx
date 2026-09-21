@@ -204,7 +204,7 @@ function ContactPage() {
 }
 
 const fieldClass =
-  "mt-2 w-full rounded-lg border bg-surface px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none";
+  "mt-2 w-full rounded-lg border bg-surface px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
 function Field({
   label,
