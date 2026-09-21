@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { pageMeta } from "@/lib/seo";
+import { aboutValues } from "@/lib/content/about";
 import { homepage } from "@/lib/content/home";
 import { publishedServices } from "@/lib/content/services";
 import { PageHero } from "@/components/site/PageHero";
@@ -18,13 +19,6 @@ export const Route = createFileRoute("/about")({
   }),
   component: AboutPage,
 });
-
-const values = [
-  { title: "Clarity over jargon", body: "Plain explanations of what we're building, what it costs and what it won't do." },
-  { title: "Own the outcome", body: "We measure ourselves on whether the product works in production, not on delivery dates." },
-  { title: "Craft in the detail", body: "Performance, accessibility and copy get the same attention as the layout." },
-  { title: "Build to hand over", body: "Documentation and clean code, so you're never locked to one agency." },
-];
 
 function AboutPage() {
   return (
@@ -75,8 +69,8 @@ function AboutPage() {
       <Section className="border-b border-border bg-surface/40">
         <SectionHeading index="01" label="Values" title="How we work, in four lines." />
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {values.map((value, i) => (
-            <Reveal key={value.title} delay={i * 60} className="rounded-xl border border-border bg-background p-7">
+          {aboutValues.map((value, i) => (
+            <Reveal key={value.id} delay={i * 60} className="rounded-xl border border-border bg-background p-7">
               <span className="font-display text-sm font-semibold text-brand">
                 {String(i + 1).padStart(2, "0")}
               </span>
