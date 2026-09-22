@@ -45,10 +45,14 @@ function ContactPage() {
   const preselected = publishedServices.find((s) => s.slug === requestedService);
   const [errors, setErrors] = useState<Errors>({});
   const [validated, setValidated] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const data = new FormData(form);
     const next: Errors = {};
 
     const name = String(data.get("name") ?? "").trim();
@@ -62,7 +66,38 @@ function ContactPage() {
     if (description.length < 20) next["description"] = "Please describe the project in at least 20 characters.";
 
     setErrors(next);
-    setValidated(Object.keys(next).length === 0);
+    setValidated(false);
+    setSubmitMessage("");
+
+    if (Object.keys(next).length > 0) return;
+
+    setSubmitting(true);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(Object.fromEntries(data.entries())),
+      });
+
+      const result = (await response.json()) as {
+        success?: boolean;
+        message?: string;
+      };
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Unable to submit your enquiry.");
+      }
+
+      setValidated(true);
+      setSubmitMessage(result.message || "Your enquiry has been received successfully.");
+      form.reset();
+    } catch (error) {
+      console.error("Contact form submission failed:", error);
+      setSubmitMessage(error instanceof Error ? error.message : "Unable to submit your enquiry right now.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -145,18 +180,16 @@ function ContactPage() {
               </button>
 
               {validated && (
-                <div
-                  role="status"
-                  className="flex items-start gap-3 rounded-xl border border-brand/50 bg-brand-soft p-5 text-sm text-foreground"
-                >
-                  <AlertCircle aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-brand" />
-                  <p>
-                    Your details are complete and valid — but submissions aren't being delivered yet,
-                    because no email or database connection has been set up for this site. Connect one
-                    and this form will send immediately.
-                  </p>
-                </div>
-              )}
+  <div
+    role="status"
+    className="flex items-start gap-3 rounded-xl border border-brand/50 bg-brand-soft p-5 text-sm text-foreground"
+  >
+    <AlertCircle aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-brand" />
+    <p>
+      {submitMessage || "Your enquiry has been submitted successfully."}
+    </p>
+  </div>
+)}
               {!validated && Object.keys(errors).length > 0 && (
                 <p role="alert" className="text-sm text-destructive">
                   Please fix the highlighted fields.
