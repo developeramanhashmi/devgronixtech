@@ -94,8 +94,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:site_name", content: "DEVGRONIX" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    // Sitewide entity: DEVGRONIX as one organization, connected to the website.
-    scripts: [jsonLdScript([organizationSchema, websiteSchema])],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
