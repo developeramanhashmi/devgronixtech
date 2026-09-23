@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Search } from "lucide-react";
 import { useMemo, useState } from "react";
 
-import { pageMeta } from "@/lib/seo";
+import { breadcrumbSchema, jsonLdScript, seoHead } from "@/lib/seo";
 import { projectServiceFilters, publishedProjects } from "@/lib/content/projects";
 import { PageHero } from "@/components/site/PageHero";
 import { Section } from "@/components/site/Section";
@@ -12,12 +12,22 @@ import { CtaSection } from "@/components/site/CtaSection";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/works/")({
+  staticData: { sitemap: true },
   head: () => ({
-    meta: pageMeta({
-      title: "Works",
+    ...seoHead({
+      title: "Our Work & Projects | DEVGRONIX",
       description:
-        "Concept projects from DEVGRONIX across web, mobile, software, UI/UX, AI, branding, marketing and cloud work.",
+        "Concept projects from DEVGRONIX across web, mobile, software, UI/UX, AI, branding, video, social, marketing and cloud work — each labelled as in-house concept work.",
+      path: "/works",
     }),
+    scripts: [
+      jsonLdScript([
+        breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Works", path: "/works" },
+        ]),
+      ]),
+    ],
   }),
   component: WorksPage,
 });

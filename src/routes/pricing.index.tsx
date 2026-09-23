@@ -1,7 +1,7 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 
-import { pageMeta } from "@/lib/seo";
+import { breadcrumbSchema, jsonLdScript, seoHead } from "@/lib/seo";
 import { publishedServices, servicesByGroup } from "@/lib/content/services";
 import { getPlansByService, pricingNote } from "@/lib/content/pricing";
 import { PageHero } from "@/components/site/PageHero";
@@ -11,12 +11,22 @@ import { ServiceIcon } from "@/components/site/ServiceIcon";
 import { CtaSection } from "@/components/site/CtaSection";
 
 export const Route = createFileRoute("/pricing/")({
+  staticData: { sitemap: true },
   head: () => ({
-    meta: pageMeta({
-      title: "Pricing",
+    ...seoHead({
+      title: "Pricing & Packages | DEVGRONIX",
       description:
         "Pick a DEVGRONIX service to see its own pricing — web, app and software development, AI, cloud, design, branding, video, marketing, SEO, social and content.",
+      path: "/pricing",
     }),
+    scripts: [
+      jsonLdScript([
+        breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Pricing", path: "/pricing" },
+        ]),
+      ]),
+    ],
   }),
   component: PricingIndexPage,
 });

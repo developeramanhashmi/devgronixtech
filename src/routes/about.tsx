@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { pageMeta } from "@/lib/seo";
+import { breadcrumbSchema, jsonLdScript, seoHead } from "@/lib/seo";
 import { aboutValues } from "@/lib/content/about";
 import { homepage } from "@/lib/content/home";
 import { publishedServices } from "@/lib/content/services";
@@ -10,12 +10,22 @@ import { Reveal } from "@/components/site/Reveal";
 import { CtaSection } from "@/components/site/CtaSection";
 
 export const Route = createFileRoute("/about")({
+  staticData: { sitemap: true },
   head: () => ({
-    meta: pageMeta({
-      title: "About",
+    ...seoHead({
+      title: "About DEVGRONIX | Technology & Digital Solutions",
       description:
-        "DEVGRONIX is a digital technology and software partner building websites, software, apps and AI-assisted tools for businesses in India and international markets.",
+        "DEVGRONIX is a digital technology and software partner building websites, software, apps and AI-assisted tools for businesses in India and international markets including the Middle East.",
+      path: "/about",
     }),
+    scripts: [
+      jsonLdScript([
+        breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+        ]),
+      ]),
+    ],
   }),
   component: AboutPage,
 });

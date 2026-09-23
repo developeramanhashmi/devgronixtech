@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { pageMeta } from "@/lib/seo";
+import { seoHead } from "@/lib/seo";
 import { Hero } from "@/components/home/Hero";
 import { ServicesSection } from "@/components/home/ServicesSection";
 import { FeaturedWork } from "@/components/home/FeaturedWork";
@@ -11,12 +11,13 @@ import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { CtaSection } from "@/components/site/CtaSection";
 
 export const Route = createFileRoute("/")({
+  staticData: { sitemap: true },
   head: () => ({
-    meta: pageMeta({
-      title: "DEVGRONIX — Create. Develop. Grow.",
+    ...seoHead({
+      title: "DEVGRONIX | Technology, Design & Digital Growth",
       description:
-        "DEVGRONIX designs and builds websites, software, mobile apps, AI automation and cloud solutions for businesses in India and international markets.",
-      withSite: false,
+        "DEVGRONIX is a software and technology company in India building websites, web and mobile apps, custom software, AI automation, cloud solutions, design and digital growth services.",
+      path: "/",
     }),
   }),
   component: HomePage,
