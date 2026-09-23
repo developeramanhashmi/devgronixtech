@@ -11,6 +11,24 @@ export type ContentStatus = "draft" | "published" | "archived";
 /** Top-level grouping used to organise the service directory. */
 export type ServiceGroup = "Technology & Development" | "Design & Creative" | "Digital Growth";
 
+export interface Faq {
+  question: string;
+  answer: string;
+}
+
+/**
+ * Search metadata for a service. Held in the content layer so a future admin
+ * panel can manage SEO title, description, H1, search intent and FAQs.
+ */
+export interface ServiceSeo {
+  metaTitle: string;
+  metaDescription: string;
+  h1: string;
+  /** Search intent this page is written for — never rendered as keyword text. */
+  keywords: string[];
+  faqs: Faq[];
+}
+
 export interface Service {
   id: string;
   title: string;
