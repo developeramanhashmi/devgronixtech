@@ -1,7 +1,7 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 
-import { pageMeta } from "@/lib/seo";
+import { breadcrumbSchema, jsonLdScript, seoHead } from "@/lib/seo";
 import { publishedServices, servicesByGroup } from "@/lib/content/services";
 import { PageHero } from "@/components/site/PageHero";
 import { Section } from "@/components/site/Section";
@@ -10,12 +10,22 @@ import { ServiceIcon } from "@/components/site/ServiceIcon";
 import { CtaSection } from "@/components/site/CtaSection";
 
 export const Route = createFileRoute("/services/")({
+  staticData: { sitemap: true },
   head: () => ({
-    meta: pageMeta({
-      title: "Services",
+    ...seoHead({
+      title: "Services | DEVGRONIX",
       description:
         "The full DEVGRONIX service directory — web, mobile, software and SaaS development, AI automation, cloud, data, UI/UX, graphic design, branding, video, marketing, SEO, social and content.",
+      path: "/services",
     }),
+    scripts: [
+      jsonLdScript([
+        breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/services" },
+        ]),
+      ]),
+    ],
   }),
   component: ServicesPage,
 });
