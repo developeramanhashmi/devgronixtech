@@ -112,6 +112,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children:
           "try{if(localStorage.getItem('devgronix-theme')==='dark'){document.documentElement.classList.add('dark')}}catch(e){}",
       },
+      // Sitewide entity: DEVGRONIX as one organization, connected to the website.
+      jsonLdScript([organizationSchema, websiteSchema]),
     ],
   }),
 
