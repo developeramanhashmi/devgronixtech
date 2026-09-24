@@ -1,7 +1,8 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
-import { pageMeta } from "@/lib/seo";
+import { breadcrumbSchema, jsonLdScript, notFoundHead, seoHead } from "@/lib/seo";
+import { getServicePricingSeo } from "@/lib/content/seo-meta";
 import { getServiceBySlug, publishedServices } from "@/lib/content/services";
 import { getPlansByService } from "@/lib/content/pricing";
 import { PageHero } from "@/components/site/PageHero";
@@ -11,23 +12,31 @@ import { CtaSection } from "@/components/site/CtaSection";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/pricing/$slug")({
+  staticData: { sitemap: true },
   loader: ({ params }) => {
     const service = getServiceBySlug(params.slug);
     if (!service) throw notFound();
     return { service, plans: getPlansByService(service.id) };
   },
   head: ({ loaderData }) => {
-    if (!loaderData) {
-      return {
-        meta: [{ title: "Pricing not found — DEVGRONIX" }, { name: "robots", content: "noindex" }],
-      };
-    }
+    if (!loaderData) return notFoundHead("Pricing not found");
     const { service } = loaderData;
+    const seo = getServicePricingSeo(service);
     return {
-      meta: pageMeta({
-        title: `${service.title} Pricing`,
-        description: `Indicative ${service.title.toLowerCase()} pricing from DEVGRONIX, with plan inclusions and a starting point for each package.`,
+      ...seoHead({
+        title: seo.metaTitle,
+        description: seo.metaDescription,
+        path: `/pricing/${service.slug}`,
       }),
+      scripts: [
+        jsonLdScript([
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Pricing", path: "/pricing" },
+            { name: service.title, path: `/pricing/${service.slug}` },
+          ]),
+        ]),
+      ],
     };
   },
   notFoundComponent: PricingNotFound,

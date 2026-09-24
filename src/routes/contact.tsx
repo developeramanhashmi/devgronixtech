@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AlertCircle, Mail } from "lucide-react";
 import { useState } from "react";
 
-import { pageMeta } from "@/lib/seo";
+import { breadcrumbSchema, jsonLdScript, seoHead } from "@/lib/seo";
 import { publishedServices } from "@/lib/content/services";
 import { PageHero } from "@/components/site/PageHero";
 import { Section } from "@/components/site/Section";
@@ -10,6 +10,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/contact")({
+  staticData: { sitemap: true },
   /**
    * `?service=<slug>` preselects the service dropdown, so a visitor arriving
    * from a service or pricing page doesn't re-enter what they were reading.
@@ -19,11 +20,20 @@ export const Route = createFileRoute("/contact")({
     return typeof value === "string" && value.length > 0 ? { service: value } : {};
   },
   head: () => ({
-    meta: pageMeta({
-      title: "Contact",
+    ...seoHead({
+      title: "Contact DEVGRONIX | Get a Project Quote",
       description:
-        "Tell DEVGRONIX about your project — services, budget range and timeline — and get a scoped quote back.",
+        "Tell DEVGRONIX about your project — service, budget range and timeline — and get a scoped quote back. Working with businesses in India and international markets.",
+      path: "/contact",
     }),
+    scripts: [
+      jsonLdScript([
+        breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ]),
+      ]),
+    ],
   }),
   component: ContactPage,
 });
