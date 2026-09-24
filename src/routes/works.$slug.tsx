@@ -1,7 +1,14 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
-import { pageMeta } from "@/lib/seo";
+import {
+  breadcrumbSchema,
+  creativeWorkSchema,
+  jsonLdScript,
+  notFoundHead,
+  seoHead,
+} from "@/lib/seo";
+import { getProjectSeo } from "@/lib/content/seo-meta";
 import { getProjectBySlug, getRelatedProjects } from "@/lib/content/projects";
 import { getServiceById } from "@/lib/content/services";
 import { PageHero } from "@/components/site/PageHero";
@@ -13,25 +20,40 @@ import { ServiceIcon } from "@/components/site/ServiceIcon";
 import { CtaSection } from "@/components/site/CtaSection";
 
 export const Route = createFileRoute("/works/$slug")({
+  staticData: { sitemap: true },
   loader: ({ params }) => {
     const project = getProjectBySlug(params.slug);
     if (!project) throw notFound();
     return { project };
   },
   head: ({ loaderData }) => {
-    if (!loaderData) {
-      return {
-        meta: [
-          { title: "Project not found — DEVGRONIX" },
-          { name: "robots", content: "noindex" },
-        ],
-      };
-    }
+    if (!loaderData) return notFoundHead("Project not found");
+    const { project } = loaderData;
+    const seo = getProjectSeo(project);
+    const path = `/works/${project.slug}`;
     return {
-      meta: pageMeta({
-        title: loaderData.project.title,
-        description: loaderData.project.shortDescription,
+      ...seoHead({
+        title: seo.metaTitle,
+        description: seo.metaDescription,
+        path,
+        type: "article",
       }),
+      scripts: [
+        jsonLdScript([
+          creativeWorkSchema({
+            name: project.title,
+            description: project.shortDescription,
+            path,
+            genre: project.category,
+            keywords: project.technologies,
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Works", path: "/works" },
+            { name: project.title, path },
+          ]),
+        ]),
+      ],
     };
   },
   notFoundComponent: ProjectNotFound,
