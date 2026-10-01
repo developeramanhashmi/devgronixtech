@@ -88,14 +88,14 @@ function ServiceNotFound() {
 }
 
 function ServiceDetailPage() {
-  const { service, projects, plans, adjacent } = Route.useLoaderData();
+  const { service, seo, projects, plans, adjacent } = Route.useLoaderData();
   const siblings = publishedServices
     .filter((s) => s.group === service.group && s.id !== service.id)
     .slice(0, 4);
 
   return (
     <>
-      <PageHero label={service.group} title={service.title} description={service.tagline}>
+      <PageHero label={service.group} title={seo.h1} description={service.tagline}>
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-3 text-muted-foreground">
             <ServiceIcon name={service.icon} className="size-5 text-brand" />
