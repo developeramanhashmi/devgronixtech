@@ -63,6 +63,7 @@ function ContactPage() {
 
     const name = String(data.get("name") ?? "").trim();
     const email = String(data.get("email") ?? "").trim();
+    const company = String(data.get("company") ?? "").trim();
     const service = String(data.get("service") ?? "");
     const description = String(data.get("description") ?? "").trim();
 
@@ -72,7 +73,21 @@ function ContactPage() {
     if (description.length < 20) next["description"] = "Please describe the project in at least 20 characters.";
 
     setErrors(next);
-    setValidated(Object.keys(next).length === 0);
+    const valid = Object.keys(next).length === 0;
+    setValidated(valid);
+
+    if (valid) {
+      const serviceTitle = publishedServices.find((s) => s.slug === service)?.title ?? service;
+      const message = [
+        "Hi DEVGRONIX, I would like to enquire about:",
+        `- Name: ${name}`,
+        `- Email: ${email}`,
+        `- Company: ${company}`,
+        `- Service: ${serviceTitle}`,
+        `- Details: ${description}`,
+      ].join("\n");
+      window.open(`https://wa.me/917070519128?text=${encodeURIComponent(message)}`, "_blank");
+    }
   }
 
   return (
@@ -161,9 +176,9 @@ function ContactPage() {
                 >
                   <AlertCircle aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-brand" />
                   <p>
-                    Your details are complete and valid — but submissions aren't being delivered yet,
-                    because no email or database connection has been set up for this site. Connect one
-                    and this form will send immediately.
+                    Your enquiry is ready — WhatsApp has opened in a new tab with your details pre-filled.
+                    Press send there and we'll get back to you. If no tab opened, please check your
+                    browser's pop-up blocker.
                   </p>
                 </div>
               )}

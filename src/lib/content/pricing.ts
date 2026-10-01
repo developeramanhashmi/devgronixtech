@@ -13,6 +13,8 @@ type PlanSeed = {
   name: string;
   description: string;
   price: string;
+  /** Optional pre-discount price shown struck-through, e.g. "₹1,999". */
+  originalPrice?: string;
   features: string[];
   popular?: boolean;
   billingType?: string;
@@ -44,34 +46,52 @@ const seeds: ServicePricingSeed[] = [
     billingType: "per project",
     plans: [
       {
-        name: "Starter Website",
-        description: "A focused presence for a single, well-defined offering.",
-        price: "₹2,999",
-        features: ["Up to 5 pages", "Responsive design", "Contact form", "Basic on-page SEO", "Launch and handover"],
-      },
-      {
-        name: "Business Website",
-        description: "A full site with content your team controls.",
-        price: "₹4,999",
-        popular: true,
+        name: "Basic",
+        description: "Perfect for Individuals & Small Businesses",
+        price: "₹999",
+        originalPrice: "₹1,999",
         features: [
-          "Up to 15 pages",
-          "CMS-editable content",
-          "Blog or insights section",
-          "Analytics and conversion tracking",
-          "Two post-launch refinement rounds",
+          "1–4 Pages Website",
+          "Free Domain (1 Year)",
+          "Free Hosting (1 Year)",
+          "Mobile Responsive",
+          "Basic Design",
+          "Contact Form",
+          "Free Advice & Support",
         ],
       },
       {
-        name: "Advanced Web Solution",
-        description: "Portals, dashboards and integrated web platforms.",
-        price: "₹50,000",
+        name: "Professional",
+        description: "Best for Businesses & Startups",
+        price: "₹1,999",
+        originalPrice: "₹3,999",
+        popular: true,
         features: [
-          "Custom web application",
-          "User accounts and roles",
-          "Third-party integrations",
-          "Performance and SEO engineering",
-          "Support window after launch",
+          "5–7 Pages Website",
+          "Free Domain (1 Year)",
+          "Free Hosting (1 Year)",
+          "Modern & Attractive Design",
+          "Mobile Responsive",
+          "Contact Form + WhatsApp",
+          "Basic SEO Setup",
+          "Free Advice & Support",
+        ],
+      },
+      {
+        name: "Business",
+        description: "Ideal for Growing Businesses",
+        price: "₹2,499",
+        originalPrice: "₹4,999",
+        features: [
+          "Up to 10 Pages Website",
+          "Free Domain (1 Year)",
+          "Free Hosting (1 Year)",
+          "Premium & Custom Design",
+          "Mobile Responsive",
+          "Contact Form + WhatsApp",
+          "Basic SEO Setup",
+          "Blog / News Section",
+          "Free Advice & Support",
         ],
       },
       customPlan("per project"),
@@ -467,6 +487,7 @@ export const pricingPlans: PricingPlan[] = seeds.flatMap((seed) =>
     name: plan.name,
     description: plan.description,
     price: plan.price,
+    originalPrice: plan.originalPrice,
     priceQualifier: plan.price === "On request" ? "Scoped together" : "Starting from",
     billingType: plan.billingType ?? seed.billingType,
     features: plan.features,
