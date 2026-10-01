@@ -265,6 +265,28 @@ function ServiceDetailPage() {
         </ol>
       </Section>
 
+      {seo.faqs.length > 0 && (
+        <Section className="border-b border-border bg-surface/40">
+          <SectionHeading
+            index="07"
+            label="FAQ"
+            title={`${service.title} — common questions.`}
+          />
+          <Accordion type="single" collapsible className="mt-12">
+            {seo.faqs.map((faq, i) => (
+              <AccordionItem key={faq.question} value={`faq-${i}`}>
+                <AccordionTrigger className="text-left font-display text-base font-semibold text-foreground">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-sm leading-relaxed text-muted-foreground">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </Section>
+      )}
+
       <Section className="border-b border-border bg-surface/40">
         <SectionHeading label="Explore other services" title={`More from ${service.group}.`} />
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
