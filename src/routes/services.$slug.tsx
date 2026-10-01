@@ -1,8 +1,15 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 
-import { pageMeta } from "@/lib/seo";
+import {
+  breadcrumbSchema,
+  jsonLdScript,
+  notFoundHead,
+  seoHead,
+  serviceSchema,
+} from "@/lib/seo";
 import { getAdjacentServices, getServiceBySlug, publishedServices } from "@/lib/content/services";
+import { getServiceSeo } from "@/lib/content/seo-meta";
 import { getPlansByService } from "@/lib/content/pricing";
 import { getProjectsByService } from "@/lib/content/projects";
 import { homepage } from "@/lib/content/home";
@@ -13,6 +20,12 @@ import { ProjectCard } from "@/components/site/ProjectCard";
 import { ServiceIcon } from "@/components/site/ServiceIcon";
 import { PricingPlans } from "@/components/site/PricingPlans";
 import { CtaSection } from "@/components/site/CtaSection";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export const Route = createFileRoute("/services/$slug")({
   loader: ({ params }) => {
@@ -20,22 +33,37 @@ export const Route = createFileRoute("/services/$slug")({
     if (!service) throw notFound();
     return {
       service,
+      seo: getServiceSeo(service),
       projects: getProjectsByService(service.id),
       plans: getPlansByService(service.id),
       adjacent: getAdjacentServices(service.slug),
     };
   },
   head: ({ loaderData }) => {
-    if (!loaderData) {
-      return {
-        meta: [{ title: "Service not found — DEVGRONIX" }, { name: "robots", content: "noindex" }],
-      };
-    }
+    if (!loaderData) return notFoundHead("Service not found");
+    const { service, seo } = loaderData;
+    const path = `/services/${service.slug}`;
     return {
-      meta: pageMeta({
-        title: loaderData.service.title,
-        description: loaderData.service.description,
+      ...seoHead({
+        title: seo.metaTitle,
+        description: seo.metaDescription,
+        path,
       }),
+      scripts: [
+        jsonLdScript([
+          serviceSchema({
+            name: service.title,
+            description: seo.metaDescription,
+            path,
+            category: service.group,
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Services", path: "/services" },
+            { name: service.title, path },
+          ]),
+        ]),
+      ],
     };
   },
   notFoundComponent: ServiceNotFound,
