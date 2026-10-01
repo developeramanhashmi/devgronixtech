@@ -53,6 +53,11 @@ export function PricingPlans({ service, plans }: { service: Service; plans: Pric
             <div className="mt-6 border-t border-border pt-6">
               <p className="rule-label">{plan.priceQualifier}</p>
               <p className="mt-1.5 font-display text-3xl font-bold text-foreground">{plan.price}</p>
+              {plan.originalPrice && (
+                <p className="mt-1 text-xs text-muted-foreground">
+                  <span className="line-through">{plan.originalPrice}</span> · Limited offer
+                </p>
+              )}
               <p className="mt-1 text-xs text-muted-foreground">{plan.billingType}</p>
             </div>
 
