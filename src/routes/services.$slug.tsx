@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/accordion";
 
 export const Route = createFileRoute("/services/$slug")({
+  staticData: { sitemap: true },
   loader: ({ params }) => {
     const service = getServiceBySlug(params.slug);
     if (!service) throw notFound();
