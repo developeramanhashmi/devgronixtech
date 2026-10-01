@@ -1,8 +1,15 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 
-import { pageMeta } from "@/lib/seo";
+import {
+  breadcrumbSchema,
+  jsonLdScript,
+  notFoundHead,
+  seoHead,
+  serviceSchema,
+} from "@/lib/seo";
 import { getAdjacentServices, getServiceBySlug, publishedServices } from "@/lib/content/services";
+import { getServiceSeo } from "@/lib/content/seo-meta";
 import { getPlansByService } from "@/lib/content/pricing";
 import { getProjectsByService } from "@/lib/content/projects";
 import { homepage } from "@/lib/content/home";
@@ -13,29 +20,51 @@ import { ProjectCard } from "@/components/site/ProjectCard";
 import { ServiceIcon } from "@/components/site/ServiceIcon";
 import { PricingPlans } from "@/components/site/PricingPlans";
 import { CtaSection } from "@/components/site/CtaSection";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export const Route = createFileRoute("/services/$slug")({
+  staticData: { sitemap: true },
   loader: ({ params }) => {
     const service = getServiceBySlug(params.slug);
     if (!service) throw notFound();
     return {
       service,
+      seo: getServiceSeo(service),
       projects: getProjectsByService(service.id),
       plans: getPlansByService(service.id),
       adjacent: getAdjacentServices(service.slug),
     };
   },
   head: ({ loaderData }) => {
-    if (!loaderData) {
-      return {
-        meta: [{ title: "Service not found — DEVGRONIX" }, { name: "robots", content: "noindex" }],
-      };
-    }
+    if (!loaderData) return notFoundHead("Service not found");
+    const { service, seo } = loaderData;
+    const path = `/services/${service.slug}`;
     return {
-      meta: pageMeta({
-        title: loaderData.service.title,
-        description: loaderData.service.description,
+      ...seoHead({
+        title: seo.metaTitle,
+        description: seo.metaDescription,
+        path,
       }),
+      scripts: [
+        jsonLdScript([
+          serviceSchema({
+            name: service.title,
+            description: seo.metaDescription,
+            path,
+            category: service.group,
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Services", path: "/services" },
+            { name: service.title, path },
+          ]),
+        ]),
+      ],
     };
   },
   notFoundComponent: ServiceNotFound,
@@ -60,14 +89,14 @@ function ServiceNotFound() {
 }
 
 function ServiceDetailPage() {
-  const { service, projects, plans, adjacent } = Route.useLoaderData();
+  const { service, seo, projects, plans, adjacent } = Route.useLoaderData();
   const siblings = publishedServices
     .filter((s) => s.group === service.group && s.id !== service.id)
     .slice(0, 4);
 
   return (
     <>
-      <PageHero label={service.group} title={service.title} description={service.tagline}>
+      <PageHero label={service.group} title={seo.h1} description={service.tagline}>
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-3 text-muted-foreground">
             <ServiceIcon name={service.icon} className="size-5 text-brand" />
@@ -236,6 +265,28 @@ function ServiceDetailPage() {
           ))}
         </ol>
       </Section>
+
+      {seo.faqs.length > 0 && (
+        <Section className="border-b border-border bg-surface/40">
+          <SectionHeading
+            index="07"
+            label="FAQ"
+            title={`${service.title} — common questions.`}
+          />
+          <Accordion type="single" collapsible className="mt-12">
+            {seo.faqs.map((faq, i) => (
+              <AccordionItem key={faq.question} value={`faq-${i}`}>
+                <AccordionTrigger className="text-left font-display text-base font-semibold text-foreground">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-sm leading-relaxed text-muted-foreground">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </Section>
+      )}
 
       <Section className="border-b border-border bg-surface/40">
         <SectionHeading label="Explore other services" title={`More from ${service.group}.`} />
