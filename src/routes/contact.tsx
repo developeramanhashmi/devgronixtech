@@ -86,6 +86,16 @@ function ContactPage() {
         `- Service: ${serviceTitle}`,
         `- Details: ${description}`,
       ].join("\n");
+
+      // Best-effort email copy — the WhatsApp handoff below stays the primary channel.
+      void fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, company, service, description }),
+      }).catch(() => {
+        // Silent: the enquiry still reaches us via WhatsApp.
+      });
+
       window.open(`https://wa.me/917070519128?text=${encodeURIComponent(message)}`, "_blank");
     }
   }
