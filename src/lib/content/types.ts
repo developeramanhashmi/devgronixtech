@@ -60,7 +60,7 @@ export interface PricingPlan {
   /** Display price, e.g. "₹45,000". Paired with `priceNote` for context. */
   price: string;
   /** Optional original price shown struck-through, e.g. "₹1,999". */
-  originalPrice?: string;
+  originalPrice?: string | undefined;
   /** "Starting from" style qualifier shown above the price. */
   priceQualifier: string;
   /** Unit or cadence: "per project", "per month", "per video", "per design". */
