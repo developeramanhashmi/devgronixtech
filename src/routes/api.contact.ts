@@ -19,6 +19,7 @@ function escapeHtml(value: string): string {
 }
 
 export const Route = createFileRoute("/api/contact")({
+  staticData: { sitemap: false },
   server: {
     handlers: {
       POST: async ({ request }) => {
@@ -34,7 +35,7 @@ export const Route = createFileRoute("/api/contact")({
           return Response.json({ success: false, error: "Missing or invalid fields." }, { status: 400 });
         }
 
-        const apiKey = process.env.RESEND_API_KEY;
+        const apiKey = process.env["RESEND_API_KEY"];
         if (!apiKey) {
           return Response.json(
             { success: false, error: "Email service is not configured." },
