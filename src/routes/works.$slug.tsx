@@ -101,6 +101,7 @@ function ProjectDetailPage() {
               </Link>
             ))}
           </div>
+          <div className="flex flex-wrap items-center gap-3">
           <Link
             to="/contact"
             search={primaryService ? { service: primaryService.slug } : {}}
@@ -109,6 +110,18 @@ function ProjectDetailPage() {
             Start a project like this
             <ArrowRight className="size-4" />
           </Link>
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="interactive inline-flex w-fit items-center gap-2 rounded-full border border-border-strong px-5 py-3 text-sm font-semibold text-foreground hover:border-brand hover:text-brand"
+            >
+              Visit Live Website
+              <ArrowUpRight className="size-4" />
+            </a>
+          )}
+          </div>
         </div>
       </PageHero>
 

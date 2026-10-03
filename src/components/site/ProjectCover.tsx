@@ -14,6 +14,13 @@ export function ProjectCover({
   label?: string;
   className?: string;
 }) {
+  if (pattern.startsWith("/") || /\.(png|jpe?g|webp)$/i.test(pattern)) {
+    return (
+      <div className={cn("relative h-full w-full overflow-hidden bg-surface-strong", className)}>
+        <img src={pattern} alt={label || "Project preview"} loading="lazy" className="h-full w-full object-cover object-top" />
+      </div>
+    );
+  }
   return (
     <div
       aria-hidden="true"
