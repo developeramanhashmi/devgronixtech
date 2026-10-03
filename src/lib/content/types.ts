@@ -95,6 +95,7 @@ export interface Project {
   contentType: ContentType;
   clientName: string | null;
   clientCountry: string | null;
+  liveUrl?: string;
   year: string;
   publishedAt: string;
   createdAt: string;
