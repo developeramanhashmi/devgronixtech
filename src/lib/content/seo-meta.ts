@@ -9,17 +9,17 @@ import type { Project, Service, ServiceSeo } from "./types";
  */
 export const serviceSeo: Record<string, ServiceSeo> = {
   "web-development": {
-    metaTitle: "Web Development Company | DEVGRONIX",
+    metaTitle: "Website Designing & Web Development Company | DEVGRONIX",
     metaDescription:
-      "DEVGRONIX is a web development company building fast, search-friendly websites and web platforms — custom web development, rebuilds and CMS-driven marketing sites.",
-    h1: "Web Development Services",
+      "Professional website designing and web development starting at ₹999. Fast, mobile-responsive business websites, eCommerce stores, and custom landing pages by DEVGRONIX.",
+    h1: "Website Designing & Web Development Services",
     keywords: [
-      "web development company",
+      "website designing company",
       "web development services",
-      "website development company",
-      "custom web development",
-      "React web development",
-      "responsive website development",
+      "affordable web design india",
+      "business website development",
+      "responsive web design",
+      "devgronix web development",
     ],
     faqs: [
       {
@@ -250,16 +250,17 @@ export const serviceSeo: Record<string, ServiceSeo> = {
     ],
   },
   "graphic-design": {
-    metaTitle: "Graphic Design Services | DEVGRONIX",
+    metaTitle: "Graphic Design Services Starting @ ₹99 | DEVGRONIX",
     metaDescription:
-      "Professional graphic design services from DEVGRONIX — marketing collateral, social and ad creative, presentations and print-ready artwork built on one visual system.",
-    h1: "Graphic Design Services",
+      "Creative graphic design services starting from ₹99. High-impact social media creatives, ad banners, posters, YouTube thumbnails, and marketing graphics by DEVGRONIX.",
+    h1: "Creative Graphic Design Services",
     keywords: [
       "graphic design services",
-      "graphic design company",
-      "professional graphic design",
-      "marketing design services",
-      "social media creative design",
+      "social media banner design",
+      "poster design company",
+      "youtube thumbnail designer",
+      "creative graphic designer",
+      "devgronix graphic design",
     ],
     faqs: [
       {
@@ -310,16 +311,17 @@ export const serviceSeo: Record<string, ServiceSeo> = {
     ],
   },
   "video-editing-and-motion-graphics": {
-    metaTitle: "Video Editing & Motion Graphics Services | DEVGRONIX",
+    metaTitle: "Professional Video Editing Services for Reels & YouTube | DEVGRONIX",
     metaDescription:
-      "Professional video editing and motion graphics services from DEVGRONIX — product videos, launch films, animated explainers and social cutdowns from one edit.",
-    h1: "Video Editing & Motion Graphics",
+      "High-retention video editing services starting from ₹399. Dynamic Instagram Reels, YouTube Shorts, podcast cuts, promo videos, and motion graphics by DEVGRONIX.",
+    h1: "Professional Video Editing & Motion Graphics",
     keywords: [
       "video editing services",
-      "professional video editing",
+      "reels video editor",
+      "youtube video editing agency",
+      "shorts video editing",
       "motion graphics services",
-      "explainer video production",
-      "product video editing",
+      "devgronix video editing",
     ],
     faqs: [
       {
@@ -370,16 +372,17 @@ export const serviceSeo: Record<string, ServiceSeo> = {
     ],
   },
   "social-media-management": {
-    metaTitle: "Social Media Management Services | DEVGRONIX",
+    metaTitle: "Social Media Management & Growth Packages | DEVGRONIX",
     metaDescription:
-      "Social media management from DEVGRONIX — content calendars, on-brand creative, scheduling, community replies and reporting for consistent brand presence.",
-    h1: "Social Media Management",
+      "Full-service social media management starting from ₹1,000/month. Content creation, post design, reels, hashtag strategy, and brand growth across Instagram and Facebook.",
+    h1: "Social Media Management & Growth Services",
     keywords: [
-      "social media management",
-      "social media marketing services",
-      "social media content creation",
-      "social media agency",
-      "content calendar management",
+      "social media management company",
+      "social media marketing packages",
+      "instagram page management",
+      "monthly social media management",
+      "brand growth agency",
+      "devgronix social media",
     ],
     faqs: [
       {
