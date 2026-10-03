@@ -16,8 +16,8 @@ export function ProjectCover({
 }) {
   if (pattern.startsWith("/") || /\.(png|jpe?g|webp)$/i.test(pattern)) {
     return (
-      <div className={cn("relative h-full w-full overflow-hidden bg-surface-strong", className)}>
-        <img src={pattern} alt={label || "Project preview"} loading="lazy" className="h-full w-full object-cover object-top" />
+      <div className={cn("relative flex h-full w-full items-center justify-center overflow-hidden bg-surface-strong/40 p-2 sm:p-3", className)}>
+        <img src={pattern} alt={label || "Project preview"} loading="lazy" className="h-full w-full object-contain" />
       </div>
     );
   }
