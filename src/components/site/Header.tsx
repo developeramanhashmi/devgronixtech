@@ -98,7 +98,7 @@ export function Header() {
         aria-label="Menu"
         aria-hidden={!open}
         className={`fixed inset-y-0 right-0 z-50 flex w-full max-w-xs flex-col justify-between border-l border-border bg-background p-6 shadow-2xl transition-transform duration-300 lg:hidden ${
-          open ? "translate-x-0" : "translate-x-full"
+          open ? "translate-x-0" : "invisible translate-x-full"
         }`}
       >
         <div className="flex items-center justify-between">
