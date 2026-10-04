@@ -40,6 +40,8 @@
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);
   --color-brand-soft: var(--brand-soft);
+  --color-hero-cyan: var(--hero-cyan);
+  --color-hero-indigo: var(--hero-indigo);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
@@ -78,6 +80,8 @@
   --brand: oklch(0.63 0.19 42);
   --brand-foreground: oklch(0.99 0.005 60);
   --brand-soft: oklch(0.63 0.19 42 / 12%);
+  --hero-cyan: oklch(0.72 0.13 225);
+  --hero-indigo: oklch(0.48 0.16 278);
 
   --primary: oklch(0.19 0.012 264);
   --primary-foreground: oklch(0.99 0.002 260);
@@ -125,6 +129,8 @@
   --brand: oklch(0.72 0.18 48);
   --brand-foreground: oklch(0.17 0.02 45);
   --brand-soft: oklch(0.72 0.18 48 / 16%);
+  --hero-cyan: oklch(0.78 0.12 220);
+  --hero-indigo: oklch(0.66 0.14 278);
 
   --primary: oklch(0.965 0.003 260);
   --primary-foreground: oklch(0.17 0.009 265);
@@ -314,6 +320,38 @@
   }
   to {
     transform: translate3d(1.5%, 1.5%, 0) scale(1.06);
+  }
+}
+
+@utility hero-float {
+  animation: hero-float 5s ease-in-out infinite;
+}
+
+@utility hero-float-delayed {
+  animation: hero-float 5.8s ease-in-out 0.7s infinite;
+}
+
+@utility hero-marquee {
+  animation: hero-marquee 28s linear infinite;
+}
+
+@utility marquee-mask {
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes hero-marquee {
+  to {
+    transform: translateX(-50%);
   }
 }
 
