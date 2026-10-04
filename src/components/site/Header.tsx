@@ -84,46 +84,59 @@ export function Header() {
         </nav>
       </div>
 
-      {open && (
-        <div className="fixed inset-0 z-50 bg-background lg:hidden">
-          <div className="flex items-center justify-between px-5 py-5">
-            <Logo />
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              aria-label="Close menu"
-              className="interactive inline-flex size-9 items-center justify-center rounded-full border border-border text-foreground"
-            >
-              <X className="size-4" />
-            </button>
-          </div>
-          <ul className="flex flex-col px-5 pt-4">
-            {nav.map((item, i) => (
-              <li key={item.to} className="border-b border-border">
-                <Link
-                  to={item.to}
-                  onClick={() => setOpen(false)}
-                  activeOptions={{ exact: item.to === "/" }}
-                  activeProps={{ className: "text-brand" }}
-                  className="flex items-baseline gap-4 py-4 font-display text-2xl font-bold text-foreground"
-                >
-                  <span className="rule-label">{String(i + 1).padStart(2, "0")}</span>
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="px-5 pt-8">
-            <Link
-              to="/contact"
-              onClick={() => setOpen(false)}
-              className="interactive flex w-full items-center justify-center rounded-full bg-brand px-5 py-3.5 font-semibold text-brand-foreground"
-            >
-              Get a Quote
-            </Link>
-          </div>
+      {/* Mobile: dimmed backdrop + right-side slide-in drawer (desktop untouched). */}
+      <div
+        onClick={() => setOpen(false)}
+        aria-hidden={!open}
+        className={`fixed inset-0 z-50 bg-black/50 backdrop-blur-xs transition-opacity duration-300 lg:hidden ${
+          open ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+      />
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
+        aria-hidden={!open}
+        className={`fixed inset-y-0 right-0 z-50 flex w-full max-w-xs flex-col justify-between border-l border-border bg-background p-6 shadow-2xl transition-transform duration-300 lg:hidden ${
+          open ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex items-center justify-between">
+          <Logo />
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            aria-label="Close menu"
+            className="interactive inline-flex size-9 items-center justify-center rounded-full border border-border text-foreground"
+          >
+            <X className="size-4" />
+          </button>
         </div>
-      )}
+
+        <ul className="flex flex-col gap-1">
+          {nav.map((item) => (
+            <li key={item.to}>
+              <Link
+                to={item.to}
+                onClick={() => setOpen(false)}
+                activeOptions={{ exact: item.to === "/" }}
+                activeProps={{ className: "bg-surface-strong text-brand" }}
+                className="block rounded-lg px-4 py-2.5 text-base font-medium text-foreground/80 transition-colors hover:bg-surface-strong hover:text-foreground"
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        <Link
+          to="/contact"
+          onClick={() => setOpen(false)}
+          className="interactive block w-full rounded-full bg-brand py-3 text-center text-sm font-semibold text-brand-foreground hover:opacity-90"
+        >
+          Get a Quote
+        </Link>
+      </div>
     </header>
   );
 }
