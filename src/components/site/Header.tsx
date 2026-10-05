@@ -88,7 +88,7 @@ export function Header() {
       <div
         onClick={() => setOpen(false)}
         aria-hidden={!open}
-        className={`fixed inset-0 z-50 bg-black/50 backdrop-blur-xs transition-opacity duration-300 lg:hidden ${
+        className={`fixed inset-0 z-40 bg-black/60 backdrop-blur-xs transition-opacity duration-300 lg:hidden ${
           open ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       />
@@ -97,7 +97,7 @@ export function Header() {
         aria-modal="true"
         aria-label="Menu"
         aria-hidden={!open}
-        className={`fixed inset-y-0 right-0 z-50 flex w-full max-w-xs flex-col justify-between border-l border-border bg-background p-6 shadow-2xl transition-transform duration-300 lg:hidden ${
+        className={`fixed inset-y-0 right-0 z-50 flex w-3/4 max-w-xs flex-col justify-between border-l border-border bg-background p-5 shadow-2xl transition-transform duration-300 lg:hidden ${
           open ? "translate-x-0" : "invisible translate-x-full"
         }`}
       >
@@ -113,15 +113,15 @@ export function Header() {
           </button>
         </div>
 
-        <ul className="flex flex-col gap-1">
+        <ul className="flex flex-col">
           {nav.map((item) => (
             <li key={item.to}>
               <Link
                 to={item.to}
                 onClick={() => setOpen(false)}
                 activeOptions={{ exact: item.to === "/" }}
-                activeProps={{ className: "bg-surface-strong text-brand" }}
-                className="block rounded-lg px-4 py-2.5 text-base font-medium text-foreground/80 transition-colors hover:bg-surface-strong hover:text-foreground"
+                activeProps={{ className: "text-brand font-semibold" }}
+                className="block border-b border-border/50 py-3.5 text-sm font-medium tracking-wide text-foreground/80 transition-colors last:border-0 hover:text-brand"
               >
                 {item.label}
               </Link>
@@ -129,13 +129,16 @@ export function Header() {
           ))}
         </ul>
 
-        <Link
-          to="/contact"
-          onClick={() => setOpen(false)}
-          className="interactive block w-full rounded-full bg-brand py-3 text-center text-sm font-semibold text-brand-foreground hover:opacity-90"
-        >
-          Get a Quote
-        </Link>
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+          <Link
+            to="/contact"
+            onClick={() => setOpen(false)}
+            className="interactive block flex-1 rounded-full bg-brand py-3 text-center text-sm font-semibold text-brand-foreground shadow-md hover:opacity-90"
+          >
+            Get a Quote
+          </Link>
+        </div>
       </div>
     </header>
   );
