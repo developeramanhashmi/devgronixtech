@@ -120,7 +120,7 @@ export function Header() {
                 to={item.to}
                 onClick={() => setOpen(false)}
                 activeOptions={{ exact: item.to === "/" }}
-                activeProps={{ className: "text-brand font-semibold" }}
+                activeProps={{ className: "text-brand! font-semibold" }}
                 className="block border-b border-border/50 py-3.5 text-sm font-medium tracking-wide text-foreground/80 transition-colors last:border-0 hover:text-brand"
               >
                 {item.label}
