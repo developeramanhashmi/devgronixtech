@@ -2,15 +2,12 @@ import { cn } from "@/lib/utils";
 
 export function LogoMark({ className }: { className?: string }) {
   return (
-    <span
+    <img
+      src="/logo.png"
+      alt="DEVGRONIX"
       aria-hidden="true"
-      className={cn(
-        "inline-flex size-8 shrink-0 items-center justify-center rounded-md bg-brand font-display text-sm font-bold text-brand-foreground",
-        className,
-      )}
-    >
-      D
-    </span>
+      className={cn("size-8 shrink-0 object-contain", className)}
+    />
   );
 }
 
