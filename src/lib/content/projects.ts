@@ -70,7 +70,7 @@ export const projects: Project[] = [
     featured: true,
     status: "published",
     contentType: "verified",
-    clientName: "Sapna Majumdar (admin@dreamsarthi.com)",
+    clientName: "Sapna Majumdar",
     clientCountry: "India",
     year: "2026",
     publishedAt: "2026-03-01",
