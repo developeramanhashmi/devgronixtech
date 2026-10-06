@@ -11,7 +11,7 @@ const { hero, strip } = homepage;
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden border-b border-border">
-      <div aria-hidden="true" className="absolute inset-0 opacity-40 [background-image:radial-gradient(color-mix(in_oklab,var(--color-border-strong)_60%,transparent)_1px,transparent_1px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_15%,black_40%,transparent_100%)]" />
+      <div aria-hidden="true" className="grid-field absolute inset-0 opacity-40" />
       <div
         aria-hidden="true"
         className="hero-drift absolute -left-52 top-0 size-[34rem] rounded-full bg-brand/15 blur-3xl"
