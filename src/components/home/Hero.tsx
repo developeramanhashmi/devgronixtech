@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Check, Gauge, MonitorSmartphone, Search, Zap } from "lucide-react";
+import { ArrowRight, Check, Clock, Gauge, MessageCircle, Zap } from "lucide-react";
 
 import { homepage } from "@/lib/content/home";
 import { Container } from "@/components/site/Section";
@@ -10,7 +11,7 @@ const { hero, strip } = homepage;
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden border-b border-border">
-      <div aria-hidden="true" className="absolute inset-0 grid-field opacity-35 [mask-image:linear-gradient(to_bottom,black,transparent_88%)]" />
+      <div aria-hidden="true" className="absolute inset-0 opacity-40 [background-image:radial-gradient(color-mix(in_oklab,var(--color-border-strong)_60%,transparent)_1px,transparent_1px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_15%,black_40%,transparent_100%)]" />
       <div
         aria-hidden="true"
         className="hero-drift absolute -left-52 top-0 size-[34rem] rounded-full bg-brand/15 blur-3xl"
@@ -95,8 +96,18 @@ function MarqueeItems({ items, hidden = false }: { items: string[]; hidden?: boo
   );
 }
 
-/** Layered agency performance preview. */
+const showcase = [
+  { tab: "Web", name: "Web Development", slug: "web-development", price: "₹999", delivery: "1-3 Days Delivery", features: ["Mobile Responsive", "Free 1-Yr Domain & Hosting", "Fast Loading"] },
+  { tab: "Graphics", name: "Graphic Design", slug: "graphic-design", price: "₹99", delivery: "Same Day Delivery", features: ["Social Posts", "Banners", "HD Source Files Included"] },
+  { tab: "Video", name: "Video Editing", slug: "video-editing-and-motion-graphics", price: "₹399", delivery: "24-48h Turnaround", features: ["Reels & Shorts", "Color Grading", "Trendy Motion Graphics"] },
+  { tab: "Social", name: "Social Media", slug: "social-media-management", price: "₹1,000/mo", delivery: "Monthly Retainer", features: ["Content Strategy", "Daily Posts", "Organic Growth"] },
+];
+
+/** Interactive service showcase with performance proof. */
 function HeroComposition() {
+  const [active, setActive] = useState(0);
+  const svc = showcase[active]!;
+  const wa = `https://wa.me/917070519128?text=${encodeURIComponent(`Hi DEVGRONIX, I'm interested in ${svc.name}`)}`;
   return (
     <div className="relative mx-auto w-full max-w-xl px-2 py-9 sm:px-8 sm:py-12 lg:px-5">
       <div className="absolute inset-8 rounded-2xl bg-hero-indigo/10 blur-3xl" aria-hidden="true" />
@@ -108,35 +119,72 @@ function HeroComposition() {
             <span className="size-2.5 rounded-full bg-chart-4" />
             <span className="size-2.5 rounded-full bg-chart-3" />
           </div>
-          <p className="text-right text-xs font-semibold text-muted-foreground sm:text-sm">Active Projects &amp; Performance</p>
+          <p className="text-right text-xs font-semibold text-muted-foreground sm:text-sm">Service Showcase</p>
         </div>
 
-        <div className="grid grid-cols-3 gap-2 py-5 sm:gap-3">
-          <Metric icon={Gauge} value="99+" label="PageSpeed Score" />
-          <Metric icon={MonitorSmartphone} value="100%" label="Responsive" />
-          <Metric icon={Search} value="SEO" label="Optimized" />
+        <div role="tablist" aria-label="Services" className="mt-4 grid grid-cols-4 gap-1 rounded-full border border-border bg-background/60 p-1">
+          {showcase.map((s, i) => (
+            <button
+              key={s.slug}
+              type="button"
+              role="tab"
+              aria-selected={i === active}
+              onClick={() => setActive(i)}
+              className={
+                "rounded-full px-2 py-1.5 text-[0.6875rem] font-semibold interactive sm:text-xs " +
+                (i === active ? "bg-brand text-brand-foreground shadow-sm" : "text-muted-foreground hover:text-foreground")
+              }
+            >
+              {s.tab}
+            </button>
+          ))}
         </div>
 
-        <div className="rounded-xl border border-border bg-surface-strong/70 p-4">
-          <div className="flex items-center justify-between gap-3">
+        <div role="tabpanel" key={svc.slug} className="mt-5 rounded-xl border border-border bg-surface-strong/70 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <p className="text-xs font-medium text-muted-foreground">Live project showcase</p>
-              <h2 className="mt-1 font-display text-base font-bold text-foreground sm:text-lg">Web &amp; Creative Studio</h2>
+              <h2 className="font-display text-base font-bold text-foreground sm:text-lg">{svc.name}</h2>
+              <p className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
+                <Clock className="size-3.5" aria-hidden="true" />
+                {svc.delivery}
+              </p>
             </div>
-            <span className="flex shrink-0 items-center gap-1.5 rounded-full border border-chart-3/30 bg-chart-3/10 px-2.5 py-1 text-[0.6875rem] font-semibold text-foreground">
-              <span className="size-1.5 animate-pulse rounded-full bg-chart-3" aria-hidden="true" />
-              Live
+            <span className="shrink-0 rounded-full border border-brand/30 bg-brand-soft px-3 py-1 text-xs font-bold text-brand">
+              Starting {svc.price}
             </span>
           </div>
-          <div className="mt-4 flex h-16 items-end gap-1.5" aria-hidden="true">
-            {[38, 56, 45, 72, 58, 88, 68, 96, 78].map((height, index) => (
-              <span
-                key={height}
-                className={index === 7 ? "flex-1 rounded-sm bg-brand" : "flex-1 rounded-sm bg-border-strong"}
-                style={{ height: `${height}%` }}
-              />
+          <ul className="mt-4 space-y-2">
+            {svc.features.map((f) => (
+              <li key={f} className="flex items-center gap-2 text-sm text-foreground">
+                <Check className="size-4 shrink-0 text-chart-3" aria-hidden="true" />
+                {f}
+              </li>
             ))}
+          </ul>
+          <div className="mt-5 flex flex-col gap-2 sm:flex-row">
+            <a
+              href={wa}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-brand px-4 py-2.5 text-xs font-semibold text-brand-foreground interactive hover:opacity-90"
+            >
+              <MessageCircle className="size-4" aria-hidden="true" />
+              Chat on WhatsApp
+            </a>
+            <Link
+              to="/services/$slug"
+              params={{ slug: svc.slug }}
+              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full border border-border-strong px-4 py-2.5 text-xs font-semibold text-foreground interactive hover:border-brand hover:text-brand"
+            >
+              View service
+              <ArrowRight className="size-3.5" aria-hidden="true" />
+            </Link>
           </div>
+        </div>
+
+        <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
+          <Gauge className="size-4 text-brand" aria-hidden="true" />
+          <span><span className="font-semibold text-foreground">99+</span> Performance Score</span>
         </div>
       </div>
 
@@ -157,24 +205,6 @@ function HeroComposition() {
           50+ Projects Shipped
         </p>
       </div>
-    </div>
-  );
-}
-
-function Metric({
-  icon: Icon,
-  value,
-  label,
-}: {
-  icon: typeof Gauge;
-  value: string;
-  label: string;
-}) {
-  return (
-    <div className="min-w-0 rounded-xl border border-border bg-background/60 p-2.5 sm:p-3">
-      <Icon className="size-4 text-brand" aria-hidden="true" />
-      <p className="mt-3 font-display text-lg font-bold text-foreground sm:text-xl">{value}</p>
-      <p className="mt-0.5 text-[0.625rem] leading-tight text-muted-foreground sm:text-xs">{label}</p>
     </div>
   );
 }
