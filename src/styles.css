@@ -201,8 +201,19 @@
   }
 }
 
-/* Thin technical grid used behind hero / CTA compositions. */
+/* Soft dotted field used behind hero / CTA compositions, fading toward the
+   bottom and edges. Project cover artwork keeps the legacy square grid. */
 @utility grid-field {
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--color-border-strong) 60%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 15%, black 40%, transparent 100%);
+}
+
+/* Legacy square wireframe grid — project cover artwork only. */
+@utility grid-lines {
   background-image:
     linear-gradient(to right, var(--color-border) 1px, transparent 1px),
     linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);

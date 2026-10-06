@@ -32,7 +32,7 @@ export function ProjectCover({
       {pattern === "mesh" && (
         <>
           <div className="absolute -left-10 top-1/2 size-64 -translate-y-1/2 rounded-full bg-brand/25 blur-3xl" />
-          <div className="absolute inset-0 grid-field opacity-40" />
+          <div className="absolute inset-0 grid-lines opacity-40" />
           <svg className="absolute inset-0 h-full w-full" viewBox="0 0 400 300" preserveAspectRatio="none">
             <g stroke="currentColor" className="text-border-strong" fill="none" strokeWidth="1">
               {Array.from({ length: 9 }).map((_, i) => (
@@ -58,7 +58,7 @@ export function ProjectCover({
       )}
       {pattern !== "mesh" && pattern !== "lines" && (
         <>
-          <div className="absolute inset-0 grid-field opacity-60" />
+          <div className="absolute inset-0 grid-lines opacity-60" />
           <div className="absolute inset-0 grid grid-cols-6 grid-rows-4">
             <span className="col-span-2 row-span-2 col-start-2 row-start-2 border border-brand/60" />
             <span className="col-span-2 row-span-1 col-start-4 row-start-3 bg-brand/25" />
