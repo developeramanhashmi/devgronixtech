@@ -6,6 +6,15 @@ import { Section, SectionHeading } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
 import { ServiceIcon } from "@/components/site/ServiceIcon";
 
+const servicePrices: Record<string, string> = {
+  "svc-web": "Starts ₹999",
+  "svc-graphic": "Starts ₹99",
+  "svc-video": "Starts ₹399",
+  "svc-social": "Starts ₹1,000/mo",
+  "svc-mobile": "Custom",
+  "svc-ai": "Custom",
+};
+
 export function ServicesSection() {
   const [lead, ...rest] = featuredServices;
 
@@ -24,15 +33,23 @@ export function ServicesSection() {
             <Link
               to="/services/$slug"
               params={{ slug: lead.slug }}
-              className="card-interactive group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface p-7"
+              className="card-interactive group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface p-7 transition-all duration-300 hover:border-brand/50 hover:shadow-xl hover:shadow-brand/5"
             >
+              <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-brand/5 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
               <div>
                 <div className="flex items-center justify-between">
                   <span className="font-display text-sm font-semibold text-brand">01</span>
-                  <ServiceIcon
-                    name={lead.icon}
-                    className="size-6 text-brand transition-transform duration-300 group-hover:-translate-y-0.5"
-                  />
+                  <div className="flex items-center gap-2">
+                    {servicePrices[lead.id] && (
+                      <span className="rounded-full border border-brand/30 bg-brand-soft px-2.5 py-0.5 text-xs font-semibold text-brand">
+                        {servicePrices[lead.id]}
+                      </span>
+                    )}
+                    <ServiceIcon
+                      name={lead.icon}
+                      className="size-6 text-brand transition-transform duration-300 group-hover:-translate-y-0.5"
+                    />
+                  </div>
                 </div>
                 <span aria-hidden="true" className="accent-rule mt-8" />
                 <h3 className="mt-5 font-display text-2xl font-bold text-foreground transition-transform duration-300 group-hover:translate-x-0.5">
@@ -62,16 +79,23 @@ export function ServicesSection() {
               <Link
                 to="/services/$slug"
                 params={{ slug: service.slug }}
-                className="card-interactive group flex h-full flex-col rounded-xl border border-border bg-surface p-6"
+                className="card-interactive group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface p-6 transition-all duration-300 hover:border-brand/40 hover:shadow-lg hover:shadow-brand/5"
               >
                 <div className="flex items-center justify-between">
                   <span className="font-display text-xs font-semibold text-muted-foreground">
                     {String(i + 2).padStart(2, "0")}
                   </span>
-                  <ServiceIcon
-                    name={service.icon}
-                    className="size-5 text-foreground transition-all duration-300 group-hover:-translate-y-0.5 group-hover:text-brand"
-                  />
+                  <div className="flex items-center gap-2">
+                    {servicePrices[service.id] && (
+                      <span className="rounded-full border border-border-strong bg-surface-strong px-2 py-0.5 text-[0.6875rem] font-medium text-muted-foreground group-hover:border-brand/30 group-hover:text-brand">
+                        {servicePrices[service.id]}
+                      </span>
+                    )}
+                    <ServiceIcon
+                      name={service.icon}
+                      className="size-5 text-foreground transition-all duration-300 group-hover:-translate-y-0.5 group-hover:text-brand"
+                    />
+                  </div>
                 </div>
                 <span aria-hidden="true" className="accent-rule mt-6" />
                 <h3 className="mt-4 font-display text-lg font-bold text-foreground transition-transform duration-300 group-hover:translate-x-0.5">
