@@ -170,7 +170,7 @@ export function Footer() {
         {/* Bottom copyright */}
         <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row">
           <p>© {currentYear} DEVGRONIX. All rights reserved.</p>
-          <p>Designed and built for high performance and digital growth.</p>
+          <p>Designed and built By <a href="https://www.linkedin.com/in/hashmiaman/" target="_blank" rel="noopener noreferrer">Aman Hashmi</a>.</p>
         </div>
       </Container>
     </footer>
