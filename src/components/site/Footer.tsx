@@ -1,10 +1,17 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 
-import { navigation } from "@/lib/content/navigation";
-import { company } from "@/lib/content/company";
 import { Container } from "@/components/site/Section";
 import { Logo } from "@/components/site/Logo";
+
+const navLinks = [
+  { label: "Home", to: "/" },
+  { label: "Services", to: "/services" },
+  { label: "Works", to: "/works" },
+  { label: "About", to: "/about" },
+  { label: "Pricing", to: "/pricing" },
+  { label: "Contact", to: "/contact" },
+];
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -17,7 +24,7 @@ export function Footer() {
           <div className="lg:col-span-5">
             <Logo />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
-              {company.description}
+              DEVGRONIX builds websites, software, mobile apps and digital growth engines for ambitious businesses in India and globally.
             </p>
             <div className="mt-6 flex flex-col gap-2.5 text-xs text-muted-foreground">
               <span className="flex items-center gap-2">
@@ -25,11 +32,11 @@ export function Footer() {
                 Serving Clients across India, Saudi Arabia &amp; Globally
               </span>
               <a
-                href={`mailto:${company.email}`}
+                href="mailto:admin@devgronix.in"
                 className="flex items-center gap-2 transition-colors hover:text-foreground"
               >
                 <Mail className="size-3.5 text-brand" aria-hidden="true" />
-                {company.email}
+                admin@devgronix.in
               </a>
               <a
                 href="tel:+917070519128"
@@ -48,7 +55,7 @@ export function Footer() {
                 Navigation
               </p>
               <ul className="mt-4 space-y-2.5 text-sm">
-                {navigation.map((item) => (
+                {navLinks.map((item) => (
                   <li key={item.to}>
                     <Link
                       to={item.to}
