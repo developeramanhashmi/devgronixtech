@@ -80,11 +80,12 @@ const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
 
 /**
- * The DEVGRONIX organization entity. Only verified information from the site is
- * included — no ratings, employee counts, addresses or social profiles.
+ * The DEVGRONIX organization & professional service entity.
+ * Anchors the business physically in Hyderabad for Google Trust & Local Search,
+ * while officially declaring service delivery for Saudi Arabia, UAE & Worldwide.
  */
 export const organizationSchema = {
-  "@type": "Organization",
+  "@type": ["Organization", "ProfessionalService"],
   "@id": ORGANIZATION_ID,
   name: SITE,
   alternateName: "Devgronix",
@@ -93,8 +94,32 @@ export const organizationSchema = {
   image: OG_IMAGE,
   slogan: "Create. Develop. Grow.",
   description:
-    "DEVGRONIX is a digital technology and software company building websites, web applications, mobile apps, custom software, AI automation, cloud solutions, design and digital growth services for businesses in India and international markets.",
-  areaServed: ["India", "Saudi Arabia", "Worldwide"],
+    "DEVGRONIX is a digital technology and software engineering company building high-performance websites, custom web applications, mobile apps, graphic design, and video editing for businesses across Hyderabad, India, Saudi Arabia, the UAE, and global markets.",
+  telephone: "+91-7070519128",
+  email: "admin@devgronix.in",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Gachibowli",
+    addressLocality: "Hyderabad",
+    addressRegion: "Telangana",
+    postalCode: "500032",
+    addressCountry: "IN",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 17.4401,
+    longitude: 78.3489,
+  },
+  priceRange: "₹₹",
+  currenciesAccepted: "INR, SAR, AED, USD",
+  paymentAccepted: "UPI, Bank Transfer, Credit Card, Debit Card",
+  areaServed: [
+    { "@type": "City", name: "Hyderabad" },
+    { "@type": "Country", name: "India" },
+    { "@type": "Country", name: "Saudi Arabia" },
+    { "@type": "Country", name: "United Arab Emirates" },
+    { "@type": "AdministrativeArea", name: "Worldwide" },
+  ],
 };
 
 export const websiteSchema = {
@@ -147,7 +172,22 @@ export function serviceSchema({
     category,
     url: absoluteUrl(path),
     provider: { "@id": ORGANIZATION_ID },
-    areaServed: ["India", "Saudi Arabia", "Worldwide"],
+    areaServed: ["Hyderabad", "India", "Saudi Arabia", "United Arab Emirates", "Worldwide"],
+  };
+}
+
+/** Rich Snippet FAQ Schema for Google Search */
+export function faqPageSchema(faqs: { question: string; answer: string }[]) {
+  return {
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
   };
 }
 
@@ -172,15 +212,10 @@ export function creativeWorkSchema({
     keywords: keywords.join(", "),
     url: absoluteUrl(path),
     creator: { "@id": ORGANIZATION_ID },
-    // Concept work: explicitly not presented as a commissioned client project.
     creditText: "In-house concept project by DEVGRONIX",
   };
 }
 
-/**
- * Legacy helper kept so nothing breaks while routes migrate to `seoHead`.
- * Prefer `seoHead`, which also emits canonical, og:url and og:image.
- */
 export function pageMeta({
   title,
   description,
