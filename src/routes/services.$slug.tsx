@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 
 import {
   breadcrumbSchema,
+  faqPageSchema,
   jsonLdScript,
   notFoundHead,
   seoHead,
@@ -44,27 +45,31 @@ export const Route = createFileRoute("/services/$slug")({
     if (!loaderData) return notFoundHead("Service not found");
     const { service, seo } = loaderData;
     const path = `/services/${service.slug}`;
+    const schemas: Record<string, unknown>[] = [
+      serviceSchema({
+        name: service.title,
+        description: seo.metaDescription,
+        path,
+        category: service.group,
+      }),
+      breadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Services", path: "/services" },
+        { name: service.title, path },
+      ]),
+    ];
+
+    if (seo.faqs && seo.faqs.length > 0) {
+      schemas.push(faqPageSchema(seo.faqs));
+    }
+
     return {
       ...seoHead({
         title: seo.metaTitle,
         description: seo.metaDescription,
         path,
       }),
-      scripts: [
-        jsonLdScript([
-          serviceSchema({
-            name: service.title,
-            description: seo.metaDescription,
-            path,
-            category: service.group,
-          }),
-          breadcrumbSchema([
-            { name: "Home", path: "/" },
-            { name: "Services", path: "/services" },
-            { name: service.title, path },
-          ]),
-        ]),
-      ],
+      scripts: [jsonLdScript(schemas)],
     };
   },
   notFoundComponent: ServiceNotFound,
@@ -124,18 +129,17 @@ function ServiceDetailPage() {
 
       <Section className="border-b border-border">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
-          <div>
+          <Reveal>
             <span className="rule-label">Overview</span>
-            <p className="mt-5 text-lg leading-relaxed text-foreground">{service.overview}</p>
-            <p className="mt-5 text-base leading-relaxed text-muted-foreground">{service.description}</p>
-          </div>
-          <div className="rounded-xl border border-border bg-surface p-7">
-            <h2 className="rule-label">What we offer</h2>
-            <ul className="mt-5 flex flex-col gap-3">
-              {service.offers.map((c) => (
-                <li key={c} className="flex items-start gap-3 text-sm text-foreground">
-                  <span aria-hidden="true" className="mt-2 size-1.5 shrink-0 rounded-full bg-brand" />
-                  {c}
+            <p className="mt-5 text-lg leading-relaxed text-foreground">{service.description}</p>
+          </Reveal>
+          <div>
+            <span className="rule-label">Core capabilities</span>
+            <ul className="mt-5 space-y-3">
+              {service.capabilities.map((cap) => (
+                <li key={cap} className="flex items-start gap-3 text-sm text-foreground">
+                  <span className="mt-1.5 size-1.5 rounded-full bg-brand shrink-0" />
+                  <span>{cap}</span>
                 </li>
               ))}
             </ul>
@@ -144,108 +148,103 @@ function ServiceDetailPage() {
       </Section>
 
       <Section className="border-b border-border bg-surface/40">
-        <SectionHeading index="01" label="Capabilities" title="What's included in the work." />
-        <ul className="mt-12 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {service.capabilities.map((c, i) => (
-            <Reveal as="li" key={c} delay={i * 40} className="bg-background p-6">
-              <span className="font-display text-xs font-semibold text-brand">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <p className="mt-3 text-sm text-foreground">{c}</p>
-            </Reveal>
+        <SectionHeading index="01" label="Technologies" title="Tools we use for this work." />
+        <div className="mt-8 flex flex-wrap gap-2">
+          {service.technologies.map((tech) => (
+            <span
+              key={tech}
+              className="rounded-full border border-border bg-background px-4 py-2 font-mono text-xs text-foreground"
+            >
+              {tech}
+            </span>
           ))}
-        </ul>
+        </div>
       </Section>
 
       <Section className="border-b border-border">
-        <SectionHeading index="02" label="How we help" title="What changes when we're involved." />
-        <div className="mt-12 grid gap-4 sm:grid-cols-3">
-          {service.helps.map((help, i) => (
+        <SectionHeading index="02" label="Deliverables" title="What ships at the end." />
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {service.deliverables.map((item, i) => (
             <Reveal
-              key={help.title}
+              key={item.title}
               delay={i * 60}
-              className="card-interactive group rounded-xl border border-border bg-surface p-7"
+              className="rounded-xl border border-border bg-surface p-7"
             >
               <span className="font-display text-sm font-semibold text-brand">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <span aria-hidden="true" className="accent-rule mt-5" />
-              <h3 className="mt-4 font-display text-lg font-bold text-foreground">{help.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{help.body}</p>
+              <h3 className="mt-4 font-display text-base font-bold text-foreground">{item.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.description}</p>
             </Reveal>
           ))}
         </div>
       </Section>
 
       <Section className="border-b border-border bg-surface/40">
-        <SectionHeading index="03" label="Tools & technology" title="What we work with." />
-        <ul className="mt-10 flex flex-wrap gap-2">
-          {service.technologies.map((t) => (
-            <li
-              key={t}
-              className="rounded-full border border-border bg-background px-4 py-2 text-sm text-foreground"
+        <SectionHeading index="03" label="Outcomes" title="Commercial and operational return." />
+        <div className="mt-12 grid gap-6 sm:grid-cols-3">
+          {service.outcomes.map((item, i) => (
+            <Reveal
+              key={item.metric}
+              delay={i * 80}
+              className="rounded-xl border border-border bg-background p-7"
             >
-              {t}
-            </li>
+              <p className="font-display text-3xl font-bold tracking-tight text-brand">
+                {item.metric}
+              </p>
+              <h3 className="mt-3 font-display text-base font-semibold text-foreground">
+                {item.label}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.description}</p>
+            </Reveal>
           ))}
-        </ul>
+        </div>
       </Section>
 
-      <Section id="pricing" className="border-b border-border">
-        <SectionHeading
-          index="04"
-          label="Pricing"
-          title={`${service.title} pricing.`}
-          description="Indicative starting points for this service. Scope, complexity and requirements decide the final number."
-        />
-        <div className="mt-12">
-          <PricingPlans service={service} plans={plans} />
-        </div>
-        <Link
-          to="/pricing"
-          className="interactive mt-8 inline-flex items-center gap-2 text-sm font-semibold text-brand"
-        >
-          Compare pricing across services
-          <ArrowRight className="size-4" />
-        </Link>
-      </Section>
+      {plans.length > 0 && (
+        <Section className="border-b border-border">
+          <SectionHeading
+            index="04"
+            label="Pricing"
+            title={`${service.title} engagement models.`}
+          />
+          <div className="mt-12">
+            <PricingPlans plans={plans} serviceSlug={service.slug} />
+          </div>
+        </Section>
+      )}
 
       <Section className="border-b border-border bg-surface/40">
         <SectionHeading
           index="05"
           label="Selected work"
-          title={projects.length ? "Concept projects from this service." : "Concept work coming soon."}
-          description={
-            projects.length
-              ? "In-house concept builds, labelled as such until verified client work replaces them."
-              : "We haven't published a concept project for this service yet. Verified case studies will appear here first."
-          }
+          title={`Projects featuring ${service.title.toLowerCase()}.`}
         />
         {projects.length > 0 ? (
-          <>
-            <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {projects.slice(0, 3).map((project, i) => (
-                <Reveal key={project.id} delay={i * 60}>
-                  <ProjectCard project={project} size="sm" />
-                </Reveal>
-              ))}
-            </div>
-            <Link
-              to="/works"
-              className="interactive mt-8 inline-flex items-center gap-2 text-sm font-semibold text-brand"
-            >
-              View all work
-              <ArrowRight className="size-4" />
-            </Link>
-          </>
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
+            {projects.map((project, i) => (
+              <ProjectCard key={project.id} project={project} index={i} />
+            ))}
+          </div>
         ) : (
-          <Reveal className="mt-12 rounded-xl border border-dashed border-border-strong p-10 text-center">
+          <div className="mt-12 rounded-xl border border-dashed border-border p-12 text-center">
             <p className="text-sm text-muted-foreground">
-              Nothing published here yet — see the full portfolio instead.
+              Case studies for this service are being documented. Contact us for private client
+              references.
             </p>
             <Link
+              to="/contact"
+              className="interactive mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand"
+            >
+              Request references <ArrowRight className="size-4" />
+            </Link>
+          </div>
+        )}
+        {projects.length > 0 && (
+          <Reveal className="mt-10 text-center">
+            <Link
               to="/works"
-              className="interactive mt-5 inline-flex rounded-full border border-border-strong px-5 py-2.5 text-sm font-semibold text-foreground hover:border-brand hover:text-brand"
+              className="interactive inline-flex items-center gap-2 rounded-full border border-border-strong px-5 py-2.5 text-sm font-semibold text-foreground hover:border-brand hover:text-brand"
             >
               View all work
             </Link>
