@@ -16,7 +16,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Toaster } from "@/components/ui/sonner";
-
+import { MobileActionBar } from "@/components/site/MobileActionBar";
 
 function NotFoundComponent() {
   return (
@@ -150,13 +150,13 @@ function RootComponent() {
         Skip to content
       </a>
       <Header />
-      <main id="main">
+      <main id="main" className="pb-16 md:pb-0">
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
       </main>
       <Footer />
+      <MobileActionBar />
       <Toaster />
     </QueryClientProvider>
   );
 }
-
