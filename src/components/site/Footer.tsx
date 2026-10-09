@@ -1,85 +1,171 @@
 import { Link } from "@tanstack/react-router";
+import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 
-import { publishedServices } from "@/lib/content/services";
-import { Container } from "./Section";
-import { Logo } from "./Logo";
+import { navigation } from "@/lib/content/navigation";
+import { company } from "@/lib/content/company";
+import { Container } from "@/components/site/Section";
+import { Logo } from "@/components/site/Logo";
 
 export function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="border-t border-border bg-surface">
-      <Container className="py-14 sm:py-20">
-        <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
-          <div>
+    <footer className="border-t border-border bg-surface-strong/60">
+      <Container className="py-16 sm:py-20">
+        <div className="grid gap-12 lg:grid-cols-12">
+          {/* Brand info */}
+          <div className="lg:col-span-5">
             <Logo />
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Create. Develop. Grow. — digital products, software and technology solutions for
-              ambitious businesses in India and international markets.
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
+              {company.description}
             </p>
+            <div className="mt-6 flex flex-col gap-2.5 text-xs text-muted-foreground">
+              <span className="flex items-center gap-2">
+                <MapPin className="size-3.5 text-brand" aria-hidden="true" />
+                Serving Clients across India, Saudi Arabia &amp; Globally
+              </span>
+              <a
+                href={`mailto:${company.email}`}
+                className="flex items-center gap-2 transition-colors hover:text-foreground"
+              >
+                <Mail className="size-3.5 text-brand" aria-hidden="true" />
+                {company.email}
+              </a>
+              <a
+                href="tel:+917070519128"
+                className="flex items-center gap-2 transition-colors hover:text-foreground"
+              >
+                <Phone className="size-3.5 text-brand" aria-hidden="true" />
+                +91 70705 19128
+              </a>
+            </div>
           </div>
 
-          <FooterColumn title="Company">
-            <FooterLink to="/about">About</FooterLink>
-            <FooterLink to="/works">Works</FooterLink>
-            <FooterLink to="/pricing">Pricing</FooterLink>
-            <FooterLink to="/contact">Contact</FooterLink>
-          </FooterColumn>
+          {/* Quick links & services */}
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-7">
+            <div>
+              <p className="font-display text-xs font-semibold uppercase tracking-wider text-foreground">
+                Navigation
+              </p>
+              <ul className="mt-4 space-y-2.5 text-sm">
+                {navigation.map((item) => (
+                  <li key={item.to}>
+                    <Link
+                      to={item.to}
+                      className="text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <nav aria-label="Services" className="flex flex-col gap-3">
-            <h3 className="rule-label">Services</h3>
-            {publishedServices.map((service) => (
-              <Link
-                key={service.id}
-                to="/services/$slug"
-                params={{ slug: service.slug }}
-                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {service.title}
-              </Link>
-            ))}
-          </nav>
+            <div>
+              <p className="font-display text-xs font-semibold uppercase tracking-wider text-foreground">
+                Popular Services
+              </p>
+              <ul className="mt-4 space-y-2.5 text-sm">
+                <li>
+                  <Link
+                    to="/services/web-development"
+                    className="text-muted-foreground transition-colors hover:text-brand"
+                  >
+                    Web Development (₹999)
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/services/graphic-design"
+                    className="text-muted-foreground transition-colors hover:text-brand"
+                  >
+                    Graphic Design (₹99)
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/services/video-editing-and-motion-graphics"
+                    className="text-muted-foreground transition-colors hover:text-brand"
+                  >
+                    Video Editing (₹399)
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/services/social-media-management"
+                    className="text-muted-foreground transition-colors hover:text-brand"
+                  >
+                    Social Media (₹1000/mo)
+                  </Link>
+                </li>
+              </ul>
+            </div>
 
-          <div className="flex flex-col gap-3">
-            <h3 className="rule-label">Contact</h3>
-            <p className="text-sm text-muted-foreground">
-              Email not yet provided — add your business email to publish it here.
-            </p>
-            <p className="text-sm text-muted-foreground">
-              Social profiles: to be added.
-            </p>
-            <Link
-              to="/contact"
-              className="mt-1 inline-flex w-fit rounded-full border border-border-strong px-4 py-2 text-sm font-medium text-foreground interactive hover:border-brand hover:text-brand"
-            >
-              Start a project
-            </Link>
+            <div>
+              <p className="font-display text-xs font-semibold uppercase tracking-wider text-foreground">
+                Direct Connect
+              </p>
+              <ul className="mt-4 space-y-2.5 text-sm">
+                <li>
+                  <a
+                    href="https://wa.me/917070519128"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-muted-foreground transition-colors hover:text-brand"
+                  >
+                    WhatsApp Support
+                    <ArrowUpRight className="size-3" />
+                  </a>
+                </li>
+                <li>
+                  <Link
+                    to="/contact"
+                    className="text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    Get a Free Quote
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/pricing"
+                    className="text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    Budget Pricing Plans
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} Devgronix. All rights reserved.</p>
-          <p>Design and Developed by AMAN HASHMI</p>
+        {/* SEO Location and Keyword Badges */}
+        <div className="mt-12 border-t border-border pt-8 text-xs text-muted-foreground">
+          <p className="font-medium text-foreground">Top Service Searches:</p>
+          <div className="mt-2.5 flex flex-wrap gap-2">
+            {[
+              "Website Designing Starting ₹999",
+              "Affordable Graphic Design India",
+              "Reels & YouTube Video Editing Services",
+              "Social Media Management Agency",
+              "Custom Web & App Development",
+              "E-commerce Website Design",
+            ].map((keyword) => (
+              <span
+                key={keyword}
+                className="rounded-md border border-border bg-surface px-2.5 py-1 text-[0.6875rem] text-muted-foreground"
+              >
+                {keyword}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom copyright */}
+        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row">
+          <p>© {currentYear} DEVGRONIX. All rights reserved.</p>
+          <p>Designed and built for high performance and digital growth.</p>
         </div>
       </Container>
     </footer>
-  );
-}
-
-function FooterColumn({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <nav aria-label={title} className="flex flex-col gap-3">
-      <h3 className="rule-label">{title}</h3>
-      {children}
-    </nav>
-  );
-}
-
-function FooterLink({ to, children }: { to: string; children: React.ReactNode }) {
-  return (
-    <Link
-      to={to}
-      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-    >
-      {children}
-    </Link>
   );
 }
