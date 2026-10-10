@@ -11,6 +11,7 @@ const nav = [
   { label: "Works", to: "/works" as const },
   { label: "About", to: "/about" as const },
   { label: "Pricing", to: "/pricing" as const },
+  { label: "Partner", to: "/partner" as const },
   { label: "Contact", to: "/contact" as const },
 ];
 
@@ -33,7 +34,6 @@ export function Header() {
   }, [open]);
 
   return (
-    // Floating nav sits clear of the viewport edge: 20px on mobile, 28px from sm up.
     <header className="fixed inset-x-0 top-0 z-50 pt-5 sm:pt-7">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-8 lg:px-12">
         <nav
@@ -84,7 +84,7 @@ export function Header() {
         </nav>
       </div>
 
-      {/* Mobile: dimmed backdrop + right-side slide-in drawer (desktop untouched). */}
+      {/* Mobile Drawer */}
       <div
         onClick={() => setOpen(false)}
         aria-hidden={!open}
@@ -120,8 +120,8 @@ export function Header() {
                 to={item.to}
                 onClick={() => setOpen(false)}
                 activeOptions={{ exact: item.to === "/" }}
-                activeProps={{ className: "text-brand! font-semibold" }}
-                className="block border-b border-border/50 py-3.5 text-sm font-medium tracking-wide text-foreground/80 transition-colors last:border-0 hover:text-brand"
+                activeProps={{ className: "text-brand font-semibold" }}
+                className="block border-b border-border/60 py-3 text-sm font-medium tracking-wide text-foreground/85 transition-colors hover:text-brand"
               >
                 {item.label}
               </Link>
@@ -129,12 +129,12 @@ export function Header() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between gap-3 border-t border-border pt-4">
           <ThemeToggle />
           <Link
             to="/contact"
             onClick={() => setOpen(false)}
-            className="interactive block flex-1 rounded-full bg-brand py-3 text-center text-sm font-semibold text-brand-foreground shadow-md hover:opacity-90"
+            className="interactive inline-flex flex-1 items-center justify-center rounded-full bg-brand py-2.5 text-xs font-semibold text-brand-foreground hover:opacity-90"
           >
             Get a Quote
           </Link>
