@@ -37,10 +37,11 @@ export function Hero() {
         className="absolute bottom-0 left-1/2 size-[24rem] -translate-x-1/2 rounded-full bg-hero-cyan/10 blur-3xl"
       />
 
-      {/* Reduced top padding: pt-20 on mobile, pt-24 on tablet, pt-28 on desktop */}
-      <Container className="relative pt-20 pb-12 sm:pt-24 sm:pb-16 lg:pt-28">
+      {/* Balanced padding: pt-28 on mobile (no more touching/sata hua), lg:pt-28 on desktop */}
+      <Container className="relative pt-28 pb-12 sm:pt-32 sm:pb-16 lg:pt-28">
         <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
-          <div>
+          {/* Nudge slightly right to perfectly line up under the navbar's Logo */}
+          <div className="pl-1 sm:pl-3 lg:pl-5">
             <Reveal>
               <span className="inline-flex items-center gap-2.5 rounded-full border border-border-strong bg-surface/80 px-3.5 py-1.5 text-[0.6875rem] font-semibold text-muted-foreground shadow-sm backdrop-blur-md">
                 <span className="relative flex size-2" aria-hidden="true">
