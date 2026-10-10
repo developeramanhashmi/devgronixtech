@@ -20,7 +20,7 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 16);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -34,14 +34,14 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 pt-5 sm:pt-7">
+    <header className="fixed inset-x-0 top-0 z-50 pt-2.5 sm:pt-3.5">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-8 lg:px-12">
         <nav
           aria-label="Primary"
           className={`flex items-center justify-between gap-4 rounded-full border px-4 transition-all duration-300 sm:px-5 ${
             scrolled
-              ? "border-border bg-background/85 py-2 shadow-sm backdrop-blur-xl"
-              : "border-transparent bg-background/40 py-2.5 backdrop-blur-md"
+              ? "border-border/80 bg-background/90 shadow-md backdrop-blur-xl dark:border-white/15 dark:bg-surface-strong/95 dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)] py-2"
+              : "border-border/70 bg-background/80 shadow-sm backdrop-blur-lg dark:border-white/12 dark:bg-surface/90 dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)] py-2 sm:py-2.5"
           }`}
         >
           <Link to="/" aria-label="DEVGRONIX home" className="interactive shrink-0">
@@ -54,8 +54,8 @@ export function Header() {
                 <Link
                   to={item.to}
                   activeOptions={{ exact: item.to === "/" }}
-                  activeProps={{ className: "text-foreground" }}
-                  className="nav-link inline-flex rounded-full px-3.5 py-2 text-sm font-medium text-muted-foreground hover:text-foreground"
+                  activeProps={{ className: "text-brand font-semibold" }}
+                  className="nav-link inline-flex rounded-full px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground dark:text-foreground/80 dark:hover:text-brand"
                 >
                   {item.label}
                 </Link>
