@@ -10,6 +10,7 @@ const navLinks = [
   { label: "Works", to: "/works" },
   { label: "About", to: "/about" },
   { label: "Pricing", to: "/pricing" },
+  { label: "Partner Program", to: "/partner" },
   { label: "Contact", to: "/contact" },
 ];
 
@@ -29,7 +30,7 @@ export function Footer() {
             <div className="mt-6 flex flex-col gap-2.5 text-xs text-muted-foreground">
               <span className="flex items-center gap-2">
                 <MapPin className="size-3.5 text-brand" aria-hidden="true" />
-                Serving Clients across India, Saudi Arabia &amp; Globally
+                Gachibowli, Hyderabad, Telangana 500032
               </span>
               <a
                 href="mailto:admin@devgronix.in"
@@ -113,6 +114,14 @@ export function Footer() {
                 Direct Connect
               </p>
               <ul className="mt-4 space-y-2.5 text-sm">
+                <li>
+                  <Link
+                    to="/partner"
+                    className="inline-flex items-center gap-1 font-semibold text-brand transition-colors hover:underline"
+                  >
+                    🤝 Become a Partner (Earn 20%)
+                  </Link>
+                </li>
                 <li>
                   <a
                     href="https://wa.me/917070519128"
