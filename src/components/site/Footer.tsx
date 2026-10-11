@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowUpRight, CreditCard, Globe, Mail, MapPin, Phone, ShieldCheck } from "lucide-react";
 
 import { Container } from "@/components/site/Section";
 import { Logo } from "@/components/site/Logo";
@@ -25,12 +25,16 @@ export function Footer() {
           <div className="lg:col-span-5">
             <Logo />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
-              DEVGRONIX builds websites, software, mobile apps and digital growth engines for ambitious businesses in India and globally.
+              DEVGRONIX builds high-performance websites, software, mobile apps and digital growth engines for ambitious businesses across India, UAE (Dubai), Saudi Arabia and globally.
             </p>
             <div className="mt-6 flex flex-col gap-2.5 text-xs text-muted-foreground">
               <span className="flex items-center gap-2">
                 <MapPin className="size-3.5 text-brand" aria-hidden="true" />
-                Gachibowli, Hyderabad, Telangana 500032
+                Gachibowli, Hyderabad, Telangana 500032, India
+              </span>
+              <span className="flex items-center gap-2">
+                <Globe className="size-3.5 text-brand" aria-hidden="true" />
+                Coverage: India (IST) · UAE &amp; Saudi Arabia (GST/AST) · Global Remote
               </span>
               <a
                 href="mailto:admin@devgronix.in"
@@ -44,7 +48,7 @@ export function Footer() {
                 className="flex items-center gap-2 transition-colors hover:text-foreground"
               >
                 <Phone className="size-3.5 text-brand" aria-hidden="true" />
-                +91 70705 19128
+                +91 70705 19128 (WhatsApp &amp; Direct)
               </a>
             </div>
           </div>
@@ -79,7 +83,7 @@ export function Footer() {
                     to="/services/web-development"
                     className="text-muted-foreground transition-colors hover:text-brand"
                   >
-                    Web Development (₹999)
+                    Web Development (₹999 / $49)
                   </Link>
                 </li>
                 <li>
@@ -87,7 +91,7 @@ export function Footer() {
                     to="/services/graphic-design"
                     className="text-muted-foreground transition-colors hover:text-brand"
                   >
-                    Graphic Design (₹99)
+                    Graphic Design (₹99 / $9)
                   </Link>
                 </li>
                 <li>
@@ -95,7 +99,7 @@ export function Footer() {
                     to="/services/video-editing-and-motion-graphics"
                     className="text-muted-foreground transition-colors hover:text-brand"
                   >
-                    Video Editing (₹399)
+                    Video Editing (₹399 / $19)
                   </Link>
                 </li>
                 <li>
@@ -103,7 +107,7 @@ export function Footer() {
                     to="/services/social-media-management"
                     className="text-muted-foreground transition-colors hover:text-brand"
                   >
-                    Social Media (₹1000/mo)
+                    Social Media (₹1000 / $49/mo)
                   </Link>
                 </li>
               </ul>
@@ -154,13 +158,41 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Global Client & Payment Trust Badges */}
+        <div className="mt-12 border-t border-border pt-8">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="flex items-start gap-3 rounded-lg border border-border bg-surface p-4 text-xs">
+              <CreditCard className="size-4 shrink-0 text-brand" />
+              <div>
+                <p className="font-semibold text-foreground">International Payments</p>
+                <p className="mt-0.5 text-muted-foreground">Stripe · Wise · Debit/Credit Cards · UPI · Wire Transfer</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 rounded-lg border border-border bg-surface p-4 text-xs">
+              <Globe className="size-4 shrink-0 text-hero-cyan" />
+              <div>
+                <p className="font-semibold text-foreground">Middle East &amp; Global Support</p>
+                <p className="mt-0.5 text-muted-foreground">Real-time collaboration across India (IST) &amp; Gulf (GST/AST)</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 rounded-lg border border-border bg-surface p-4 text-xs sm:col-span-2 lg:col-span-1">
+              <ShieldCheck className="size-4 shrink-0 text-chart-3" />
+              <div>
+                <p className="font-semibold text-foreground">Enterprise Quality Guarantee</p>
+                <p className="mt-0.5 text-muted-foreground">Milestone-based delivery, clear agreements, no hidden charges</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* SEO Location and Keyword Badges */}
-        <div className="mt-12 border-t border-border pt-8 text-xs text-muted-foreground">
+        <div className="mt-8 border-t border-border pt-6 text-xs text-muted-foreground">
           <p className="font-medium text-foreground">Top Service Searches:</p>
           <div className="mt-2.5 flex flex-wrap gap-2">
             {[
               "Website Designing Starting ₹999",
-              "Affordable Graphic Design India",
+              "Web Development Dubai UAE",
+              "Affordable Graphic Design India & Middle East",
               "Reels & YouTube Video Editing Services",
               "Social Media Management Agency",
               "Custom Web & App Development",
