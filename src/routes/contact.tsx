@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { AlertCircle, Mail } from "lucide-react";
+import { AlertCircle, CreditCard, Globe, Mail, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 
 import { breadcrumbSchema, jsonLdScript, seoHead } from "@/lib/seo";
@@ -11,10 +11,6 @@ import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/contact")({
   staticData: { sitemap: true },
-  /**
-   * `?service=<slug>` preselects the service dropdown, so a visitor arriving
-   * from a service or pricing page doesn't re-enter what they were reading.
-   */
   validateSearch: (search: Record<string, unknown>): { service?: string } => {
     const value = search["service"];
     return typeof value === "string" && value.length > 0 ? { service: value } : {};
@@ -23,7 +19,7 @@ export const Route = createFileRoute("/contact")({
     ...seoHead({
       title: "Contact DEVGRONIX | Get a Project Quote",
       description:
-        "Tell DEVGRONIX about your project — service, budget range and timeline — and get a scoped quote back. Working with businesses in India and international markets.",
+        "Tell DEVGRONIX about your project — service, budget range and timeline — and get a scoped quote back. Working with businesses in India, UAE (Dubai), Saudi Arabia and international markets.",
       path: "/contact",
     }),
     scripts: [
@@ -39,14 +35,14 @@ export const Route = createFileRoute("/contact")({
 });
 
 const budgets = [
-  "Under ₹4,999",
-  "₹5,000 – ₹10,000",
-  "₹10,000 – ₹15,000",
-  "₹15,000+",
-  "Not sure yet",
+  "Under ₹5,000 / $60 / 220 AED",
+  "₹5,000 – ₹25,000 / $60 – $300 / 220 – 1,100 AED",
+  "₹25,000 – ₹1,00,000 / $300 – $1,200 / 1,100 – 4,400 AED",
+  "₹1,00,000+ / $1,200+ / 4,400+ AED",
+  "Flexible / Custom Scope",
 ];
 
-const timelines = ["As soon as possible", "1–3 months", "3–6 months", "Flexible"];
+const timelines = ["As soon as possible", "1–2 weeks", "1–3 months", "Flexible"];
 
 type Errors = Record<string, string>;
 
@@ -64,7 +60,9 @@ function ContactPage() {
     const name = String(data.get("name") ?? "").trim();
     const email = String(data.get("email") ?? "").trim();
     const company = String(data.get("company") ?? "").trim();
+    const country = String(data.get("country") ?? "").trim();
     const service = String(data.get("service") ?? "");
+    const budget = String(data.get("budget") ?? "");
     const description = String(data.get("description") ?? "").trim();
 
     if (name.length < 2) next["name"] = "Please enter your name.";
@@ -82,18 +80,22 @@ function ContactPage() {
         "Hi DEVGRONIX, I would like to enquire about:",
         `- Name: ${name}`,
         `- Email: ${email}`,
-        `- Company: ${company}`,
+        company ? `- Company: ${company}` : "",
+        country ? `- Country: ${country}` : "",
         `- Service: ${serviceTitle}`,
+        budget ? `- Budget: ${budget}` : "",
         `- Details: ${description}`,
-      ].join("\n");
+      ]
+        .filter(Boolean)
+        .join("\n");
 
-      // Best-effort email copy — the WhatsApp handoff below stays the primary channel.
+      // Best-effort email copy
       void fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, company, service, description }),
       }).catch(() => {
-        // Silent: the enquiry still reaches us via WhatsApp.
+        // Silent
       });
 
       window.open(`https://wa.me/917070519128?text=${encodeURIComponent(message)}`, "_blank");
@@ -105,7 +107,7 @@ function ContactPage() {
       <PageHero
         label="Contact"
         title="Tell us what you're building."
-        description="Share the goal, the constraints and your timeline. We'll reply with questions, a suggested approach and a quote range."
+        description="Share the goal, the constraints and your timeline. We'll reply with questions, a suggested approach and a transparent quote range."
       >
         {preselected && (
           <p className="inline-flex items-center gap-2 rounded-full border border-brand/50 bg-brand-soft px-4 py-2 text-sm text-foreground">
@@ -115,14 +117,14 @@ function ContactPage() {
       </PageHero>
 
       <Section>
-        <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
-          <Reveal>
+        <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr]">
+          <Reveal className="rounded-xl border border-border bg-surface p-7 sm:p-10">
             <form noValidate onSubmit={handleSubmit} className="flex flex-col gap-6">
               <div className="grid gap-6 sm:grid-cols-2">
                 <Field label="Name" name="name" error={errors["name"]} required />
                 <Field label="Email" name="email" type="email" error={errors["email"]} required />
-                <Field label="Company" name="company" />
-                <Field label="Country" name="country" />
+                <Field label="Company / Brand" name="company" placeholder="e.g. Acme FZ LLC" />
+                <Field label="Country / City" name="country" placeholder="e.g. Dubai, UAE / Riyadh / India" />
               </div>
 
               <div className="grid gap-6 sm:grid-cols-2">
@@ -169,14 +171,14 @@ function ContactPage() {
                     </option>
                   ))}
                 </SelectField>
-                <Field label="Additional details" name="additional" placeholder="Links, systems to integrate, etc." />
+                <Field label="Additional details" name="additional" placeholder="Reference links, competitor sites, etc." />
               </div>
 
               <button
                 type="submit"
                 className="inline-flex w-fit items-center justify-center rounded-full bg-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground transition-opacity hover:opacity-90"
               >
-                Submit enquiry
+                Submit enquiry &amp; Connect
               </button>
 
               {validated && (
@@ -213,22 +215,34 @@ function ContactPage() {
               <ol className="mt-4 flex flex-col gap-3 text-sm text-muted-foreground">
                 <li className="flex gap-3">
                   <span className="font-display text-xs font-semibold text-brand">01</span>
-                  We read your brief and send back clarifying questions.
+                  We review your project requirements within 24 hours.
                 </li>
                 <li className="flex gap-3">
                   <span className="font-display text-xs font-semibold text-brand">02</span>
-                  A short call to confirm scope and constraints.
+                  A quick call or WhatsApp discussion to clarify scope.
                 </li>
                 <li className="flex gap-3">
                   <span className="font-display text-xs font-semibold text-brand">03</span>
-                  A written proposal with deliverables, timeline and cost.
+                  Transparent proposal with milestones, timeline and exact quote.
                 </li>
               </ol>
             </div>
             <div className="border-t border-border pt-6">
-              <h2 className="rule-label">Markets</h2>
-              <p className="mt-3 text-sm text-muted-foreground">
-                We work with clients across India and internationally, including the Middle East.
+              <h2 className="rule-label flex items-center gap-1.5">
+                <Globe className="size-3.5 text-brand" />
+                Global &amp; Regional Markets
+              </h2>
+              <p className="mt-2 text-sm text-muted-foreground">
+                We work with businesses across <strong>India, UAE (Dubai), Saudi Arabia</strong>, and globally. Real-time collaboration in IST (India) and GST/AST (Middle East).
+              </p>
+            </div>
+            <div className="border-t border-border pt-6">
+              <h2 className="rule-label flex items-center gap-1.5">
+                <CreditCard className="size-3.5 text-brand" />
+                International Invoicing &amp; Payments
+              </h2>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Accepted: <strong>Stripe, Wise, International Wire Transfer, Debit/Credit Cards &amp; UPI</strong>. Transparent milestones with zero hidden fees.
               </p>
             </div>
           </Reveal>
@@ -252,30 +266,25 @@ function Field({
   label: string;
   name: string;
   type?: string;
-  error?: string | undefined;
+  error?: string;
   required?: boolean;
   placeholder?: string;
 }) {
   return (
     <div>
-      <label htmlFor={name} className="rule-label">
+      <label htmlFor={name} className="block text-sm font-medium text-foreground">
         {label}
-        {required && <span className="text-brand"> *</span>}
+        {required && <span className="ml-1 text-brand">*</span>}
       </label>
       <input
         id={name}
         name={name}
         type={type}
+        required={required}
         placeholder={placeholder}
-        aria-invalid={error ? true : undefined}
-        aria-describedby={error ? `${name}-error` : undefined}
-        className={cn(fieldClass, error ? "border-destructive" : "border-border focus:border-brand")}
+        className={cn(fieldClass, error ? "border-destructive" : "border-border")}
       />
-      {error && (
-        <p id={`${name}-error`} className="mt-1.5 text-xs text-destructive">
-          {error}
-        </p>
-      )}
+      {error && <p className="mt-1 text-xs text-destructive">{error}</p>}
     </div>
   );
 }
@@ -285,37 +294,32 @@ function SelectField({
   name,
   error,
   required,
-  defaultValue = "",
+  defaultValue,
   children,
 }: {
   label: string;
   name: string;
-  error?: string | undefined;
+  error?: string;
   required?: boolean;
   defaultValue?: string;
   children: React.ReactNode;
 }) {
   return (
     <div>
-      <label htmlFor={name} className="rule-label">
+      <label htmlFor={name} className="block text-sm font-medium text-foreground">
         {label}
-        {required && <span className="text-brand"> *</span>}
+        {required && <span className="ml-1 text-brand">*</span>}
       </label>
       <select
         id={name}
         name={name}
+        required={required}
         defaultValue={defaultValue}
-        aria-invalid={error ? true : undefined}
-        aria-describedby={error ? `${name}-error` : undefined}
-        className={cn(fieldClass, error ? "border-destructive" : "border-border focus:border-brand")}
+        className={cn(fieldClass, error ? "border-destructive" : "border-border")}
       >
         {children}
       </select>
-      {error && (
-        <p id={`${name}-error`} className="mt-1.5 text-xs text-destructive">
-          {error}
-        </p>
-      )}
+      {error && <p className="mt-1 text-xs text-destructive">{error}</p>}
     </div>
   );
 }
@@ -330,31 +334,26 @@ function TextareaField({
 }: {
   label: string;
   name: string;
-  error?: string | undefined;
+  error?: string;
   required?: boolean;
   rows?: number;
   placeholder?: string;
 }) {
   return (
     <div>
-      <label htmlFor={name} className="rule-label">
+      <label htmlFor={name} className="block text-sm font-medium text-foreground">
         {label}
-        {required && <span className="text-brand"> *</span>}
+        {required && <span className="ml-1 text-brand">*</span>}
       </label>
       <textarea
         id={name}
         name={name}
+        required={required}
         rows={rows}
         placeholder={placeholder}
-        aria-invalid={error ? true : undefined}
-        aria-describedby={error ? `${name}-error` : undefined}
-        className={cn(fieldClass, "resize-y", error ? "border-destructive" : "border-border focus:border-brand")}
+        className={cn(fieldClass, error ? "border-destructive" : "border-border")}
       />
-      {error && (
-        <p id={`${name}-error`} className="mt-1.5 text-xs text-destructive">
-          {error}
-        </p>
-      )}
+      {error && <p className="mt-1 text-xs text-destructive">{error}</p>}
     </div>
   );
 }
