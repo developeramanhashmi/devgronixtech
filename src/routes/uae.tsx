@@ -68,9 +68,9 @@ const gulfPerks = [
 const uaePackages = [
   {
     name: "Starter Presence",
-    price: "AED 499",
-    originalPrice: "AED 999",
-    approxInr: "₹11,200 approx",
+    price: "AED 249",
+    originalPrice: "AED 499",
+    approxInr: "₹6,500 approx",
     timeline: "48 - 72 Hours",
     tag: "Quick Launch",
     description: "Perfect for boutique services, consultants, and new businesses needing a clean digital face.",
@@ -86,10 +86,10 @@ const uaePackages = [
   },
   {
     name: "Business Growth Web",
-    price: "AED 999",
-    originalPrice: "AED 1,999",
-    approxInr: "₹22,500 approx",
-    timeline: "4 - 6 Days",
+    price: "AED 599",
+    originalPrice: "AED 999",
+    approxInr: "₹15,600 approx",
+    timeline: "4 - 7 Days",
     tag: "Most Popular in UAE",
     description: "Complete corporate website for established businesses, real estate brokers, clinics, and agencies.",
     features: [
@@ -125,17 +125,17 @@ const uaePackages = [
 const creativeServices = [
   {
     title: "Reels & Short Video Editing",
-    price: "From AED 99 / video",
+    price: "From AED 29 / video",
     desc: "High-retention captions, kinetic typography, b-roll cuts for Instagram, TikTok, and YouTube Shorts.",
   },
   {
     title: "Branding & Social Visuals",
-    price: "From AED 249 / package",
+    price: "From AED 99 / package",
     desc: "Premium social media templates, ad banners, logo identity, and brochures ready for print or web.",
   },
   {
     title: "Social Media Management",
-    price: "From AED 499 / month",
+    price: "From AED 99 / month",
     desc: "Content planning, post design, hashtag strategy, and brand growth management for Gulf businesses.",
   },
 ];
