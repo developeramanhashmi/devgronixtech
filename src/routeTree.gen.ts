@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as PartnerRouteImport } from './routes/partner'
+import { Route as UaeRouteImport } from './routes/uae'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ApiContactRouteImport } from './routes/api.contact'
 import { Route as PricingIndexRouteImport } from './routes/pricing.index'
@@ -40,6 +41,11 @@ const ContactRoute = ContactRouteImport.update({
 const PartnerRoute = PartnerRouteImport.update({
   id: '/partner',
   path: '/partner',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UaeRoute = UaeRouteImport.update({
+  id: '/uae',
+  path: '/uae',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -88,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/partner': typeof PartnerRoute
+  '/uae': typeof UaeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/contact': typeof ApiContactRoute
   '/pricing/$slug': typeof PricingSlugRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/partner': typeof PartnerRoute
+  '/uae': typeof UaeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/contact': typeof ApiContactRoute
   '/pricing/$slug': typeof PricingSlugRoute
@@ -117,6 +125,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/partner': typeof PartnerRoute
+  '/uae': typeof UaeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/contact': typeof ApiContactRoute
   '/pricing/$slug': typeof PricingSlugRoute
@@ -133,6 +142,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/partner'
+    | '/uae'
     | '/sitemap.xml'
     | '/api/contact'
     | '/pricing/$slug'
@@ -147,6 +157,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/partner'
+    | '/uae'
     | '/sitemap.xml'
     | '/api/contact'
     | '/pricing/$slug'
@@ -161,6 +172,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/partner'
+    | '/uae'
     | '/sitemap.xml'
     | '/api/contact'
     | '/pricing/$slug'
@@ -176,6 +188,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
   PartnerRoute: typeof PartnerRoute
+  UaeRoute: typeof UaeRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiContactRoute: typeof ApiContactRoute
   PricingSlugRoute: typeof PricingSlugRoute
@@ -216,6 +229,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PartnerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/uae': {
+      id: '/uae'
+      path: '/uae'
+      fullPath: '/uae'
+      preLoaderRoute: typeof UaeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -230,13 +250,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/pricing/': {
-      id: '/pricing/'
-      path: '/pricing'
-      fullPath: '/pricing/'
-      preLoaderRoute: typeof PricingIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/pricing/$slug': {
       id: '/pricing/$slug'
       path: '/pricing/$slug'
@@ -244,18 +257,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PricingSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/services/': {
-      id: '/services/'
-      path: '/services'
-      fullPath: '/services/'
-      preLoaderRoute: typeof ServicesIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/services/$slug': {
       id: '/services/$slug'
       path: '/services/$slug'
       fullPath: '/services/$slug'
       preLoaderRoute: typeof ServicesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing/': {
+      id: '/pricing/'
+      path: '/pricing'
+      fullPath: '/pricing/'
+      preLoaderRoute: typeof PricingIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/': {
+      id: '/services/'
+      path: '/services'
+      fullPath: '/services/'
+      preLoaderRoute: typeof ServicesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/works/': {
@@ -280,6 +300,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
   PartnerRoute: PartnerRoute,
+  UaeRoute: UaeRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiContactRoute: ApiContactRoute,
   PricingSlugRoute: PricingSlugRoute,
