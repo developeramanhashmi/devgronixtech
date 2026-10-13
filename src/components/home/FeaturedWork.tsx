@@ -31,8 +31,6 @@ export function FeaturedWork() {
     return true;
   });
 
-  const [first, second, ...others] = filteredProjects;
-
   return (
     <Section id="work" className="border-b border-border bg-surface/40">
       <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
@@ -40,7 +38,7 @@ export function FeaturedWork() {
           index="02"
           label="Selected work"
           title="Featured builds & verified client projects."
-          description="A selection of live client projects and engineered concept systems delivering measurable results."
+          description="A curated selection of live client websites and engineered software systems delivering measurable business growth."
         />
         <Reveal delay={100} className="shrink-0">
           <Link
@@ -75,22 +73,24 @@ export function FeaturedWork() {
         })}
       </div>
 
-      <div className="mt-10 grid gap-4 lg:grid-cols-12">
-        {first && (
-          <Reveal className="lg:col-span-7">
-            <ProjectCard project={first} size="lg" />
-          </Reveal>
-        )}
-        {second && (
-          <Reveal delay={80} className="lg:col-span-5">
-            <ProjectCard project={second} />
-          </Reveal>
-        )}
-        {others.map((project, i) => (
-          <Reveal key={project.id} delay={i * 70} className="lg:col-span-6">
-            <ProjectCard project={project} size="sm" />
+      {/* 3-Column Clean Uniform Grid */}
+      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {filteredProjects.slice(0, 6).map((project, i) => (
+          <Reveal key={project.id} delay={i * 60}>
+            <ProjectCard project={project} />
           </Reveal>
         ))}
+      </div>
+
+      {/* Bottom Link to Full Portfolio */}
+      <div className="mt-10 flex justify-center">
+        <Link
+          to="/works"
+          className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground transition-colors hover:text-brand"
+        >
+          View all 15+ engineering and creative case studies
+          <ArrowRight className="size-3.5" />
+        </Link>
       </div>
     </Section>
   );
