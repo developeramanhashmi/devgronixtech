@@ -11,7 +11,7 @@ export const SITE = "DEVGRONIX";
  * Production origin used for canonical URLs, og:url, JSON-LD and the sitemap.
  * Change this single constant when a custom domain is connected.
  */
-export const SITE_URL = "https://devgronix.com";
+export const SITE_URL = "https://www.devgronix.com";
 
 /** Branded default share image (1200x630). */
 export const OG_IMAGE = `${SITE_URL}/og-image.png`;
