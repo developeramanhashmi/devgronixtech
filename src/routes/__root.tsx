@@ -9,6 +9,7 @@ import {
   type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { LeadPopup } from "@/components/site/LeadPopup";
 
 import appCss from "../styles.css?url";
 import { jsonLdScript, organizationSchema, websiteSchema } from "@/lib/seo";
@@ -156,6 +157,7 @@ function RootComponent() {
       </main>
       <Footer />
       <MobileActionBar />
+      <LeadPopup />
       <Toaster />
     </QueryClientProvider>
   );
