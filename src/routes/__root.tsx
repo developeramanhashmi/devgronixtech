@@ -84,7 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=5" },
       { title: "DEVGRONIX | Technology, Design & Digital Growth" },
       {
         name: "description",
@@ -109,12 +109,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     scripts: [
       {
-        // Light is the default. Re-apply a previously chosen dark theme before
-        // first paint so there is no flash. System preference is ignored.
         children:
           "try{if(localStorage.getItem('devgronix-theme')==='dark'){document.documentElement.classList.add('dark')}}catch(e){}",
       },
-      // Sitewide entity: DEVGRONIX as one organization, connected to the website.
       jsonLdScript([organizationSchema, websiteSchema]),
     ],
   }),
@@ -127,11 +124,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="overflow-x-hidden">
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="overflow-x-hidden w-full max-w-full">
         {children}
         <Scripts />
       </body>
@@ -151,8 +148,7 @@ function RootComponent() {
         Skip to content
       </a>
       <Header />
-      <main id="main" className="pb-16 md:pb-0">
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+      <main id="main" className="pb-16 md:pb-0 overflow-x-hidden">
         <Outlet />
       </main>
       <Footer />
