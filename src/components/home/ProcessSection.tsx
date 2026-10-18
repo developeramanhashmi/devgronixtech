@@ -78,16 +78,16 @@ export function ProcessSection() {
         description="Every milestone has a concrete deliverable you can inspect and approve before the next sprint starts."
       />
 
-      <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {steps.map((step, i) => {
           const Icon = step.icon;
           return (
             <Reveal
               key={step.phase}
               delay={i * 60}
-              className="group relative flex flex-col justify-between rounded-2xl border border-border/80 bg-surface p-7 shadow-xs transition-all duration-300 hover:border-brand/60 hover:shadow-xl dark:border-white/10 dark:bg-surface-strong/80"
+              className="group relative flex w-full min-w-0 flex-col justify-between rounded-2xl border border-border/80 bg-surface p-5 shadow-xs transition-all duration-300 hover:border-brand/60 hover:shadow-xl sm:p-7 dark:border-white/10 dark:bg-surface-strong/80"
             >
-              <div>
+              <div className="min-w-0">
                 <div className="flex items-center justify-between border-b border-border/60 pb-4">
                   <span className="rounded-full border border-brand/30 bg-brand-soft px-3 py-1 text-xs font-bold text-brand">
                     {step.phase}
@@ -98,22 +98,24 @@ export function ProcessSection() {
                 </div>
 
                 <div className="mt-5 flex items-center gap-3">
-                  <div className="grid size-10 place-items-center rounded-xl bg-surface-strong text-brand transition-colors group-hover:bg-brand group-hover:text-brand-foreground">
+                  <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-surface-strong text-brand transition-colors group-hover:bg-brand group-hover:text-brand-foreground">
                     <Icon className="size-5" />
                   </div>
-                  <h3 className="font-display text-lg font-bold text-foreground">
+                  <h3 className="font-display text-base font-bold text-foreground sm:text-lg">
                     {step.title}
                   </h3>
                 </div>
 
-                <p className="mt-3.5 text-sm leading-relaxed text-muted-foreground">
+                <p className="mt-3.5 text-xs leading-relaxed text-muted-foreground sm:text-sm">
                   {step.description}
                 </p>
               </div>
 
-              <div className="mt-6 flex items-center gap-2 rounded-lg border border-border/70 bg-background/70 px-3.5 py-2 text-xs font-semibold text-foreground">
-                <CheckCircle2 className="size-3.5 shrink-0 text-chart-3" />
-                <span className="truncate">{step.deliverable}</span>
+              <div className="mt-6 flex items-start gap-2.5 rounded-lg border border-border/70 bg-background/70 px-3.5 py-2.5 text-xs font-semibold text-foreground">
+                <CheckCircle2 className="mt-0.5 size-3.5 shrink-0 text-chart-3" />
+                <span className="min-w-0 leading-snug break-words">
+                  {step.deliverable}
+                </span>
               </div>
             </Reveal>
           );
