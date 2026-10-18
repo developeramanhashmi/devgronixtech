@@ -35,6 +35,7 @@ export interface SeoInput {
 }
 
 /** Builds the full head metadata (meta + canonical link) for an indexable page. */
+/** Builds the full head metadata (meta + canonical link) for an indexable page. */
 export function seoHead({
   title,
   description,
@@ -55,14 +56,23 @@ export function seoHead({
       { property: "og:url", content: url },
       { property: "og:site_name", content: SITE },
       { property: "og:image", content: image },
+      { property: "og:image:secure_url", content: image },
+      { property: "og:image:type", content: "image/png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "DEVGRONIX - Software, Web Development & Digital Growth Agency" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
       { name: "twitter:image", content: image },
     ],
-    links: [{ rel: "canonical", href: url }],
+    links: [
+      { rel: "canonical", href: url },
+      { rel: "image_src", href: image },
+    ],
   };
 }
+
 
 /** Metadata for a "record not found" state — never indexable. */
 export function notFoundHead(title: string) {
