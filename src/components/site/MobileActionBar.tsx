@@ -1,24 +1,36 @@
 import { useState, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, MessageCircle, Phone, X } from "lucide-react";
+import { 
+  Menu, 
+  MessageCircle, 
+  Phone, 
+  X, 
+  Home, 
+  Layers, 
+  Briefcase, 
+  Tag, 
+  Users, 
+  Info, 
+  Mail, 
+  ArrowRight 
+} from "lucide-react";
 
 import { Logo } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
 
-const nav = [
-  { label: "Home", to: "/" as const },
-  { label: "Services", to: "/services" as const },
-  { label: "Works", to: "/works" as const },
-  { label: "About", to: "/about" as const },
-  { label: "Pricing", to: "/pricing" as const },
-  { label: "Partner", to: "/partner" as const },
-  { label: "Contact", to: "/contact" as const },
+const navItems = [
+  { label: "Home", to: "/" as const, icon: Home },
+  { label: "Services", to: "/services" as const, icon: Layers },
+  { label: "Works", to: "/works" as const, icon: Briefcase },
+  { label: "Pricing", to: "/pricing" as const, icon: Tag },
+  { label: "Partner", to: "/partner" as const, icon: Users },
+  { label: "About", to: "/about" as const, icon: Info },
+  { label: "Contact", to: "/contact" as const, icon: Mail },
 ];
 
 export function MobileActionBar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Lock scroll when bottom sheet is open
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
     return () => {
@@ -28,30 +40,30 @@ export function MobileActionBar() {
 
   return (
     <>
-      {/* Backdrop Dim */}
+      {/* Dim Backdrop */}
       <div
         onClick={() => setIsOpen(false)}
         aria-hidden={!isOpen}
-        className={`fixed inset-0 z-50 bg-black/60 backdrop-blur-xs transition-opacity duration-300 md:hidden ${
+        className={`fixed inset-0 z-50 bg-black/60 backdrop-blur-xs transition-opacity duration-200 md:hidden ${
           isOpen ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       />
 
-      {/* Modern Bottom Sheet (Slides UP smoothly from bottom) */}
+      {/* Modern Compact Floating Sheet (Doesn't cover whole screen) */}
       <div
         role="dialog"
         aria-modal="true"
         aria-label="Navigation Menu"
         aria-hidden={!isOpen}
-        className={`fixed inset-x-0 bottom-0 z-50 flex max-h-[85vh] flex-col rounded-t-3xl border-t border-border bg-background p-6 shadow-2xl transition-transform duration-300 ease-out md:hidden ${
-          isOpen ? "translate-y-0" : "invisible translate-y-full"
+        className={`fixed inset-x-3 bottom-3 z-50 mx-auto max-w-md rounded-3xl border border-border/80 bg-background/95 p-4 shadow-2xl backdrop-blur-2xl transition-all duration-300 ease-out md:hidden ${
+          isOpen ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-12 opacity-0"
         }`}
       >
-        {/* Drag Handle Bar */}
-        <div className="mx-auto mb-4 h-1.5 w-12 rounded-full bg-muted-foreground/30" />
+        {/* Handle Bar */}
+        <div className="mx-auto mb-2.5 h-1 w-10 rounded-full bg-muted-foreground/30" />
 
-        {/* Header inside Sheet */}
-        <div className="flex items-center justify-between pb-3 border-b border-border/70">
+        {/* Top Header inside Modal */}
+        <div className="flex items-center justify-between border-b border-border/70 pb-3">
           <Logo />
           <div className="flex items-center gap-2">
             <ThemeToggle />
@@ -59,54 +71,58 @@ export function MobileActionBar() {
               type="button"
               onClick={() => setIsOpen(false)}
               aria-label="Close menu"
-              className="interactive inline-flex size-9 items-center justify-center rounded-full border border-border text-foreground hover:bg-muted"
+              className="interactive inline-flex size-8 items-center justify-center rounded-full border border-border text-foreground hover:bg-muted"
             >
               <X className="size-4" />
             </button>
           </div>
         </div>
 
-        {/* Links List */}
-        <ul className="my-4 flex flex-col gap-1 overflow-y-auto">
-          {nav.map((item) => (
-            <li key={item.to}>
+        {/* Sleek 2-Column Grid */}
+        <div className="my-3 grid grid-cols-2 gap-2">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            return (
               <Link
+                key={item.to}
                 to={item.to}
                 onClick={() => setIsOpen(false)}
                 activeOptions={{ exact: item.to === "/" }}
-                activeProps={{ className: "text-brand font-semibold bg-brand/10 dark:bg-brand/20" }}
-                className="flex items-center rounded-xl px-4 py-3 text-base font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                activeProps={{ className: "border-brand/40 bg-brand/10 text-brand font-semibold shadow-xs" }}
+                className="flex items-center gap-2.5 rounded-xl border border-border/70 bg-surface/80 px-3 py-2.5 text-xs font-medium text-foreground transition-all hover:border-brand/30 hover:bg-muted"
               >
-                {item.label}
+                <Icon className="size-4 shrink-0 text-brand" />
+                <span>{item.label}</span>
               </Link>
-            </li>
-          ))}
-        </ul>
+            );
+          })}
+        </div>
 
-        {/* Bottom CTA Button */}
-        <div className="pt-2">
+        {/* Bottom CTA */}
+        <div className="pt-1">
           <Link
             to="/contact"
             onClick={() => setIsOpen(false)}
-            className="flex w-full items-center justify-center rounded-2xl bg-brand py-3 text-center text-sm font-semibold text-brand-foreground shadow-md active:scale-[0.99]"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand py-2.5 text-center text-xs font-semibold text-brand-foreground shadow-md transition-all active:scale-[0.99]"
           >
-            Get a Quote
+            <span>Get a Free Quote</span>
+            <ArrowRight className="size-3.5" />
           </Link>
         </div>
       </div>
 
-      {/* Fixed Unified Bottom Dock (3-Item Bar) */}
+      {/* Modern Floating Island Dock */}
       <aside
-        aria-label="Quick Navigation and Contact"
-        className="fixed inset-x-0 bottom-0 z-40 border-t border-border/80 bg-background/95 p-2.5 backdrop-blur-xl md:hidden"
+        aria-label="Mobile Navigation"
+        className="fixed bottom-3 inset-x-3 z-40 mx-auto max-w-sm md:hidden"
       >
-        <div className="mx-auto flex max-w-md items-center gap-2">
-          {/* Menu Trigger Button */}
+        <div className="flex items-center justify-between gap-1.5 rounded-full border border-border/80 bg-background/90 p-1.5 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-zinc-900/90">
+          {/* Menu Button */}
           <button
             type="button"
             onClick={() => setIsOpen(true)}
             aria-label="Open navigation menu"
-            className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-border-strong bg-surface py-2.5 text-xs font-semibold text-foreground transition-colors hover:border-brand/40 active:scale-[0.98]"
+            className="flex flex-1 items-center justify-center gap-1.5 rounded-full border border-border-strong bg-surface py-2 text-xs font-semibold text-foreground transition-all active:scale-95"
           >
             <Menu className="size-3.5 text-brand" aria-hidden="true" />
             <span>Menu</span>
@@ -115,10 +131,10 @@ export function MobileActionBar() {
           {/* Call Button */}
           <a
             href="tel:+917070519128"
-            className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-border-strong bg-surface py-2.5 text-xs font-semibold text-foreground transition-colors hover:border-brand/40 active:scale-[0.98]"
+            className="flex flex-1 items-center justify-center gap-1.5 rounded-full border border-border-strong bg-surface py-2 text-xs font-semibold text-foreground transition-all active:scale-95"
           >
             <Phone className="size-3.5 text-muted-foreground" aria-hidden="true" />
-            <span>Call Us</span>
+            <span>Call</span>
           </a>
 
           {/* WhatsApp Button */}
@@ -126,7 +142,7 @@ export function MobileActionBar() {
             href="https://wa.me/917070519128?text=Hi%20DEVGRONIX,%20I'm%20interested%20in%20your%20services."
             target="_blank"
             rel="noopener noreferrer"
-            className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-chart-3 py-2.5 text-xs font-semibold text-primary-foreground shadow-sm transition-all hover:opacity-90 active:scale-[0.98]"
+            className="flex flex-1 items-center justify-center gap-1.5 rounded-full bg-[#25D366] py-2 text-xs font-semibold text-white shadow-sm transition-all active:scale-95 hover:opacity-95"
           >
             <MessageCircle className="size-3.5" aria-hidden="true" />
             <span>WhatsApp</span>
