@@ -548,6 +548,43 @@ export const services: Service[] = [
     status: "published",
     order: 15,
   },
+  {
+    id: "svc-printing",
+    title: "Custom Printing & Corporate Branding",
+    slug: "custom-printing-branding",
+    group: "Design & Creative",
+    tagline: "Custom apparel, uniforms, and corporate merchandise solutions.",
+    description:
+      "High-grade branded apparel, custom T-shirts, corporate uniforms, drinkware, packaging and marketing collateral with Pan-India delivery.",
+    icon: "Shapes",
+    overview:
+      "Apne business ko sirf promote mat kijiye — apni branding ko professional banaiye! DEVGRONIX provides complete custom printing and corporate merchandise services with modern design support, premium fabrics and printing finishes, and fast Pan-India shipping.",
+    offers: [
+      "Custom T-Shirts & Polo Shirts (DTF, Screen & Embroidery)",
+      "Hoodies, Winter Jackets & Corporate Uniforms",
+      "Custom Mugs, Drinkware Bottles & Caps",
+      "Business Cards, Stationery & Letterheads",
+      "Stickers, Product Labels & Packaging Boxes",
+      "Brochures, Flyers & Marketing Collaterals",
+    ],
+    capabilities: [
+      "DTF, Screen Printing, Sublimation & Embroidery",
+      "Pre-production digital mockups & proofs",
+      "Bulk wholesale pricing for offices, events & colleges",
+      "Pan-India doorstep delivery with secure packing",
+      "Low minimum order quantities (MOQ)",
+      "Complete design and vector artwork support",
+    ],
+    helps: [
+      { title: "Professional Brand Image", body: "Equip your team and clients with premium branded merchandise that leaves an impression." },
+      { title: "Pre-Production Digital Proofs", body: "Review exact colors, logo sizing and placements before manufacturing starts." },
+      { title: "Pan-India Reliable Shipping", body: "Direct tracked delivery to your corporate office, campus or event doorstep." },
+    ],
+    technologies: ["DTF Printing", "Screen Printing", "Sublimation", "Embroidery", "Offset Printing", "Pan-India Shipping"],
+    featured: true,
+    status: "published",
+    order: 16,
+  },
 ];
 
 export const publishedServices = services
