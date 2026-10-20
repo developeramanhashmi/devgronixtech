@@ -99,6 +99,18 @@ function ServiceDetailPage() {
     .filter((s) => s.group === service.group && s.id !== service.id)
     .slice(0, 4);
 
+  // Normalize deliverables and outcomes safely
+  const deliverablesList = (service as any).deliverables || (service.offers || []).map((o: string) => ({
+    title: o,
+    description: "Professional deliverable tailored to your scope.",
+  }));
+
+  const outcomesList = (service as any).outcomes || (service.helps || []).map((h: { title: string; body: string }) => ({
+    metric: "100%",
+    label: h.title,
+    description: h.body,
+  }));
+
   return (
     <>
       <PageHero label={service.group} title={seo.h1} description={service.tagline}>
@@ -164,7 +176,7 @@ function ServiceDetailPage() {
       <Section className="border-b border-border">
         <SectionHeading index="02" label="Deliverables" title="What ships at the end." />
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {service.deliverables.map((item, i) => (
+          {deliverablesList.map((item: any, i: number) => (
             <Reveal
               key={item.title}
               delay={i * 60}
@@ -183,9 +195,9 @@ function ServiceDetailPage() {
       <Section className="border-b border-border bg-surface/40">
         <SectionHeading index="03" label="Outcomes" title="Commercial and operational return." />
         <div className="mt-12 grid gap-6 sm:grid-cols-3">
-          {service.outcomes.map((item, i) => (
+          {outcomesList.map((item: any, i: number) => (
             <Reveal
-              key={item.metric}
+              key={item.metric + i}
               delay={i * 80}
               className="rounded-xl border border-border bg-background p-7"
             >
@@ -229,8 +241,7 @@ function ServiceDetailPage() {
         ) : (
           <div className="mt-12 rounded-xl border border-dashed border-border p-12 text-center">
             <p className="text-sm text-muted-foreground">
-              Case studies for this service are being documented. Contact us for private client
-              references.
+              Case studies for this service are being documented. Contact us for private client references.
             </p>
             <Link
               to="/contact"
@@ -240,109 +251,38 @@ function ServiceDetailPage() {
             </Link>
           </div>
         )}
-        {projects.length > 0 && (
-          <Reveal className="mt-10 text-center">
-            <Link
-              to="/works"
-              className="interactive inline-flex items-center gap-2 rounded-full border border-border-strong px-5 py-2.5 text-sm font-semibold text-foreground hover:border-brand hover:text-brand"
-            >
-              View all work
-            </Link>
-          </Reveal>
-        )}
       </Section>
 
-      <Section className="border-b border-border">
-        <SectionHeading index="06" label="Process" title="How the engagement runs." />
-        <ol className="mt-12 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {homepage.process.map((step, i) => (
-            <Reveal as="li" key={step.number} delay={i * 50} className="bg-background p-7">
-              <span className="font-display text-2xl font-bold text-brand/70">{step.number}</span>
-              <h3 className="mt-4 font-display text-base font-bold text-foreground">{step.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.body}</p>
-            </Reveal>
-          ))}
-        </ol>
-      </Section>
-
-      {seo.faqs.length > 0 && (
-        <Section className="border-b border-border bg-surface/40">
+      {seo.faqs && seo.faqs.length > 0 && (
+        <Section className="border-b border-border">
           <SectionHeading
-            index="07"
+            index="06"
             label="FAQ"
-            title={`${service.title} — common questions.`}
+            title={`Frequently asked questions about ${service.title.toLowerCase()}.`}
           />
-          <Accordion type="single" collapsible className="mt-12">
-            {seo.faqs.map((faq, i) => (
-              <AccordionItem key={faq.question} value={`faq-${i}`}>
-                <AccordionTrigger className="text-left font-display text-base font-semibold text-foreground">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-sm leading-relaxed text-muted-foreground">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          <div className="mt-12 max-w-3xl">
+            <Accordion type="single" collapsible className="w-full">
+              {seo.faqs.map((faq, i) => (
+                <AccordionItem key={faq.question} value={`faq-${i}`}>
+                  <AccordionTrigger className="text-left font-display font-semibold text-foreground">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
         </Section>
       )}
 
-      <Section className="border-b border-border bg-surface/40">
-        <SectionHeading label="Explore other services" title={`More from ${service.group}.`} />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {siblings.map((other) => (
-            <Link
-              key={other.id}
-              to="/services/$slug"
-              params={{ slug: other.slug }}
-              className="card-interactive group rounded-xl border border-border bg-background p-6"
-            >
-              <ServiceIcon
-                name={other.icon}
-                className="size-5 text-foreground transition-all duration-300 group-hover:-translate-y-0.5 group-hover:text-brand"
-              />
-              <h3 className="mt-5 font-display text-base font-bold text-foreground">{other.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{other.tagline}</p>
-            </Link>
-          ))}
-        </div>
-
-        <nav
-          aria-label="Service navigation"
-          className="mt-10 grid gap-4 border-t border-border pt-10 sm:grid-cols-2"
-        >
-          {adjacent.previous && (
-            <Link
-              to="/services/$slug"
-              params={{ slug: adjacent.previous.slug }}
-              className="card-interactive group rounded-xl border border-border bg-background p-6"
-            >
-              <span className="rule-label inline-flex items-center gap-2">
-                <ArrowLeft className="size-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
-                Previous service
-              </span>
-              <p className="mt-3 font-display text-lg font-bold text-foreground">
-                {adjacent.previous.title}
-              </p>
-            </Link>
-          )}
-          {adjacent.next && (
-            <Link
-              to="/services/$slug"
-              params={{ slug: adjacent.next.slug }}
-              className="card-interactive group rounded-xl border border-border bg-background p-6 sm:text-right"
-            >
-              <span className="rule-label inline-flex items-center gap-2 sm:flex-row-reverse">
-                <ArrowUpRight className="size-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                Next service
-              </span>
-              <p className="mt-3 font-display text-lg font-bold text-foreground">{adjacent.next.title}</p>
-            </Link>
-          )}
-        </nav>
-      </Section>
-
-      <CtaSection title={`Need ${service.title.toLowerCase()}?`} />
+      <CtaSection
+        title={homepage.cta.title}
+        description={homepage.cta.description}
+        primaryCta={homepage.cta.primaryCta}
+        secondaryCta={homepage.cta.secondaryCta}
+      />
     </>
   );
 }
