@@ -485,6 +485,56 @@ const seeds: ServicePricingSeed[] = [
       customPlan("per package"),
     ],
   },
+  {
+    serviceId: "svc-printing",
+    billingType: "per order",
+    plans: [
+      {
+        name: "Starter Merch",
+        description: "Small teams, creators & sample test orders",
+        price: "₹999",
+        originalPrice: "₹1,499",
+        features: [
+          "Custom T-Shirts or Caps batch",
+          "High-definition logo print (DTF / Screen)",
+          "Free digital mockup before print",
+          "Color & fabric consultation",
+          "Doorstep delivery across India",
+          "WhatsApp consultation & proofing",
+        ],
+      },
+      {
+        name: "Corporate Kit",
+        description: "Best for startups, offices & brand launch",
+        price: "₹2,999",
+        originalPrice: "₹4,999",
+        popular: true,
+        features: [
+          "Branded T-Shirts / Polos + Caps",
+          "Premium Mugs or Drinkware bottles",
+          "Business Cards & Stationery set",
+          "Custom stickers & badge pack",
+          "Digital proofing & mockup sign-off",
+          "Priority dispatch & tracking",
+        ],
+      },
+      {
+        name: "Bulk & Uniforms",
+        description: "Offices, fests & events (50+ units)",
+        price: "Best Wholesale Rate",
+        originalPrice: "Custom Quote",
+        features: [
+          "Corporate Uniforms, Hoodies & Jackets",
+          "Custom Packaging Boxes & Labels",
+          "Full Marketing Collateral (Flyers/Brochures)",
+          "Lowest wholesale per-unit pricing",
+          "Pan-India scheduled shipping",
+          "Physical sample approval available",
+        ],
+      },
+      customPlan("per order"),
+    ],
+  },
 ];
 
 export const pricingPlans: PricingPlan[] = seeds.flatMap((seed) =>
