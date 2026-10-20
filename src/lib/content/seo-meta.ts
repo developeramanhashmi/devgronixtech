@@ -99,6 +99,42 @@ export const serviceSeo: Record<string, ServiceSeo> = {
       },
     ],
   },
+  "custom-printing-branding": {
+    metaTitle: "Custom Printing & Corporate Merchandise Solutions | DEVGRONIX",
+    metaDescription:
+      "Order custom T-shirts, corporate uniforms, mugs, business cards, stickers, and marketing collateral with premium printing and Pan-India delivery by DEVGRONIX.",
+    h1: "Custom Printing & Corporate Branding Solutions",
+    keywords: [
+      "custom t shirt printing hyderabad",
+      "corporate merchandise printing india",
+      "custom hoodies corporate uniforms",
+      "business card and stationery printing",
+      "custom packaging and stickers",
+      "devgronix custom printing",
+    ],
+    faqs: [
+      {
+        question: "What is the minimum order quantity (MOQ)?",
+        answer:
+          "We support flexible low MOQs for startups and small batches, as well as high-volume wholesale pricing for corporate events and bulk uniform orders.",
+      },
+      {
+        question: "Do you deliver pan-India?",
+        answer:
+          "Yes! We deliver across India with tracked courier partners directly to your office, campus, or doorstep.",
+      },
+      {
+        question: "Will I get to see a design proof before printing?",
+        answer:
+          "Yes, we provide digital 3D/flat mockups of your apparel and merchandise for your approval before printing starts.",
+      },
+      {
+        question: "How do I get a custom quotation?",
+        answer:
+          "Message us on WhatsApp (+91 70705 19128) with your required quantity, logo artwork, and items. We share a free quotation within a few hours.",
+      },
+    ],
+  },
   "saas-and-web-applications": {
     metaTitle: "SaaS & Web Application Development | DEVGRONIX",
     metaDescription:
