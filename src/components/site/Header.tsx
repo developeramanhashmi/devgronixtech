@@ -34,109 +34,54 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 pt-2.5 sm:pt-3.5">
-      <style>{`
-        @keyframes nav-beam-spin {
-          0% { stroke-dashoffset: 0; }
-          100% { stroke-dashoffset: -100; }
-        }
-        .nav-beam-stroke {
-          animation: nav-beam-spin 8s linear infinite;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .nav-beam-stroke { animation: none; }
-        }
-      `}</style>
+    <header className="fixed inset-x-0 top-0 z-50 pt-2.5 sm:pt-4">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-8 lg:px-12">
-        <div className="relative rounded-full">
-          {/* Animated Glowing Traveling Border (Hollow line running around all sides) */}
-          <svg
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 size-full overflow-visible rounded-full"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <defs>
-              <linearGradient id="nav-beam-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#f97316" stopOpacity="0" />
-                <stop offset="30%" stopColor="#f97316" stopOpacity="0.2" />
-                <stop offset="70%" stopColor="#f97316" stopOpacity="1" />
-                <stop offset="100%" stopColor="#38bdf8" stopOpacity="1" />
-              </linearGradient>
-            </defs>
-            {/* Base border */}
-            <rect
-              x="1"
-              y="1"
-              width="calc(100% - 2px)"
-              height="calc(100% - 2px)"
-              rx="9999"
-              fill="none"
-              className="stroke-border/70 dark:stroke-white/12"
-              strokeWidth="1"
-            />
-            {/* Traveling glowing border beam */}
-            <rect
-              x="1"
-              y="1"
-              width="calc(100% - 2px)"
-              height="calc(100% - 2px)"
-              rx="9999"
-              fill="none"
-              stroke="url(#nav-beam-grad)"
-              strokeWidth="2"
-              pathLength="100"
-              strokeDasharray="22 78"
-              className="nav-beam-stroke"
-            />
-          </svg>
+        <nav
+          aria-label="Primary"
+          className={`relative z-10 flex items-center justify-between gap-4 rounded-full border border-border/80 px-4 transition-all duration-300 sm:px-6 ${
+            scrolled
+              ? "bg-surface/95 shadow-lg backdrop-blur-xl py-2 dark:border-white/15 dark:bg-surface-strong/95"
+              : "bg-surface/85 shadow-sm backdrop-blur-lg py-2.5 dark:border-white/10 dark:bg-surface/90"
+          }`}
+        >
+          <Link to="/" aria-label="DEVGRONIX home" className="interactive shrink-0">
+            <Logo />
+          </Link>
 
-          <nav
-            aria-label="Primary"
-            className={`relative z-10 flex items-center justify-between gap-4 rounded-full px-4 transition-all duration-300 sm:px-5 ${
-              scrolled
-                ? "bg-background/90 shadow-md backdrop-blur-xl dark:bg-surface-strong/95 dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)] py-2"
-                : "bg-background/80 shadow-sm backdrop-blur-lg dark:bg-surface/90 dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)] py-2 sm:py-2.5"
-            }`}
-          >
-            <Link to="/" aria-label="DEVGRONIX home" className="interactive shrink-0">
-              <Logo />
+          <ul className="hidden items-center gap-1.5 lg:flex">
+            {nav.map((item) => (
+              <li key={item.to}>
+                <Link
+                  to={item.to}
+                  activeOptions={{ exact: item.to === "/" }}
+                  activeProps={{ className: "text-brand font-semibold bg-brand/10 dark:bg-brand/20" }}
+                  className="nav-link inline-flex rounded-full px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground dark:text-foreground/80 dark:hover:text-brand"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex items-center gap-2.5">
+            <ThemeToggle />
+            <Link
+              to="/contact"
+              className="interactive hidden rounded-full bg-brand px-4 py-2 text-sm font-semibold text-brand-foreground shadow-sm hover:opacity-90 sm:inline-flex"
+            >
+              Get a Quote
             </Link>
-
-            <ul className="hidden items-center gap-1 lg:flex">
-              {nav.map((item) => (
-                <li key={item.to}>
-                  <Link
-                    to={item.to}
-                    activeOptions={{ exact: item.to === "/" }}
-                    activeProps={{ className: "text-brand font-semibold" }}
-                    className="nav-link inline-flex rounded-full px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground dark:text-foreground/80 dark:hover:text-brand"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-
-            <div className="flex items-center gap-2">
-              <ThemeToggle />
-              <Link
-                to="/contact"
-                className="interactive hidden rounded-full bg-brand px-4 py-2 text-sm font-semibold text-brand-foreground hover:opacity-90 sm:inline-flex"
-              >
-                Get a Quote
-              </Link>
-              <button
-                type="button"
-                onClick={() => setOpen(true)}
-                aria-label="Open menu"
-                aria-expanded={open}
-                className="interactive inline-flex size-9 items-center justify-center rounded-full border border-border text-foreground lg:hidden"
-              >
-                <Menu className="size-4" />
-              </button>
-            </div>
-          </nav>
-        </div>
+            <button
+              type="button"
+              onClick={() => setOpen(true)}
+              aria-label="Open menu"
+              aria-expanded={open}
+              className="interactive inline-flex size-9 items-center justify-center rounded-full border border-border text-foreground hover:bg-muted lg:hidden"
+            >
+              <Menu className="size-4" />
+            </button>
+          </div>
+        </nav>
       </div>
 
       {/* Mobile Drawer */}
@@ -162,21 +107,21 @@ export function Header() {
             type="button"
             onClick={() => setOpen(false)}
             aria-label="Close menu"
-            className="interactive inline-flex size-9 items-center justify-center rounded-full border border-border text-foreground"
+            className="interactive inline-flex size-9 items-center justify-center rounded-full border border-border text-foreground hover:bg-muted"
           >
             <X className="size-4" />
           </button>
         </div>
 
-        <ul className="flex flex-col">
+        <ul className="my-6 flex flex-col gap-1.5">
           {nav.map((item) => (
             <li key={item.to}>
               <Link
                 to={item.to}
                 onClick={() => setOpen(false)}
                 activeOptions={{ exact: item.to === "/" }}
-                activeProps={{ className: "text-brand font-semibold" }}
-                className="block border-b border-border/60 py-3 text-sm font-medium tracking-wide text-foreground/85 transition-colors hover:text-brand"
+                activeProps={{ className: "text-brand font-semibold bg-brand/10" }}
+                className="flex items-center rounded-xl px-4 py-2.5 text-base font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
               >
                 {item.label}
               </Link>
@@ -184,12 +129,11 @@ export function Header() {
           ))}
         </ul>
 
-        <div className="flex items-center justify-between gap-3 border-t border-border pt-4">
-          <ThemeToggle />
+        <div className="border-t border-border pt-4">
           <Link
             to="/contact"
             onClick={() => setOpen(false)}
-            className="interactive inline-flex flex-1 items-center justify-center rounded-full bg-brand py-2.5 text-xs font-semibold text-brand-foreground hover:opacity-90"
+            className="flex w-full items-center justify-center rounded-full bg-brand py-2.5 text-center text-sm font-semibold text-brand-foreground shadow-sm"
           >
             Get a Quote
           </Link>
