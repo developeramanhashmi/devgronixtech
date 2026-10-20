@@ -110,7 +110,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     scripts: [
       {
         children:
-          "try{if(localStorage.getItem('devgronix-theme')==='dark'){document.documentElement.classList.add('dark')}}catch(e){}",
+          // "try{if(localStorage.getItem('devgronix-theme')==='dark'){document.documentElement.classList.add('dark')}}catch(e){}",
+          "try{const t=localStorage.getItem('devgronix-theme');if(t==='dark'){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}}catch(e){}",
       },
       jsonLdScript([organizationSchema, websiteSchema]),
     ],
