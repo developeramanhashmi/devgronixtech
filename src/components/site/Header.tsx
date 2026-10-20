@@ -25,7 +25,8 @@ export function Header() {
   }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40 pt-2.5 sm:pt-4">
+    // Hidden on mobile (< 768px), visible only on tablet and desktop
+    <header className="hidden md:block fixed inset-x-0 top-0 z-40 pt-2.5 sm:pt-4">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-8 lg:px-12">
         <nav
           aria-label="Primary"
@@ -40,7 +41,7 @@ export function Header() {
             <Logo />
           </Link>
 
-          {/* Desktop Navigation Links (Clean text, NO underlines) */}
+          {/* Desktop Navigation Links (Clean pill highlights, no lines) */}
           <ul className="hidden items-center gap-1.5 lg:flex">
             {nav.map((item) => (
               <li key={item.to}>
@@ -56,7 +57,7 @@ export function Header() {
             ))}
           </ul>
 
-          {/* Right Action Buttons */}
+          {/* Right Actions */}
           <div className="flex items-center gap-2.5">
             <ThemeToggle />
             <Link
