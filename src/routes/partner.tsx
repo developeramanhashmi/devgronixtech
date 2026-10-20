@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import {
   ArrowRight,
   CheckCircle2,
-  DollarSign,
+  Copy,
+  Download,
   Gift,
   HelpCircle,
   MessageCircle,
@@ -28,7 +29,7 @@ export const Route = createFileRoute("/partner")({
     ...seoHead({
       title: "Partner & Referral Program | Earn up to 20% Commission | DEVGRONIX",
       description:
-        "Join the DEVGRONIX Affiliate & Referral Program. Refer clients for website development, graphic design, or video editing and earn up to 20% instant UPI payouts.",
+        "Join DEVGRONIX Partner Program. Refer clients for websites, custom merchandise printing, or video editing and earn up to 20% instant UPI payouts + ₹100 welcome bonus.",
       path: "/partner",
     }),
     scripts: [
@@ -47,26 +48,34 @@ const perks = [
   {
     icon: Percent,
     title: "Up to 20% Commission",
-    description: "Earn 20% on all starter and growth packages, and 15% on high-ticket custom apps and e-commerce projects.",
+    description: "Earn 20% on all website packages, 15% on bulk merchandise printing, and recurring 20% on monthly retainers.",
   },
   {
     icon: Wallet,
     title: "Instant UPI Payouts",
-    description: "No waiting for monthly pay cycles. Receive payments directly to your Google Pay, PhonePe, or Bank within 24 hours.",
+    description: "Direct transfer to your Google Pay, PhonePe, or Bank within 24 hours of client payment.",
   },
   {
     icon: Gift,
-    title: "Exclusive Client Discounts",
-    description: "Your referred clients get a 10% discount or free bonus services, making closing deals effortless for you.",
+    title: "₹100 First Referral Bonus",
+    description: "Get a flat ₹100 welcome bonus on your very first successful client referral on top of your commission.",
   },
   {
     icon: ShieldCheck,
-    title: "Zero Fees & Zero Targets",
-    description: "Free to join forever. No minimum monthly sales targets and no complex restrictions.",
+    title: "Zero Targets & Free Pitch Kit",
+    description: "Ready-to-share posters and WhatsApp templates provided. No targets, no joining fees.",
   },
 ];
 
 const commissionTiers = [
+  {
+    service: "Bulk Printing & Merchandise",
+    rates: "10% – 15% on Bulk Orders",
+    starterPrice: "₹5,000 – ₹50,000+",
+    yourEarning: "₹1,000 – ₹5,000 per order",
+    customEarning: "High-ticket corporate deals",
+    highlight: "Big Payouts",
+  },
   {
     service: "Web Development",
     rates: "20% on Packages / 15% on Custom",
@@ -81,15 +90,7 @@ const commissionTiers = [
     starterPrice: "₹399 – ₹2,999",
     yourEarning: "₹80 – ₹600 per order",
     customEarning: "₹1,000 – ₹3,000+ monthly retainer",
-    highlight: "Fast Turnaround",
-  },
-  {
-    service: "Graphic Design",
-    rates: "20% per Project",
-    starterPrice: "₹99 – ₹999",
-    yourEarning: "₹20 – ₹200 per order",
-    customEarning: "₹1,500+ on complete branding",
-    highlight: "Daily Sales",
+    highlight: "Fast Sales",
   },
   {
     service: "Social Media Management",
@@ -101,277 +102,140 @@ const commissionTiers = [
   },
 ];
 
-const steps = [
+const readyTemplates = [
   {
-    step: "01",
-    title: "Get Your Partner ID",
-    description: "Connect with our team via WhatsApp or the form below to receive your unique partner ID and referral pitch kit.",
+    title: "Website Offer Pitch (For WhatsApp Status / Groups)",
+    text: "🚀 Need a professional 1–3 Page Website for your business or personal brand? DEVGRONIX is offering complete website creation starting at just ₹999 with Free Domain & Hosting setup! 24–48h delivery. Check here: https://devgronix.com (Mention my code to get extra discount!)",
   },
   {
-    step: "02",
-    title: "Refer Clients & Friends",
-    description: "Recommend DEVGRONIX to local businesses, startups, creators, or friends who need digital presence.",
-  },
-  {
-    step: "03",
-    title: "We Build, You Earn",
-    description: "Our development team handles client delivery end-to-end. Once the client pays, your commission is sent directly via UPI.",
-  },
-];
-
-const faqs = [
-  {
-    q: "How do I get paid?",
-    a: "We transfer your earnings directly to your Google Pay, PhonePe, Paytm, or Bank Account within 24 hours of client payment.",
-  },
-  {
-    q: "How does DEVGRONIX know the client was referred by me?",
-    a: "When you join, you receive a Partner ID. When clients message us with your ID or link, we attribute the project to you immediately.",
-  },
-  {
-    q: "Can I refer custom web development or mobile apps?",
-    a: "Yes! High-ticket custom projects (₹25,000 – ₹1,00,000+) earn 15% commission, meaning you can make ₹3,500 to ₹15,000 from a single referral.",
-  },
-  {
-    q: "Is there any joining fee?",
-    a: "No, joining the DEVGRONIX partner network is 100% free.",
+    title: "Custom Printing & T-Shirts (For Colleges, Offices & Events)",
+    text: "👕 Need Custom T-Shirts, Hoodies or Corporate Uniforms for your college fest, startup or company? DEVGRONIX does high-quality printing with Pan-India delivery at wholesale rates! Contact for free sample mockup: https://devgronix.com/services/custom-printing-branding",
   },
 ];
 
 function PartnerPage() {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [upi, setUpi] = useState("");
-  const [source, setSource] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
-  function handleRegister(e: React.FormEvent) {
-    e.preventDefault();
-    if (!name.trim() || !phone.trim()) return;
-
-    const summary = [
-      "👋 Hi DEVGRONIX, I want to join the Affiliate / Partner Program:",
-      `- Name: ${name.trim()}`,
-      `- WhatsApp: ${phone.trim()}`,
-      `- UPI ID (Optional): ${upi.trim() || "Not provided"}`,
-      `- How I will refer: ${source.trim() || "Friends & Local businesses"}`,
-    ].join("\n");
-
-    // Send copy to admin inbox via contact route
-    void fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: name.trim(),
-        email: "partner@devgronix.in",
-        company: "Partner Registration",
-        service: "Referral Program",
-        description: `Phone: ${phone.trim()} | UPI: ${upi.trim()} | Source: ${source.trim()}`,
-      }),
-    }).catch(() => {});
-
-    // Open WhatsApp prefilled
-    window.open(`https://wa.me/917070519128?text=${encodeURIComponent(summary)}`, "_blank");
-    setSubmitted(true);
-  }
+  const copyPitch = (text: string, idx: number) => {
+    navigator.clipboard.writeText(text);
+    setCopiedIndex(idx);
+    setTimeout(() => setCopiedIndex(null), 2500);
+  };
 
   return (
-    <>
+    <div className="pt-20 md:pt-0">
       <PageHero
-        label="Affiliate & Partner Program"
-        title="Earn up to 20% on every client you refer."
-        description="Recommend DEVGRONIX for websites, apps, graphic design, and video editing. We handle the entire design and delivery, while you get direct UPI payouts."
+        label="Earn With DEVGRONIX"
+        title="Partner & Referral Program"
+        description="Recommend our website development, custom printing or design services to your network and earn up to 20% instant UPI commission on every client."
       >
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3 pt-4">
           <a
-            href="https://wa.me/917070519128?text=Hi%20DEVGRONIX%2C%20I%20want%20to%20join%20your%20Affiliate%20Partner%20Program"
+            href="https://wa.me/917070519128?text=Hi%20DEVGRONIX,%20I%20want%20to%20join%20the%20Partner%20Program%20and%20get%20my%20Partner%20ID."
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground interactive hover:opacity-90 shadow-lg shadow-brand/20"
+            className="interactive inline-flex items-center gap-2 rounded-full bg-chart-3 px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-md hover:opacity-90"
           >
             <MessageCircle className="size-4" />
-            Apply on WhatsApp
+            <span>Join via WhatsApp (Get Partner ID)</span>
           </a>
           <a
-            href="#earnings"
-            className="inline-flex items-center gap-2 rounded-full border border-border-strong px-6 py-3.5 text-sm font-semibold text-foreground interactive hover:border-brand hover:text-brand"
+            href="#templates"
+            className="interactive inline-flex items-center gap-2 rounded-full border border-border-strong px-5 py-3 text-sm font-semibold text-foreground hover:border-brand"
           >
-            View Commission Rates
+            <span>View Ready Pitch Kit</span>
             <ArrowRight className="size-4" />
           </a>
         </div>
       </PageHero>
 
       {/* Perks Grid */}
-      <Section className="border-b border-border bg-surface/30">
-        <SectionHeading index="01" label="Partner Perks" title="Why partner with DEVGRONIX?" />
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {perks.map((p, i) => {
-            const Icon = p.icon;
-            return (
-              <Reveal key={p.title} delay={i * 60} className="rounded-xl border border-border bg-surface p-6">
-                <div className="flex size-10 items-center justify-center rounded-lg bg-brand/10 text-brand">
-                  <Icon className="size-5" />
+      <Section>
+        <Container>
+          <SectionHeading
+            eyebrow="Why Partner With Us"
+            title="Zero Hassle. Direct UPI Transfers."
+            description="You don't need technical skills. Just connect clients who need websites, corporate T-shirts or design, and we handle everything from build to delivery."
+          />
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {perks.map((perk) => {
+              const Icon = perk.icon;
+              return (
+                <div key={perk.title} className="rounded-2xl border border-border bg-surface p-6 shadow-sm">
+                  <div className="flex size-11 items-center justify-center rounded-xl bg-brand/10 text-brand">
+                    <Icon className="size-5" />
+                  </div>
+                  <h3 className="mt-4 font-semibold text-foreground">{perk.title}</h3>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{perk.description}</p>
                 </div>
-                <h3 className="mt-4 font-display text-base font-bold text-foreground">{p.title}</h3>
-                <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{p.description}</p>
-              </Reveal>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        </Container>
       </Section>
 
-      {/* Commission Breakdown */}
-      <Section id="earnings" className="border-b border-border">
-        <SectionHeading index="02" label="Transparent Earnings" title="What can you make?" />
-        <p className="mt-4 max-w-2xl text-sm text-muted-foreground">
-          Clear, upfront commissions with zero hidden terms. Payouts are made within 24 hours of receiving the client's payment.
-        </p>
-
-        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {commissionTiers.map((tier, idx) => (
-            <Reveal
-              key={tier.service}
-              delay={idx * 70}
-              className="relative flex flex-col justify-between rounded-xl border border-border bg-surface p-6 shadow-sm"
-            >
-              <div>
-                <span className="rounded-full bg-brand/10 px-2.5 py-1 text-[0.6875rem] font-semibold text-brand">
-                  {tier.highlight}
-                </span>
-                <h3 className="mt-3 font-display text-lg font-bold text-foreground">{tier.service}</h3>
-                <p className="mt-1 text-xs text-muted-foreground">Starting price: {tier.starterPrice}</p>
-
-                <div className="mt-5 rounded-lg border border-border/80 bg-background/60 p-3.5">
-                  <span className="text-[0.6875rem] font-medium uppercase tracking-wider text-muted-foreground">
-                    Your Commission
+      {/* Commission Rates Table */}
+      <Section className="border-t border-border bg-surface/50">
+        <Container>
+          <SectionHeading
+            eyebrow="Transparent Earning Rates"
+            title="How Much Can You Earn?"
+            description="Clear commission tiers with no hidden deductions. When the client pays, you get your share immediately."
+          />
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {commissionTiers.map((tier) => (
+              <div key={tier.service} className="relative flex flex-col justify-between rounded-2xl border border-border bg-background p-6 shadow-sm">
+                <div>
+                  <span className="inline-block rounded-full bg-brand/10 px-2.5 py-1 text-[11px] font-semibold text-brand">
+                    {tier.highlight}
                   </span>
-                  <p className="mt-0.5 text-base font-bold text-brand">{tier.rates}</p>
-                  <p className="mt-1 text-xs text-foreground font-medium">{tier.yourEarning}</p>
+                  <h4 className="mt-3 font-bold text-foreground">{tier.service}</h4>
+                  <p className="mt-1 text-xs text-muted-foreground">{tier.rates}</p>
+                  <div className="mt-4 border-t border-border/60 pt-3">
+                    <span className="text-[10px] uppercase tracking-wider text-muted-foreground">Standard Commission</span>
+                    <p className="text-base font-bold text-chart-3">{tier.yourEarning}</p>
+                  </div>
+                  <div className="mt-2">
+                    <span className="text-[10px] uppercase tracking-wider text-muted-foreground">High-Ticket / Bulk</span>
+                    <p className="text-xs font-semibold text-foreground">{tier.customEarning}</p>
+                  </div>
                 </div>
-
-                <p className="mt-4 text-xs text-muted-foreground">
-                  <strong className="text-foreground">Custom scope:</strong> {tier.customEarning}
-                </p>
               </div>
-            </Reveal>
-          ))}
-        </div>
+            ))}
+          </div>
+        </Container>
       </Section>
 
-      {/* 3 Step Process */}
-      <Section className="border-b border-border bg-surface/30">
-        <SectionHeading index="03" label="Simple Process" title="How the partnership works in 3 steps" />
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {steps.map((st, i) => (
-            <Reveal key={st.step} delay={i * 80} className="rounded-xl border border-border bg-surface p-7">
-              <span className="font-display text-2xl font-black text-brand">{st.step}</span>
-              <h3 className="mt-4 font-display text-lg font-bold text-foreground">{st.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{st.description}</p>
-            </Reveal>
-          ))}
-        </div>
+      {/* Ready Pitch Templates Section */}
+      <Section id="templates" className="border-t border-border">
+        <Container>
+          <SectionHeading
+            eyebrow="Ready-to-Use WhatsApp Kit"
+            title="Copy, Share & Start Earning"
+            description="Don't know what to write? Copy these pre-written messages and share them on your WhatsApp Status, Instagram Story, or college groups."
+          />
+          <div className="mt-8 grid gap-6 md:grid-cols-2">
+            {readyTemplates.map((item, idx) => (
+              <div key={item.title} className="flex flex-col justify-between rounded-2xl border border-border bg-surface p-5 shadow-sm">
+                <div>
+                  <h4 className="font-semibold text-sm text-foreground">{item.title}</h4>
+                  <p className="mt-3 rounded-xl border border-border/80 bg-background p-4 text-xs leading-relaxed text-muted-foreground">
+                    {item.text}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => copyPitch(item.text, idx)}
+                  className="interactive mt-4 inline-flex items-center justify-center gap-2 rounded-xl bg-brand/10 py-2.5 text-xs font-semibold text-brand transition-colors hover:bg-brand/20 active:scale-98"
+                >
+                  <Copy className="size-3.5" />
+                  <span>{copiedIndex === idx ? "Copied to Clipboard! ✓" : "Copy WhatsApp Pitch"}</span>
+                </button>
+              </div>
+            ))}
+          </div>
+        </Container>
       </Section>
-
-      {/* Quick Application Form */}
-      <Section className="border-b border-border">
-        <div className="mx-auto max-w-2xl rounded-2xl border border-border bg-surface p-8 sm:p-12">
-          <SectionHeading index="04" label="Join Network" title="Register as an official partner" />
-          <p className="mt-3 text-sm text-muted-foreground">
-            Fill your details below to activate your Partner ID immediately via WhatsApp.
-          </p>
-
-          {submitted ? (
-            <div className="mt-8 rounded-xl border border-brand/40 bg-brand/10 p-6 text-center">
-              <CheckCircle2 className="mx-auto size-10 text-brand" />
-              <h3 className="mt-3 text-lg font-bold text-foreground">Application Sent!</h3>
-              <p className="mt-2 text-sm text-muted-foreground">
-                WhatsApp has opened with your registration details. Check your chat to connect with our coordinator and receive your Partner ID.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleRegister} className="mt-8 space-y-5">
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  Your Full Name *
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. Rahul Sharma"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="mt-2 w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground focus:border-brand focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  WhatsApp Number *
-                </label>
-                <input
-                  type="tel"
-                  required
-                  placeholder="e.g. +91 98765 43210"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="mt-2 w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground focus:border-brand focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  UPI ID for Payouts (Optional)
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. yourname@okhdfcbank"
-                  value={upi}
-                  onChange={(e) => setUpi(e.target.value)}
-                  className="mt-2 w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground focus:border-brand focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  How do you plan to refer?
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. Friends, college circle, clients, Instagram"
-                  value={source}
-                  onChange={(e) => setSource(e.target.value)}
-                  className="mt-2 w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground focus:border-brand focus:outline-none"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand py-3.5 text-sm font-semibold text-brand-foreground interactive hover:opacity-90"
-              >
-                <Send className="size-4" />
-                Submit &amp; Connect on WhatsApp
-              </button>
-            </form>
-          )}
-        </div>
-      </Section>
-
-      {/* FAQs */}
-      <Section className="border-b border-border bg-surface/30">
-        <SectionHeading index="05" label="Common Questions" title="Frequently Asked Questions" />
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
-          {faqs.map((faq) => (
-            <Reveal key={faq.q} className="rounded-xl border border-border bg-surface p-6">
-              <h4 className="flex items-center gap-2 font-display text-base font-bold text-foreground">
-                <HelpCircle className="size-4 text-brand shrink-0" />
-                {faq.q}
-              </h4>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{faq.a}</p>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
-    </>
+    </div>
   );
 }
