@@ -25,133 +25,6 @@ const { hero, strip } = homepage;
 
 type Currency = "INR" | "AED" | "USD";
 
-interface ShowcaseItem {
-  tab: string;
-  icon: typeof Code;
-  name: string;
-  slug: string;
-  price: string;
-  delivery: string;
-  features: string[];
-}
-
-const showcaseByCurrency: Record<Currency, ShowcaseItem[]> = {
-  INR: [
-    {
-      tab: "Web",
-      icon: Code,
-      name: "Web Development",
-      slug: "web-development",
-      price: "₹999",
-      delivery: "24-48h Delivery",
-      features: ["Custom Domain & Hosting Setup", "Mobile Responsive & SEO Ready", "WhatsApp & Contact Form Integration"],
-    },
-    {
-      tab: "Design",
-      icon: Palette,
-      name: "Graphic Design",
-      slug: "graphic-design-and-branding",
-      price: "₹99",
-      delivery: "Same Day Delivery",
-      features: ["High-Impact Ad Creatives", "Social Graphics & Vector Art", "Commercial Rights"],
-    },
-    {
-      tab: "Video",
-      icon: Video,
-      name: "Video Editing",
-      slug: "video-editing-and-motion-graphics",
-      price: "₹399",
-      delivery: "24-48h Turnaround",
-      features: ["High-Retention Shorts & Reels", "Color Grading & Motion SFX", "Subtitles & Hooks"],
-    },
-    {
-      tab: "Social",
-      icon: Sparkles,
-      name: "Social Media",
-      slug: "social-media-management",
-      price: "₹1,000/mo",
-      delivery: "Monthly Retainer",
-      features: ["Monthly Strategy & Content", "Scheduled High-Quality Posts", "Engagement & Growth"],
-    },
-  ],
-  AED: [
-    {
-      tab: "Web",
-      icon: Code,
-      name: "Web Development",
-      slug: "web-development",
-      price: "AED 349",
-      delivery: "2-3 Days Delivery",
-      features: ["Custom Domain & Hosting Setup", "Mobile Responsive & SEO Ready", "WhatsApp & Contact Form Integration"],
-    },
-    {
-      tab: "Design",
-      icon: Palette,
-      name: "Graphic Design",
-      slug: "graphic-design-and-branding",
-      price: "AED 49",
-      delivery: "Same Day Delivery",
-      features: ["High-Impact Ad Creatives", "Social Graphics & Vector Art", "Commercial Rights"],
-    },
-    {
-      tab: "Video",
-      icon: Video,
-      name: "Video Editing",
-      slug: "video-editing-and-motion-graphics",
-      price: "AED 149",
-      delivery: "24-48h Turnaround",
-      features: ["High-Retention Shorts & Reels", "Color Grading & Motion SFX", "Subtitles & Hooks"],
-    },
-    {
-      tab: "Social",
-      icon: Sparkles,
-      name: "Social Media",
-      slug: "social-media-management",
-      price: "AED 399/mo",
-      delivery: "Monthly Retainer",
-      features: ["Monthly Strategy & Content", "Scheduled High-Quality Posts", "Engagement & Growth"],
-    },
-  ],
-  USD: [
-    {
-      tab: "Web",
-      icon: Code,
-      name: "Web Development",
-      slug: "web-development",
-      price: "$95",
-      delivery: "2-3 Days Delivery",
-      features: ["Custom Domain & Hosting Setup", "Mobile Responsive & SEO Ready", "WhatsApp & Contact Form Integration"],
-    },
-    {
-      tab: "Design",
-      icon: Palette,
-      name: "Graphic Design",
-      slug: "graphic-design-and-branding",
-      price: "$15",
-      delivery: "Same Day Delivery",
-      features: ["High-Impact Ad Creatives", "Social Graphics & Vector Art", "Commercial Rights"],
-    },
-    {
-      tab: "Video",
-      icon: Video,
-      name: "Video Editing",
-      slug: "video-editing-and-motion-graphics",
-      price: "$40",
-      delivery: "24-48h Turnaround",
-      features: ["High-Retention Shorts & Reels", "Color Grading & Motion SFX", "Subtitles & Hooks"],
-    },
-    {
-      tab: "Social",
-      icon: Sparkles,
-      name: "Social Media",
-      slug: "social-media-management",
-      price: "$110/mo",
-      delivery: "Monthly Retainer",
-      features: ["Monthly Strategy & Content", "Scheduled High-Quality Posts", "Engagement & Growth"],
-    },
-  ],
-};
-
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden border-b border-border">
@@ -261,181 +134,192 @@ export function Hero() {
   );
 }
 
+const servicePricing = [
+  {
+    icon: Code,
+    title: "Web Development",
+    rates: {
+      INR: { starting: "₹999", full: "₹2,499", unit: "complete site" },
+      AED: { starting: "AED 349", full: "AED 899", unit: "complete site" },
+      USD: { starting: "$95", full: "$249", unit: "complete site" },
+    },
+    popular: true,
+  },
+  {
+    icon: Palette,
+    title: "Graphic Design & Branding",
+    rates: {
+      INR: { starting: "₹99", full: "₹999", unit: "per design" },
+      AED: { starting: "AED 49", full: "AED 399", unit: "per design" },
+      USD: { starting: "$15", full: "$120", unit: "per design" },
+    },
+    popular: false,
+  },
+  {
+    icon: Video,
+    title: "Video Editing & Reels",
+    rates: {
+      INR: { starting: "₹399", full: "₹2,999", unit: "per video" },
+      AED: { starting: "AED 149", full: "AED 899", unit: "per video" },
+      USD: { starting: "$40", full: "$250", unit: "per video" },
+    },
+    popular: false,
+  },
+  {
+    icon: Globe,
+    title: "Social Media Management",
+    rates: {
+      INR: { starting: "₹1,000", full: "₹3,499", unit: "/month" },
+      AED: { starting: "AED 399", full: "AED 1,299", unit: "/month" },
+      USD: { starting: "$110", full: "$350", unit: "/month" },
+    },
+    popular: false,
+  },
+];
+
+const currencyLabels: Record<Currency, { symbol: string; label: string; flag: string }> = {
+  INR: { symbol: "₹", label: "India (INR)", flag: "🇮🇳" },
+  AED: { symbol: "AED", label: "UAE / Dubai (AED)", flag: "🇦🇪" },
+  USD: { symbol: "$", label: "Global (USD)", flag: "🌐" },
+};
+
 function HeroComposition() {
   const [currency, setCurrency] = useState<Currency>("INR");
-  const [active, setActive] = useState(0);
+  const [selectedService, setSelectedService] = useState(0);
 
-  const currentShowcase = showcaseByCurrency[currency];
-  const svc = currentShowcase[active] ?? currentShowcase[0];
-
-  const wa = `https://wa.me/917070519128?text=${encodeURIComponent(
-    `Hi DEVGRONIX, I'm interested in ${svc.name} (${svc.price})`
-  )}`;
+  const active = servicePricing[selectedService];
+  const price = active.rates[currency];
 
   return (
-    <div className="relative mx-auto w-full max-w-xl px-2 py-6 sm:px-6 sm:py-8 lg:px-4">
+    <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
       <div className="absolute inset-8 rounded-2xl bg-hero-indigo/10 blur-3xl" aria-hidden="true" />
 
-      <div className="relative rounded-2xl border border-border/80 bg-surface/85 p-5 shadow-2xl backdrop-blur-xl sm:p-6 dark:border-white/10 dark:bg-surface-strong/90">
-        {/* Top Header with Currency Toggle */}
-        <div className="flex flex-wrap items-center justify-between gap-2.5 border-b border-border pb-3.5">
-          <div className="flex items-center gap-1.5" aria-hidden="true">
-            <span className="size-2.5 rounded-full bg-brand" />
-            <span className="size-2.5 rounded-full bg-chart-4" />
-            <span className="size-2.5 rounded-full bg-chart-3" />
-            <span className="ml-1.5 font-mono text-[0.6875rem] font-medium text-muted-foreground">
-              devgronix // live rates
+      <div className="relative overflow-hidden rounded-2xl border border-border/80 bg-surface/90 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-surface/95">
+        {/* Terminal / Window Chrome */}
+        <div className="flex items-center justify-between border-b border-border/70 px-4 py-3">
+          <div className="flex items-center gap-2">
+            <span className="size-2.5 rounded-full bg-destructive/70" />
+            <span className="size-2.5 rounded-full bg-chart-4/70" />
+            <span className="size-2.5 rounded-full bg-chart-3/70" />
+            <span className="ml-2 font-mono text-[0.6875rem] font-medium text-muted-foreground">
+              devgronix // estimate &amp; book
             </span>
           </div>
 
           {/* Currency Switcher */}
-          <div className="flex items-center gap-1 rounded-full border border-border bg-background/80 p-0.5 text-[0.6875rem] font-semibold">
-            <button
-              type="button"
-              onClick={() => setCurrency("INR")}
-              className={cn(
-                "rounded-full px-2 py-0.5 transition-colors",
-                currency === "INR"
-                  ? "bg-brand text-brand-foreground shadow-xs"
-                  : "text-muted-foreground hover:text-foreground",
-              )}
-            >
-              🇮🇳 INR (₹)
-            </button>
-            <button
-              type="button"
-              onClick={() => setCurrency("AED")}
-              className={cn(
-                "rounded-full px-2 py-0.5 transition-colors",
-                currency === "AED"
-                  ? "bg-brand text-brand-foreground shadow-xs"
-                  : "text-muted-foreground hover:text-foreground",
-              )}
-            >
-              🇦🇪 AED (د.إ)
-            </button>
-            <button
-              type="button"
-              onClick={() => setCurrency("USD")}
-              className={cn(
-                "rounded-full px-2 py-0.5 transition-colors",
-                currency === "USD"
-                  ? "bg-brand text-brand-foreground shadow-xs"
-                  : "text-muted-foreground hover:text-foreground",
-              )}
-            >
-              🌐 USD ($)
-            </button>
-          </div>
-        </div>
-
-        {/* 4 Interactive Service Tabs */}
-        <div
-          role="tablist"
-          aria-label="Services"
-          className="mt-4 grid grid-cols-4 gap-1 rounded-full border border-border bg-background/70 p-1"
-        >
-          {currentShowcase.map((s, i) => {
-            const Icon = s.icon;
-            const isSelected = i === active;
-            return (
+          <div className="flex items-center gap-1 rounded-full border border-border bg-background/80 p-0.5 text-[0.6875rem]">
+            {(["INR", "AED", "USD"] as Currency[]).map((cur) => (
               <button
-                key={s.slug}
+                key={cur}
                 type="button"
-                role="tab"
-                aria-selected={isSelected}
-                onClick={() => setActive(i)}
+                onClick={() => setCurrency(cur)}
                 className={cn(
-                  "interactive flex items-center justify-center gap-1.5 rounded-full px-2 py-1.5 text-[0.6875rem] font-semibold sm:text-xs transition-all",
-                  isSelected
-                    ? "bg-brand text-brand-foreground shadow-sm"
+                  "rounded-full px-2 py-0.5 font-semibold transition-all",
+                  currency === cur
+                    ? "bg-brand text-brand-foreground shadow-xs"
                     : "text-muted-foreground hover:text-foreground",
                 )}
               >
-                <Icon className="size-3 shrink-0" />
-                <span>{s.tab}</span>
+                {currencyLabels[cur].flag} {cur}
               </button>
-            );
-          })}
+            ))}
+          </div>
         </div>
 
-        {/* Selected Service Card */}
-        <div
-          role="tabpanel"
-          key={`${currency}-${svc.slug}`}
-          className="mt-4 rounded-xl border border-border bg-surface-strong/80 p-4 dark:border-white/10"
-        >
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <div>
-              <h2 className="font-display text-base font-bold text-foreground sm:text-lg">
-                {svc.name}
-              </h2>
-              <p className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
-                <Clock className="size-3.5" aria-hidden="true" />
-                {svc.delivery}
-              </p>
-            </div>
-            <span className="shrink-0 rounded-full border border-brand/30 bg-brand-soft px-3 py-1 text-xs font-bold text-brand">
-              Starting {svc.price}
+        {/* Interactive Pricing Estimator */}
+        <div className="p-5 sm:p-6">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              Instant Quote Explorer
+            </span>
+            <span className="inline-flex items-center gap-1 rounded-full bg-chart-3/15 px-2 py-0.5 text-[0.6875rem] font-semibold text-chart-3">
+              <span className="size-1.5 rounded-full bg-chart-3" />
+              Live Rates · Zero Hidden Fees
             </span>
           </div>
 
-          <ul className="mt-3.5 space-y-2">
-            {svc.features.map((f) => (
-              <li key={f} className="flex items-center gap-2 text-xs sm:text-sm text-foreground">
-                <Check className="size-4 shrink-0 text-chart-3" aria-hidden="true" />
-                {f}
-              </li>
-            ))}
-          </ul>
+          {/* Service Selector Tabs */}
+          <div className="mt-4 grid grid-cols-2 gap-2">
+            {servicePricing.map((item, idx) => {
+              const Icon = item.icon;
+              const isSelected = selectedService === idx;
+              return (
+                <button
+                  key={item.title}
+                  type="button"
+                  onClick={() => setSelectedService(idx)}
+                  className={cn(
+                    "interactive flex items-center gap-2.5 rounded-xl border p-2.5 text-left transition-all",
+                    isSelected
+                      ? "border-brand bg-brand-soft text-foreground shadow-xs"
+                      : "border-border/80 bg-background/60 text-muted-foreground hover:border-border-strong hover:text-foreground",
+                  )}
+                >
+                  <Icon className={cn("size-4 shrink-0", isSelected ? "text-brand" : "text-muted-foreground")} />
+                  <span className="truncate text-xs font-semibold">{item.title}</span>
+                </button>
+              );
+            })}
+          </div>
 
-          <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+          {/* Active Service Price Display */}
+          <div className="mt-5 rounded-xl border border-border/80 bg-background/80 p-4">
+            <div className="flex items-baseline justify-between">
+              <div>
+                <span className="text-[0.6875rem] uppercase tracking-wider text-muted-foreground">
+                  Starting Price ({currency})
+                </span>
+                <div className="mt-0.5 flex items-baseline gap-2">
+                  <span className="font-display text-3xl font-bold text-foreground">
+                    {price.starting}
+                  </span>
+                  <span className="text-xs text-muted-foreground">/ {price.unit}</span>
+                </div>
+              </div>
+              <div className="text-right">
+                <span className="text-[0.6875rem] uppercase tracking-wider text-muted-foreground">
+                  Turnaround
+                </span>
+                <p className="mt-0.5 flex items-center gap-1 font-mono text-xs font-semibold text-chart-3">
+                  <Clock className="size-3" /> 24-48 Hours
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-3 flex items-center justify-between border-t border-border/60 pt-3 text-xs text-muted-foreground">
+              <span>Full-feature package up to <strong className="text-foreground">{price.full}</strong></span>
+              <span className="inline-flex items-center gap-1 text-brand font-medium">
+                <Check className="size-3" /> Domain &amp; Hosting setup included
+              </span>
+            </div>
+          </div>
+
+          {/* Direct Booking CTA */}
+          <div className="mt-5 flex flex-col gap-2.5 sm:flex-row">
             <a
-              href={wa}
+              href={`https://wa.me/917070519128?text=${encodeURIComponent(
+                `Hi DEVGRONIX! I want a quote for ${active.title} (${currency} package). Can we discuss?`,
+              )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="interactive inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-brand px-4 py-2.5 text-xs font-semibold text-brand-foreground shadow hover:opacity-90"
+              className="interactive flex flex-1 items-center justify-center gap-2 rounded-xl bg-brand px-4 py-3 text-xs font-bold text-brand-foreground shadow-md hover:opacity-90"
             >
-              <MessageCircle className="size-4" aria-hidden="true" />
-              Book on WhatsApp
+              <MessageCircle className="size-4" />
+              Book on WhatsApp ({currency})
             </a>
             <Link
-              to="/services/$slug"
-              params={{ slug: svc.slug }}
-              className="interactive inline-flex flex-1 items-center justify-center gap-1.5 rounded-full border border-border-strong px-4 py-2.5 text-xs font-semibold text-foreground hover:border-brand hover:text-brand"
+              to="/pricing"
+              className="interactive flex items-center justify-center gap-1 rounded-xl border border-border-strong px-4 py-3 text-xs font-semibold text-foreground hover:border-brand hover:text-brand"
             >
-              View Details
-              <ArrowRight className="size-3.5" aria-hidden="true" />
+              View Full Pricing
+              <ArrowRight className="size-3.5" />
             </Link>
           </div>
-        </div>
 
-        <div className="mt-3.5 flex items-center justify-between text-xs text-muted-foreground">
-          <div className="flex items-center gap-1.5">
-            <Gauge className="size-4 text-brand" aria-hidden="true" />
-            <span><strong className="text-foreground">99+</strong> Speed Score</span>
-          </div>
-          <span className="text-chart-3 font-medium">✓ Instant Quote</span>
+          <p className="mt-3 text-center text-[0.6875rem] text-muted-foreground">
+            ⚡ Invoices in INR, AED &amp; USD via Stripe / Wise / Bank Transfer
+          </p>
         </div>
-      </div>
-
-      {/* Floating Badges */}
-      <div className="hero-float absolute right-0 top-0 flex items-center gap-2 rounded-full border border-border/80 bg-surface/90 px-3 py-1.5 text-xs font-semibold text-foreground shadow-lg backdrop-blur-xl sm:right-2">
-        <span className="grid size-5 place-items-center rounded-full bg-brand-soft text-brand">
-          <Zap className="size-3" aria-hidden="true" />
-        </span>
-        Fast Turnaround
-      </div>
-
-      <div className="hero-float-delayed absolute bottom-0 left-0 rounded-xl border border-border/80 bg-surface/90 px-3.5 py-2.5 shadow-lg backdrop-blur-xl sm:left-1">
-        <div className="flex items-center gap-1 text-brand" aria-label="5 out of 5 rating">
-          <span aria-hidden="true">★★★★★</span>
-          <span className="ml-1 text-xs font-bold text-foreground">5.0</span>
-        </div>
-        <p className="mt-0.5 flex items-center gap-1.5 text-[0.6875rem] text-muted-foreground">
-          <Check className="size-3 text-chart-3" aria-hidden="true" />
-          50+ Projects Shipped Globally
-        </p>
       </div>
     </div>
   );
