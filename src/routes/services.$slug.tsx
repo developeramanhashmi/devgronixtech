@@ -100,15 +100,15 @@ function ServiceDetailPage() {
     .slice(0, 4);
 
   // Normalize deliverables and outcomes safely
-  const deliverablesList = (service as any).deliverables || (service.offers || []).map((o: string) => ({
-    title: o,
-    description: "Professional deliverable tailored to your scope.",
+  const deliverablesList = (service as any).deliverables || (service.offers || []).map((o: any) => ({
+    title: typeof o === "string" ? o : o.title || "",
+    description: typeof o === "object" && o.description ? o.description : "Professional deliverable tailored to your scope.",
   }));
 
-  const outcomesList = (service as any).outcomes || (service.helps || []).map((h: { title: string; body: string }) => ({
-    metric: "100%",
-    label: h.title,
-    description: h.body,
+  const outcomesList = (service as any).outcomes || (service.helps || []).map((h: any) => ({
+    metric: h.metric || "100%",
+    label: h.title || h.label || "",
+    description: h.body || h.description || "",
   }));
 
   return (
@@ -117,7 +117,7 @@ function ServiceDetailPage() {
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-3 text-muted-foreground">
             <ServiceIcon name={service.icon} className="size-5 text-brand" />
-            <span className="text-sm">{service.technologies.slice(0, 4).join(" · ")}</span>
+            <span className="text-sm">{(service.technologies || []).slice(0, 4).join(" · ")}</span>
           </div>
           <div className="flex flex-wrap gap-3">
             <Link
@@ -148,7 +148,7 @@ function ServiceDetailPage() {
           <div>
             <span className="rule-label">Core capabilities</span>
             <ul className="mt-5 space-y-3">
-              {service.capabilities.map((cap) => (
+              {(service.capabilities || []).map((cap) => (
                 <li key={cap} className="flex items-start gap-3 text-sm text-foreground">
                   <span className="mt-1.5 size-1.5 rounded-full bg-brand shrink-0" />
                   <span>{cap}</span>
@@ -162,7 +162,7 @@ function ServiceDetailPage() {
       <Section className="border-b border-border bg-surface/40">
         <SectionHeading index="01" label="Technologies" title="Tools we use for this work." />
         <div className="mt-8 flex flex-wrap gap-2">
-          {service.technologies.map((tech) => (
+          {(service.technologies || []).map((tech) => (
             <span
               key={tech}
               className="rounded-full border border-border bg-background px-4 py-2 font-mono text-xs text-foreground"
@@ -178,7 +178,7 @@ function ServiceDetailPage() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {deliverablesList.map((item: any, i: number) => (
             <Reveal
-              key={item.title}
+              key={item.title || i}
               delay={i * 60}
               className="rounded-xl border border-border bg-surface p-7"
             >
@@ -197,7 +197,7 @@ function ServiceDetailPage() {
         <div className="mt-12 grid gap-6 sm:grid-cols-3">
           {outcomesList.map((item: any, i: number) => (
             <Reveal
-              key={item.metric + i}
+              key={(item.label || "outcome") + i}
               delay={i * 80}
               className="rounded-xl border border-border bg-background p-7"
             >
@@ -213,7 +213,7 @@ function ServiceDetailPage() {
         </div>
       </Section>
 
-      {plans.length > 0 && (
+      {plans && plans.length > 0 && (
         <Section className="border-b border-border">
           <SectionHeading
             index="04"
@@ -221,7 +221,7 @@ function ServiceDetailPage() {
             title={`${service.title} engagement models.`}
           />
           <div className="mt-12">
-            <PricingPlans plans={plans} serviceSlug={service.slug} />
+            <PricingPlans service={service} plans={plans} serviceSlug={service.slug} />
           </div>
         </Section>
       )}
@@ -232,7 +232,7 @@ function ServiceDetailPage() {
           label="Selected work"
           title={`Projects featuring ${service.title.toLowerCase()}.`}
         />
-        {projects.length > 0 ? (
+        {projects && projects.length > 0 ? (
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             {projects.map((project, i) => (
               <ProjectCard key={project.id} project={project} index={i} />
