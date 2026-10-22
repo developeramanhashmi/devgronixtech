@@ -8,18 +8,29 @@ import { Reveal } from "./Reveal";
 
 /**
  * Renders a service's own pricing plans. Shared by the service detail page and
- * `/pricing/:serviceSlug` so both read the same data.
+ * `/pricing/:serviceSlug` so both read the same data safely without runtime errors.
  */
-export function PricingPlans({ service, plans }: { service: Service; plans: PricingPlan[] }) {
-  if (plans.length === 0) {
+export function PricingPlans({
+  service,
+  plans,
+  serviceSlug,
+}: {
+  service?: Service;
+  plans: PricingPlan[];
+  serviceSlug?: string;
+}) {
+  const slug = service?.slug || serviceSlug || "";
+  const title = service?.title || "this service";
+
+  if (!plans || plans.length === 0) {
     return (
       <div className="rounded-xl border border-dashed border-border-strong p-10 text-center">
         <p className="text-sm text-muted-foreground">
-          Pricing for {service.title.toLowerCase()} is scoped per project.
+          Pricing for {title.toLowerCase()} is scoped per project.
         </p>
         <Link
           to="/contact"
-          search={{ service: service.slug }}
+          search={slug ? { service: slug } : undefined}
           className="interactive mt-5 inline-flex rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-brand-foreground"
         >
           Get a Quote
@@ -33,7 +44,7 @@ export function PricingPlans({ service, plans }: { service: Service; plans: Pric
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {plans.map((plan, i) => (
           <Reveal
-            key={plan.id}
+            key={plan.id || i}
             delay={i * 60}
             className={cn(
               "card-interactive flex h-full flex-col rounded-xl border bg-surface p-7",
@@ -62,7 +73,7 @@ export function PricingPlans({ service, plans }: { service: Service; plans: Pric
             </div>
 
             <ul className="mt-6 flex flex-1 flex-col gap-2.5">
-              {plan.features.map((f) => (
+              {(plan.features || []).map((f) => (
                 <li key={f} className="flex items-start gap-2.5 text-sm text-muted-foreground">
                   <Check aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-brand" />
                   {f}
@@ -72,7 +83,7 @@ export function PricingPlans({ service, plans }: { service: Service; plans: Pric
 
             <Link
               to="/contact"
-              search={{ service: service.slug }}
+              search={slug ? { service: slug } : undefined}
               className={cn(
                 "interactive mt-7 inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold",
                 plan.popular
@@ -80,7 +91,7 @@ export function PricingPlans({ service, plans }: { service: Service; plans: Pric
                   : "border border-border-strong text-foreground hover:border-brand hover:text-brand",
               )}
             >
-              {plan.ctaText}
+              {plan.ctaText || "Get Started"}
             </Link>
           </Reveal>
         ))}
@@ -90,7 +101,7 @@ export function PricingPlans({ service, plans }: { service: Service; plans: Pric
         <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">{pricingNote}</p>
         <Link
           to="/contact"
-          search={{ service: service.slug }}
+          search={slug ? { service: slug } : undefined}
           className="interactive inline-flex shrink-0 items-center justify-center rounded-full border border-border-strong px-5 py-2.5 text-sm font-semibold text-foreground hover:border-brand hover:text-brand"
         >
           Custom requirements? Get a Quote
