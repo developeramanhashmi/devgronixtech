@@ -3,8 +3,16 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { Reveal } from "./Reveal";
 
+/**
+ * Shared container perfectly aligned with the floating desktop navbar capsule:
+ * Outer wrapper (lg:px-12 / 48px) + Nav capsule inner padding (sm:px-6 / 24px) = 72px (lg:px-[4.5rem]).
+ */
 export function Container({ className, children }: { className?: string; children: ReactNode }) {
-  return <div className={cn("mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12", className)}>{children}</div>;
+  return (
+    <div className={cn("mx-auto w-full max-w-7xl px-5 sm:px-12 lg:px-[4.5rem]", className)}>
+      {children}
+    </div>
+  );
 }
 
 export function Section({
