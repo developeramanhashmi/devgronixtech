@@ -127,17 +127,17 @@ const readyTemplates = [
   {
     title: "Website Offer Pitch (For WhatsApp Status / Groups)",
     tag: "Most Popular",
-    text: "🚀 Need a professional 1–3 Page Website for your business or personal brand? DEVGRONIX is offering complete website creation starting at just ₹999 with Free Domain & Hosting setup! 24–48h delivery. Check here: https://devgronix.com (Mention my code to get extra discount!)",
+    text: "🚀 Need a professional website for your business, shop, or personal brand? DEVGRONIX is offering 1–3 Page modern websites starting at just ₹999 with 24-hour delivery, mobile-friendly design & WhatsApp chat button included! Check live work at https://devgronix.com or message directly on WhatsApp: +91 70705 19128",
   },
   {
-    title: "Custom Printing & T-Shirts (For Colleges, Offices & Events)",
-    tag: "High Earning",
-    text: "👕 Need Custom T-Shirts, Hoodies or Corporate Uniforms for your college fest, startup or company? DEVGRONIX does high-quality printing with Pan-India delivery at wholesale rates! Contact for free sample mockup: https://devgronix.com/services/custom-printing-branding",
+    title: "Custom Printing & Merchandise Pitch",
+    tag: "High Commission",
+    text: "👕 College fests, startup teams & company uniforms! DEVGRONIX offers premium custom printed T-shirts, hoodies, mugs, diaries & business cards with low minimum orders and doorstep delivery. Share your design or get one designed free. Enquire on WhatsApp: +91 70705 19128 or visit https://devgronix.com/services/custom-printing-branding",
   },
   {
-    title: "Reels & Video Editing Pitch (For Creators & Brands)",
-    tag: "Fast Sales",
-    text: "🎬 Looking for trending Reels, Shorts or YouTube video editing? DEVGRONIX editors deliver high-retention edits starting from just ₹399! Check sample portfolio: https://devgronix.com/services/video-editing",
+    title: "Video Editing & Social Media Pitch",
+    tag: "Content Creators",
+    text: "🎬 Looking for clean Instagram Reels, YouTube Shorts, or podcast editing? Professional cuts, subtitles, motion graphics & sound design starting at just ₹399 per video. Portfolio: https://devgronix.com — DM or WhatsApp at +91 70705 19128 to get your first test video edited!",
   },
 ];
 
@@ -165,11 +165,59 @@ function PartnerPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [calcTier, setCalcTier] = useState<number>(3);
 
+  // Quick Application Form State
+  const [applicantName, setApplicantName] = useState("");
+  const [applicantCity, setApplicantCity] = useState("");
+  const [applicantEdu, setApplicantEdu] = useState("College Student");
+  const [applicantUpi, setApplicantUpi] = useState("");
+  const [applicantNetwork, setApplicantNetwork] = useState("WhatsApp Status & Friends");
+  const [copiedApp, setCopiedApp] = useState(false);
+
   const copyPitch = (text: string, idx: number) => {
     navigator.clipboard.writeText(text);
     setCopiedIndex(idx);
     setTimeout(() => setCopiedIndex(null), 2500);
   };
+
+  const buildAppMessage = () => {
+    const nameStr = applicantName.trim() || "[Your Name]";
+    const cityStr = applicantCity.trim() || "[Your City]";
+    const eduStr = applicantEdu.trim() || "College Student";
+    const upiStr = applicantUpi.trim() || "[Your UPI ID / PhonePe / GPay]";
+    const netStr = applicantNetwork.trim() || "WhatsApp Status & Network";
+
+    return (
+      "🚀 *DEVGRONIX PARTNER & REFERRAL APPLICATION*\n\n" +
+      "Hello DEVGRONIX Team, I want to join the Partner Program and start earning referral commissions.\n\n" +
+      "📋 *My Details:*\n" +
+      `• *Full Name:* ${nameStr}\n` +
+      `• *City / Location:* ${cityStr}\n` +
+      `• *Education / Profession:* ${eduStr}\n` +
+      `• *UPI ID for Payouts:* ${upiStr}\n` +
+      `• *Referral Network:* ${netStr}\n\n` +
+      "Please assign my unique Partner ID and send my Welcome Pitch Kit & promotional posters!"
+    );
+  };
+
+  const copyAppMessage = () => {
+    navigator.clipboard.writeText(buildAppMessage());
+    setCopiedApp(true);
+    setTimeout(() => setCopiedApp(false), 2500);
+  };
+
+  const customWaLink = `https://wa.me/917070519128?text=${encodeURIComponent(buildAppMessage())}`;
+
+  const defaultWaTemplateLink = `https://wa.me/917070519128?text=${encodeURIComponent(
+    "🚀 *DEVGRONIX PARTNER APPLICATION*\n\n" +
+    "Hello DEVGRONIX Team, I want to join the Partner Program.\n\n" +
+    "📋 *My Details:*\n" +
+    "• Full Name: \n" +
+    "• City / Location: \n" +
+    "• Education / Profession: \n" +
+    "• UPI ID for Payouts: \n" +
+    "• Referral Network: \n\n" +
+    "Please assign my Partner ID and send the Starter Kit!"
+  )}`;
 
   const estimatedMin = calcTier * 1200;
   const estimatedMax = calcTier * 3800;
@@ -191,7 +239,6 @@ function PartnerPage() {
 
         {/* Outer Container matching Header */}
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-8 lg:px-12">
-          {/* Inner Content Padding matching Header's inner nav offset for exact alignment */}
           <div className="px-4 sm:px-6">
             <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-8">
               {/* Left Column: Core Pitch */}
@@ -239,19 +286,15 @@ function PartnerPage() {
 
                   {/* Action Buttons */}
                   <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
-                    {/* Primary Glowing WhatsApp Button */}
                     <a
-                      href="https://wa.me/917070519128?text=Hi%20DEVGRONIX,%20I%20want%20to%20join%20the%20Partner%20Program%20and%20get%20my%20Partner%20ID."
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="#apply"
                       className="interactive group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full bg-gradient-to-r from-emerald-500 to-green-600 px-7 py-4 text-sm font-bold text-white shadow-lg shadow-emerald-500/25 transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/35 hover:scale-[1.02] active:scale-[0.98]"
                     >
                       <MessageCircle className="size-5 transition-transform group-hover:scale-110" />
-                      <span>Join Partner Network (Free ID)</span>
+                      <span>Apply for Partner ID</span>
                       <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                     </a>
 
-                    {/* Secondary Sleek Button */}
                     <a
                       href="#calculator"
                       className="interactive inline-flex items-center justify-center gap-2 rounded-full border border-border-strong bg-surface/80 px-6 py-4 text-sm font-semibold text-foreground backdrop-blur-md transition-all hover:border-brand hover:bg-surface active:scale-[0.98]"
@@ -288,13 +331,13 @@ function PartnerPage() {
                     <div className="mt-5 grid grid-cols-2 gap-3">
                       <div className="rounded-2xl border border-border/60 bg-background/80 p-3.5">
                         <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Commission Rate</span>
-                        <p className="mt-1 font-display text-xl font-bold text-brand">Up to 20%</p>
-                        <span className="text-[10px] text-muted-foreground">On Every Deal</span>
+                        <p className="mt-1 text-lg font-bold text-foreground">Up to 20%</p>
+                        <p className="text-[10px] text-emerald-600 dark:text-emerald-400">Instant UPI transfer</p>
                       </div>
                       <div className="rounded-2xl border border-border/60 bg-background/80 p-3.5">
-                        <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Avg. Payout Time</span>
-                        <p className="mt-1 font-display text-xl font-bold text-emerald-600 dark:text-emerald-400">&lt; 24 Hours</p>
-                        <span className="text-[10px] text-muted-foreground">Direct UPI / Bank</span>
+                        <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Avg. Payout</span>
+                        <p className="mt-1 text-lg font-bold text-emerald-600 dark:text-emerald-400">₹500 – ₹3,500</p>
+                        <p className="text-[10px] text-muted-foreground">Per confirmed deal</p>
                       </div>
                     </div>
 
@@ -386,6 +429,150 @@ function PartnerPage() {
         </Container>
       </Section>
 
+      {/* ================= NEW INTERACTIVE PARTNER APPLICATION SECTION ================= */}
+      <Section id="apply" className="border-b border-border bg-gradient-to-b from-surface/50 to-background">
+        <Container>
+          <div className="mx-auto max-w-4xl rounded-3xl border border-border/80 bg-surface p-6 sm:p-10 shadow-2xl backdrop-blur-xl">
+            <div className="text-center max-w-2xl mx-auto">
+              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                <Sparkles className="size-3.5" />
+                <span>Instant 1-Minute WhatsApp Onboarding</span>
+              </div>
+              <h2 className="mt-4 font-display text-2xl sm:text-4xl font-extrabold text-foreground">
+                Get Your Official Partner ID
+              </h2>
+              <p className="mt-3 text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                Fill in your details below. Clicking <strong>Submit Application on WhatsApp</strong> will automatically pre-fill your structured application and send it directly to our team.
+              </p>
+            </div>
+
+            <div className="mt-8 grid gap-5 sm:grid-cols-2">
+              {/* Full Name */}
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-foreground mb-1.5">
+                  Your Full Name <span className="text-brand">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={applicantName}
+                  onChange={(e) => setApplicantName(e.target.value)}
+                  placeholder="e.g. Rahul Sharma"
+                  className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-brand focus:outline-none transition-colors"
+                />
+              </div>
+
+              {/* City / State */}
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-foreground mb-1.5">
+                  City &amp; State <span className="text-brand">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={applicantCity}
+                  onChange={(e) => setApplicantCity(e.target.value)}
+                  placeholder="e.g. Hyderabad, Telangana"
+                  className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-brand focus:outline-none transition-colors"
+                />
+              </div>
+
+              {/* Education / Profession */}
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-foreground mb-1.5">
+                  Education / Current Profession <span className="text-brand">*</span>
+                </label>
+                <select
+                  value={applicantEdu}
+                  onChange={(e) => setApplicantEdu(e.target.value)}
+                  className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground focus:border-brand focus:outline-none transition-colors"
+                >
+                  <option value="College Student">College Student</option>
+                  <option value="School Student (12th+)">School Student (12th+)</option>
+                  <option value="B.Tech / BCA / MCA / Graduate">B.Tech / BCA / MCA / Graduate</option>
+                  <option value="Freelancer / Designer / Editor">Freelancer / Designer / Editor</option>
+                  <option value="Working Professional">Working Professional</option>
+                  <option value="Digital Creator / Influencer">Digital Creator / Influencer</option>
+                  <option value="Agency Owner / Other">Agency Owner / Other</option>
+                </select>
+              </div>
+
+              {/* UPI ID for Commission Payouts */}
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-foreground mb-1.5">
+                  UPI ID for Direct Payouts <span className="text-brand">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={applicantUpi}
+                  onChange={(e) => setApplicantUpi(e.target.value)}
+                  placeholder="e.g. 9876543210@paytm or name@okaxis"
+                  className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-brand focus:outline-none transition-colors"
+                />
+              </div>
+
+              {/* Primary Network / Referral Channel */}
+              <div className="sm:col-span-2">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-foreground mb-1.5">
+                  Where will you primarily share &amp; refer clients?
+                </label>
+                <select
+                  value={applicantNetwork}
+                  onChange={(e) => setApplicantNetwork(e.target.value)}
+                  className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground focus:border-brand focus:outline-none transition-colors"
+                >
+                  <option value="WhatsApp Status &amp; Friends Groups">WhatsApp Status &amp; Friends Groups</option>
+                  <option value="College Campus, Classmates &amp; Fests">College Campus, Classmates &amp; Fests</option>
+                  <option value="Local Shopkeepers &amp; Small Businesses">Local Shopkeepers &amp; Small Businesses</option>
+                  <option value="Instagram / YouTube / LinkedIn Audience">Instagram / YouTube / LinkedIn Audience</option>
+                  <option value="Freelance Clients &amp; Existing Network">Freelance Clients &amp; Existing Network</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Live Message Preview Box */}
+            <div className="mt-6 rounded-2xl border border-border/80 bg-background p-4 sm:p-5">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                  Pre-Filled WhatsApp Message Preview:
+                </span>
+                <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">
+                  Auto-formatted with your details
+                </span>
+              </div>
+              <pre className="whitespace-pre-wrap font-sans text-xs text-foreground/90 leading-relaxed bg-surface/60 p-3.5 rounded-xl border border-border/50 max-h-40 overflow-y-auto">
+                {buildAppMessage()}
+              </pre>
+            </div>
+
+            {/* Submit & Copy Actions */}
+            <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3.5">
+              <a
+                href={customWaLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="interactive inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-emerald-600 to-green-600 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-emerald-500/25 hover:from-emerald-700 hover:to-green-700 hover:scale-[1.02] active:scale-[0.98] transition-all"
+              >
+                <MessageCircle className="size-5" />
+                <span>Submit Application on WhatsApp</span>
+                <ArrowRight className="size-4" />
+              </a>
+
+              <button
+                type="button"
+                onClick={copyAppMessage}
+                className="interactive inline-flex items-center justify-center gap-2 rounded-full border border-border-strong bg-surface px-6 py-4 text-sm font-semibold text-foreground hover:border-brand hover:text-brand transition-all"
+              >
+                <Copy className="size-4" />
+                <span>{copiedApp ? "Message Copied! ✓" : "Copy Pre-Filled Text"}</span>
+              </button>
+            </div>
+
+            <p className="mt-4 text-center text-[11px] text-muted-foreground">
+              🔒 Zero registration fee. Instant activation and promotional kit delivery on WhatsApp.
+            </p>
+          </div>
+        </Container>
+      </Section>
+
       {/* ================= INTERACTIVE EARNINGS CALCULATOR ================= */}
       <Section id="calculator" className="border-b border-border">
         <Container>
@@ -433,7 +620,7 @@ function PartnerPage() {
                 </p>
 
                 <a
-                  href="https://wa.me/917070519128?text=Hi%20DEVGRONIX,%20I%20want%20to%20start%20referring%20clients%20and%20earn%20commissions."
+                  href={defaultWaTemplateLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="interactive mt-5 inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-xs sm:text-sm font-bold text-white shadow-md hover:bg-emerald-700"
@@ -512,8 +699,8 @@ function PartnerPage() {
         <Container>
           <SectionHeading
             eyebrow="Ready-to-Use WhatsApp Kit"
-            title="Copy, Share & Start Earning"
-            description="Don't know what to write? Copy these pre-tested messages and share them on your WhatsApp Status, Instagram Story, or college & office groups."
+            title="Copy, Share &amp; Start Earning"
+            description="Don't know what to write? Copy these pre-tested messages and share them on your WhatsApp Status, Instagram Story, or college &amp; office groups."
           />
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {readyTemplates.map((item, idx) => (
@@ -611,7 +798,7 @@ function PartnerPage() {
             </p>
             <div className="mt-7 flex flex-wrap justify-center gap-3">
               <a
-                href="https://wa.me/917070519128?text=Hi%20DEVGRONIX,%20I'm%20ready%20to%20join%20the%20Partner%20Program."
+                href={defaultWaTemplateLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="interactive inline-flex items-center gap-2.5 rounded-full bg-emerald-600 px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-emerald-500/25 hover:bg-emerald-700 hover:scale-105 active:scale-95 transition-all"
