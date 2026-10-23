@@ -48,8 +48,7 @@ export function Hero() {
       {/* Balanced padding: pt-28 on mobile, lg:pt-28 on desktop */}
       <Container className="relative z-10 pt-28 pb-12 sm:pt-32 sm:pb-16 lg:pt-28">
         <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
-          {/* Nudge slightly right to perfectly line up under the navbar's Logo */}
-          <div className="pl-1 sm:pl-3 lg:pl-5">
+          <div>
             <Reveal>
               <span className="inline-flex items-center gap-2.5 rounded-full border border-border-strong bg-surface/80 px-3.5 py-1.5 text-[0.6875rem] font-semibold text-muted-foreground shadow-sm backdrop-blur-md">
                 <span className="relative flex size-2" aria-hidden="true">
@@ -134,192 +133,190 @@ export function Hero() {
   );
 }
 
-const servicePricing = [
+const servicesPreview = [
   {
     icon: Code,
-    title: "Web Development",
-    rates: {
-      INR: { starting: "₹999", full: "₹2,499", unit: "complete site" },
-      AED: { starting: "AED 349", full: "AED 899", unit: "complete site" },
-      USD: { starting: "$95", full: "$249", unit: "complete site" },
-    },
-    popular: true,
+    title: "Web & SaaS Development",
+    meta: "Full-Stack · Next.js · React",
+    priceInr: "₹999",
+    priceAed: "250 AED",
+    priceUsd: "$70",
+    slug: "web-development",
   },
   {
     icon: Palette,
     title: "Graphic Design & Branding",
-    rates: {
-      INR: { starting: "₹99", full: "₹999", unit: "per design" },
-      AED: { starting: "AED 49", full: "AED 399", unit: "per design" },
-      USD: { starting: "$15", full: "$120", unit: "per design" },
-    },
-    popular: false,
+    meta: "Logos · Identity · Vector",
+    priceInr: "₹99",
+    priceAed: "25 AED",
+    priceUsd: "$10",
+    slug: "graphic-design",
   },
   {
     icon: Video,
     title: "Video Editing & Reels",
-    rates: {
-      INR: { starting: "₹399", full: "₹2,999", unit: "per video" },
-      AED: { starting: "AED 149", full: "AED 899", unit: "per video" },
-      USD: { starting: "$40", full: "$250", unit: "per video" },
-    },
-    popular: false,
-  },
-  {
-    icon: Globe,
-    title: "Social Media Management",
-    rates: {
-      INR: { starting: "₹1,000", full: "₹3,499", unit: "/month" },
-      AED: { starting: "AED 399", full: "AED 1,299", unit: "/month" },
-      USD: { starting: "$110", full: "$350", unit: "/month" },
-    },
-    popular: false,
+    meta: "4K Motion · Short-Form · Color",
+    priceInr: "₹399",
+    priceAed: "100 AED",
+    priceUsd: "$30",
+    slug: "video-editing-and-motion-graphics",
   },
 ];
 
-const currencyLabels: Record<Currency, { symbol: string; label: string; flag: string }> = {
-  INR: { symbol: "₹", label: "India (INR)", flag: "🇮🇳" },
-  AED: { symbol: "AED", label: "UAE / Dubai (AED)", flag: "🇦🇪" },
-  USD: { symbol: "$", label: "Global (USD)", flag: "🌐" },
-};
-
 function HeroComposition() {
+  const [activeTab, setActiveTab] = useState(0);
   const [currency, setCurrency] = useState<Currency>("INR");
-  const [selectedService, setSelectedService] = useState(0);
 
-  const active = servicePricing[selectedService];
-  const price = active.rates[currency];
+  const active = servicesPreview[activeTab] || servicesPreview[0];
+  const price =
+    currency === "INR"
+      ? active.priceInr
+      : currency === "AED"
+        ? active.priceAed
+        : active.priceUsd;
 
   return (
     <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
-      <div className="absolute inset-8 rounded-2xl bg-hero-indigo/10 blur-3xl" aria-hidden="true" />
+      {/* Decorative luxury gradient backplate */}
+      <div
+        aria-hidden="true"
+        className="absolute -inset-1 rounded-3xl bg-gradient-to-tr from-brand/40 via-hero-cyan/20 to-hero-indigo/30 opacity-70 blur-xl"
+      />
 
-      <div className="relative overflow-hidden rounded-2xl border border-border/80 bg-surface/90 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-surface/95">
-        {/* Terminal / Window Chrome */}
-        <div className="flex items-center justify-between border-b border-border/70 px-4 py-3">
+      <div className="relative rounded-2xl border border-border-strong bg-surface-strong/90 p-6 shadow-2xl backdrop-blur-xl sm:p-7">
+        {/* Terminal / Control Header with Currency Switcher */}
+        <div className="flex items-center justify-between border-b border-border/70 pb-4">
           <div className="flex items-center gap-2">
-            <span className="size-2.5 rounded-full bg-destructive/70" />
-            <span className="size-2.5 rounded-full bg-chart-4/70" />
-            <span className="size-2.5 rounded-full bg-chart-3/70" />
-            <span className="ml-2 font-mono text-[0.6875rem] font-medium text-muted-foreground">
-              devgronix // estimate &amp; book
+            <span className="size-2.5 rounded-full bg-destructive/80" />
+            <span className="size-2.5 rounded-full bg-chart-4/80" />
+            <span className="size-2.5 rounded-full bg-chart-3/80" />
+            <span className="ml-2 font-mono text-[11px] text-muted-foreground">
+              devgronix.engine/v2
             </span>
           </div>
 
-          {/* Currency Switcher */}
-          <div className="flex items-center gap-1 rounded-full border border-border bg-background/80 p-0.5 text-[0.6875rem]">
-            {(["INR", "AED", "USD"] as Currency[]).map((cur) => (
+          {/* Multi-Currency Toggle */}
+          <div className="flex items-center gap-1 rounded-full border border-border bg-surface p-0.5 text-[10px] font-semibold">
+            {(["INR", "AED", "USD"] as Currency[]).map((c) => (
               <button
-                key={cur}
+                key={c}
                 type="button"
-                onClick={() => setCurrency(cur)}
+                onClick={() => setCurrency(c)}
                 className={cn(
-                  "rounded-full px-2 py-0.5 font-semibold transition-all",
-                  currency === cur
+                  "rounded-full px-2 py-0.5 transition-colors",
+                  currency === c
                     ? "bg-brand text-brand-foreground shadow-xs"
                     : "text-muted-foreground hover:text-foreground",
                 )}
               >
-                {currencyLabels[cur].flag} {cur}
+                {c}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Interactive Pricing Estimator */}
-        <div className="p-5 sm:p-6">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Instant Quote Explorer
-            </span>
-            <span className="inline-flex items-center gap-1 rounded-full bg-chart-3/15 px-2 py-0.5 text-[0.6875rem] font-semibold text-chart-3">
-              <span className="size-1.5 rounded-full bg-chart-3" />
-              Live Rates · Zero Hidden Fees
-            </span>
+        {/* Live Service Interactive Switcher */}
+        <div className="mt-5">
+          <div className="flex items-center justify-between text-xs text-muted-foreground">
+            <span className="font-mono uppercase tracking-wider">Service Scope</span>
+            <span className="font-semibold text-brand">Select to inspect</span>
           </div>
 
-          {/* Service Selector Tabs */}
-          <div className="mt-4 grid grid-cols-2 gap-2">
-            {servicePricing.map((item, idx) => {
-              const Icon = item.icon;
-              const isSelected = selectedService === idx;
+          <div className="mt-2.5 grid grid-cols-3 gap-2">
+            {servicesPreview.map((svc, i) => {
+              const Icon = svc.icon;
+              const isSelected = i === activeTab;
               return (
                 <button
-                  key={item.title}
+                  key={svc.slug}
                   type="button"
-                  onClick={() => setSelectedService(idx)}
+                  onClick={() => setActiveTab(i)}
                   className={cn(
-                    "interactive flex items-center gap-2.5 rounded-xl border p-2.5 text-left transition-all",
+                    "flex flex-col items-center gap-1.5 rounded-xl border p-2.5 text-center transition-all",
                     isSelected
-                      ? "border-brand bg-brand-soft text-foreground shadow-xs"
-                      : "border-border/80 bg-background/60 text-muted-foreground hover:border-border-strong hover:text-foreground",
+                      ? "border-brand bg-brand/10 text-foreground shadow-sm"
+                      : "border-border bg-surface/50 text-muted-foreground hover:border-border-strong hover:bg-surface hover:text-foreground",
                   )}
                 >
-                  <Icon className={cn("size-4 shrink-0", isSelected ? "text-brand" : "text-muted-foreground")} />
-                  <span className="truncate text-xs font-semibold">{item.title}</span>
+                  <Icon className={cn("size-4", isSelected ? "text-brand" : "text-muted-foreground")} />
+                  <span className="line-clamp-1 text-[11px] font-medium leading-tight">
+                    {svc.title.split(" ")[0]}
+                  </span>
                 </button>
               );
             })}
           </div>
+        </div>
 
-          {/* Active Service Price Display */}
-          <div className="mt-5 rounded-xl border border-border/80 bg-background/80 p-4">
-            <div className="flex items-baseline justify-between">
-              <div>
-                <span className="text-[0.6875rem] uppercase tracking-wider text-muted-foreground">
-                  Starting Price ({currency})
+        {/* Dynamic Service Inspection Card */}
+        <div className="mt-5 rounded-xl border border-border/80 bg-surface/60 p-4">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="size-1.5 rounded-full bg-chart-3" />
+                <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+                  Starting Price
                 </span>
-                <div className="mt-0.5 flex items-baseline gap-2">
-                  <span className="font-display text-3xl font-bold text-foreground">
-                    {price.starting}
-                  </span>
-                  <span className="text-xs text-muted-foreground">/ {price.unit}</span>
-                </div>
               </div>
-              <div className="text-right">
-                <span className="text-[0.6875rem] uppercase tracking-wider text-muted-foreground">
-                  Turnaround
+              <p className="mt-1 font-display text-2xl font-bold tracking-tight text-foreground">
+                {price}
+                <span className="ml-1 text-xs font-normal text-muted-foreground">
+                  {currency === "INR" ? "(all-inclusive setup)" : "(fixed sprint scope)"}
                 </span>
-                <p className="mt-0.5 flex items-center gap-1 font-mono text-xs font-semibold text-chart-3">
-                  <Clock className="size-3" /> 24-48 Hours
-                </p>
-              </div>
+              </p>
             </div>
 
-            <div className="mt-3 flex items-center justify-between border-t border-border/60 pt-3 text-xs text-muted-foreground">
-              <span>Full-feature package up to <strong className="text-foreground">{price.full}</strong></span>
-              <span className="inline-flex items-center gap-1 text-brand font-medium">
-                <Check className="size-3" /> Domain &amp; Hosting setup included
-              </span>
-            </div>
-          </div>
-
-          {/* Direct Booking CTA */}
-          <div className="mt-5 flex flex-col gap-2.5 sm:flex-row">
-            <a
-              href={`https://wa.me/917070519128?text=${encodeURIComponent(
-                `Hi DEVGRONIX! I want a quote for ${active.title} (${currency} package). Can we discuss?`,
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="interactive flex flex-1 items-center justify-center gap-2 rounded-xl bg-brand px-4 py-3 text-xs font-bold text-brand-foreground shadow-md hover:opacity-90"
-            >
-              <MessageCircle className="size-4" />
-              Book on WhatsApp ({currency})
-            </a>
             <Link
-              to="/pricing"
-              className="interactive flex items-center justify-center gap-1 rounded-xl border border-border-strong px-4 py-3 text-xs font-semibold text-foreground hover:border-brand hover:text-brand"
+              to="/services/$slug"
+              params={{ slug: active.slug }}
+              className="group inline-flex items-center gap-1 rounded-full border border-border bg-surface px-2.5 py-1 text-[11px] font-medium text-foreground transition-colors hover:border-brand hover:text-brand"
             >
-              View Full Pricing
-              <ArrowRight className="size-3.5" />
+              Details
+              <ArrowRight className="size-3 transition-transform group-hover:translate-x-0.5" />
             </Link>
           </div>
 
-          <p className="mt-3 text-center text-[0.6875rem] text-muted-foreground">
-            ⚡ Invoices in INR, AED &amp; USD via Stripe / Wise / Bank Transfer
-          </p>
+          <div className="mt-3 flex items-center justify-between border-t border-border/50 pt-3 text-xs">
+            <span className="text-muted-foreground">{active.meta}</span>
+            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-chart-3">
+              <Check className="size-3" /> 24-48h Sprint Ready
+            </span>
+          </div>
         </div>
+
+        {/* Floating Trust Metrics */}
+        <div className="mt-5 grid grid-cols-2 gap-3 pt-2">
+          <div className="flex items-center gap-3 rounded-xl border border-border/70 bg-surface/40 p-3">
+            <div className="flex size-9 items-center justify-center rounded-lg bg-brand/10 text-brand">
+              <Gauge className="size-4" />
+            </div>
+            <div>
+              <p className="text-[11px] font-medium text-muted-foreground">PageSpeed Rating</p>
+              <p className="font-display text-base font-bold text-foreground">98 / 100</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 rounded-xl border border-border/70 bg-surface/40 p-3">
+            <div className="flex size-9 items-center justify-center rounded-lg bg-chart-3/10 text-chart-3">
+              <Clock className="size-4" />
+            </div>
+            <div>
+              <p className="text-[11px] font-medium text-muted-foreground">Fast Delivery</p>
+              <p className="font-display text-base font-bold text-foreground">Within 2 Days</p>
+            </div>
+          </div>
+        </div>
+
+        {/* WhatsApp Consultation Action Button */}
+        <a
+          href="https://wa.me/917070519128?text=Hi%20DEVGRONIX%2C%20I'm%20interested%20in%20discussing%20a%20project."
+          target="_blank"
+          rel="noopener noreferrer"
+          className="interactive mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-4 py-3 text-xs font-semibold text-white shadow-md hover:from-emerald-500 hover:to-teal-500"
+        >
+          <MessageCircle className="size-4" />
+          Quick WhatsApp Quote (+91 70705 19128)
+        </a>
       </div>
     </div>
   );
