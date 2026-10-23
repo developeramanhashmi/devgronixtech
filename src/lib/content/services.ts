@@ -94,21 +94,21 @@ export const services: Service[] = [
       "Cross-platform iOS and Android apps",
       "App MVPs for new products",
       "API and backend integration",
-      "App store submission and release management",
-      "Post-launch monitoring and updates",
+      "Offline sync and local storage",
+      "App store submission and updates",
     ],
     capabilities: [
-      "Cross-platform architecture",
-      "Offline-first data handling",
-      "Push notifications",
-      "In-app payments",
-      "Crash reporting and analytics",
-      "Device testing",
+      "React Native / Flutter development",
+      "Native iOS and Android bridges",
+      "Push notification systems",
+      "App Store & Play Store optimisation",
+      "Crash and performance monitoring",
+      "Over-the-air updates",
     ],
     helps: [
-      { title: "One codebase", body: "Both platforms from a shared codebase, so features ship once." },
-      { title: "Real device testing", body: "Tested on the devices your users actually own, not just simulators." },
-      { title: "Release discipline", body: "Versioned releases, crash reporting and a clear rollback path." },
+      { title: "One codebase", body: "Cross-platform development keeps iOS and Android features in lockstep." },
+      { title: "Offline-first", body: "Core flows continue working without network connection." },
+      { title: "Store approval", body: "Guideline compliance handled during build, avoiding submission rejection." },
     ],
     technologies: ["React Native", "TypeScript", "Node.js", "PostgreSQL", "REST APIs"],
     featured: false,
@@ -120,26 +120,26 @@ export const services: Service[] = [
     title: "Custom Software Development",
     slug: "custom-software-development",
     group: "Technology & Development",
-    tagline: "Software shaped around how your business runs.",
+    tagline: "Systems built around how your business works.",
     description:
-      "Internal tools and management systems designed around your actual workflow, not a template someone else's process.",
+      "Internal tools, management systems and workflow software designed around how your business actually operates.",
     icon: "Boxes",
     overview:
-      "When off-the-shelf software forces your team into the wrong process, custom software pays for itself. We map the workflow, then build only what earns its place.",
+      "Off-the-shelf tools force you into other people's workflows. We build software around your actual operational sequence — replacing manual steps and spreadsheet workarounds.",
     offers: [
-      "Business management systems",
-      "Internal tools and admin panels",
-      "Workflow and approval systems",
-      "Reporting and document generation",
+      "Internal workflow tools",
+      "ERP and inventory management",
+      "Custom CRM systems",
+      "API development and integration",
       "Legacy system modernisation",
     ],
     capabilities: [
-      "Workflow mapping and process design",
-      "Role-based access and permissions",
+      "Architecture and database design",
+      "Role-based access and audit logging",
       "Third-party API integration",
-      "Data migration",
-      "Audit trails and logging",
-      "Phased delivery",
+      "Automated reports and exports",
+      "Data migration from legacy systems",
+      "Ongoing maintenance and SLA support",
     ],
     helps: [
       { title: "Workflow mapping", body: "We document the current process before proposing a system." },
@@ -154,7 +154,7 @@ export const services: Service[] = [
   {
     id: "svc-saas",
     title: "SaaS & Web Applications",
-    slug: "saas-web-applications",
+    slug: "saas-and-web-applications",
     group: "Technology & Development",
     tagline: "From product idea to paying subscribers.",
     description:
@@ -514,7 +514,7 @@ export const services: Service[] = [
   {
     id: "svc-seo",
     title: "SEO & Search Optimization",
-    slug: "seo-search-optimization",
+    slug: "seo-and-search-optimization",
     group: "Digital Growth",
     tagline: "Organic traffic that converts to customers.",
     description:
@@ -585,9 +585,32 @@ export const services: Service[] = [
   },
 ];
 
-export const publishedServices = services.filter((s) => s.status === "published");
-export const featuredServices = services.filter((s) => s.featured);
+export const publishedServices = services
+  .filter((s) => s.status === "published")
+  .sort((a, b) => a.order - b.order);
+
+export const featuredServices = publishedServices.filter((s) => s.featured);
+
+/** Services bucketed by group, in directory order. */
+export const servicesByGroup = serviceGroups.map((group) => ({
+  group,
+  items: publishedServices.filter((s) => s.group === group),
+}));
 
 export function getServiceBySlug(slug: string): Service | undefined {
-  return services.find((s) => s.slug === slug);
+  return publishedServices.find((s) => s.slug === slug);
+}
+
+export function getServiceById(id: string): Service | undefined {
+  return services.find((s) => s.id === id);
+}
+
+/** Previous / next service in directory order, for service-to-service browsing. */
+export function getAdjacentServices(slug: string) {
+  const i = publishedServices.findIndex((s) => s.slug === slug);
+  if (i === -1) return { previous: undefined, next: undefined };
+  return {
+    previous: i > 0 ? publishedServices[i - 1] : publishedServices[publishedServices.length - 1],
+    next: i < publishedServices.length - 1 ? publishedServices[i + 1] : publishedServices[0],
+  };
 }
