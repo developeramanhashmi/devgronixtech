@@ -36,6 +36,7 @@ export function Section({
 export function SectionHeading({
   index,
   label,
+  eyebrow,
   title,
   description,
   align = "left",
@@ -43,11 +44,14 @@ export function SectionHeading({
 }: {
   index?: string;
   label?: string;
+  eyebrow?: string;
   title: ReactNode;
   description?: string;
   align?: "left" | "center";
   className?: string;
 }) {
+  const badgeLabel = label || eyebrow;
+
   return (
     <Reveal
       className={cn(
@@ -56,7 +60,7 @@ export function SectionHeading({
         className,
       )}
     >
-      {(index || label) && (
+      {(index || badgeLabel) && (
         <div
           className={cn(
             "mb-5 flex items-center gap-3",
@@ -65,7 +69,7 @@ export function SectionHeading({
         >
           {index && <span className="font-display text-sm font-semibold text-brand">{index}</span>}
           <span aria-hidden="true" className="h-px w-8 bg-border-strong" />
-          {label && <span className="rule-label">{label}</span>}
+          {badgeLabel && <span className="rule-label">{badgeLabel}</span>}
         </div>
       )}
       <h2 className="text-3xl font-bold leading-[1.1] text-foreground sm:text-4xl lg:text-[2.75rem]">
