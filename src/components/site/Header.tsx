@@ -28,29 +28,31 @@ export function Header() {
   return (
     <>
       {/* ================= MOBILE TOP TICKER & SLIM HEADER (< md) ================= */}
-      <div className="fixed inset-x-0 top-0 z-40 md:hidden border-b border-border/60 bg-background/95 backdrop-blur-md">
+      <div className="fixed inset-x-0 top-0 z-40 md:hidden w-full max-w-full overflow-hidden border-b border-border/60 bg-background/95 backdrop-blur-md">
         {/* Continuous Auto-Scrolling Announcement Marquee */}
-        <div className="overflow-hidden bg-brand/10 py-1 text-[11px] font-medium text-brand border-b border-brand/15">
-          <div className="inline-flex whitespace-nowrap animate-marquee gap-8">
-            <span className="inline-flex items-center gap-1.5">
+        <div className="w-full max-w-full overflow-hidden bg-brand/10 py-1 text-[11px] font-medium text-brand border-b border-brand/15">
+          <div className="hero-marquee flex w-max items-center gap-8">
+            <span className="inline-flex items-center gap-1.5 shrink-0">
               <Sparkles className="size-3 text-brand" />
               <strong>NEW:</strong> Custom T-Shirts, Hoodies &amp; Corporate Printing Solutions
             </span>
-            <span>•</span>
-            <span>🌐 Websites starting at ₹999 with 24–48h delivery</span>
-            <span>•</span>
-            <span>🚀 Pan-India Delivery on all Branded Merchandise</span>
-            <span>•</span>
-            <span>💬 Free WhatsApp Consultation: +91 70705 19128</span>
-            <span>•</span>
-            <span className="inline-flex items-center gap-1.5">
+            <span className="shrink-0">•</span>
+            <span className="shrink-0">🌐 Websites starting at ₹999 with 24–48h delivery</span>
+            <span className="shrink-0">•</span>
+            <span className="shrink-0">🚀 Pan-India Delivery on all Branded Merchandise</span>
+            <span className="shrink-0">•</span>
+            <span className="shrink-0">💬 Free WhatsApp Consultation: +91 70705 19128</span>
+            <span className="shrink-0">•</span>
+            <span className="inline-flex items-center gap-1.5 shrink-0">
               <Sparkles className="size-3 text-brand" />
               <strong>NEW:</strong> Custom T-Shirts, Hoodies &amp; Corporate Printing Solutions
             </span>
-            <span>•</span>
-            <span>🌐 Websites starting at ₹999 with 24–48h delivery</span>
-            <span>•</span>
-            <span>🚀 Pan-India Delivery on all Branded Merchandise</span>
+            <span className="shrink-0">•</span>
+            <span className="shrink-0">🌐 Websites starting at ₹999 with 24–48h delivery</span>
+            <span className="shrink-0">•</span>
+            <span className="shrink-0">🚀 Pan-India Delivery on all Branded Merchandise</span>
+            <span className="shrink-0">•</span>
+            <span className="shrink-0">💬 Free WhatsApp Consultation: +91 70705 19128</span>
           </div>
         </div>
 
