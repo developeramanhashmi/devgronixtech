@@ -19,19 +19,20 @@ export function HeroNodeNetwork() {
     if (!ctx) return;
 
     let animationFrameId: number;
+    let isVisible = true;
     let width = 0;
     let height = 0;
     let nodes: NodePoint[] = [];
 
     const isMobile = window.innerWidth < 768;
-    const nodeCount = isMobile ? 22 : 45;
-    const maxDistance = isMobile ? 90 : 140;
+    const nodeCount = isMobile ? 16 : 40;
+    const maxDistance = isMobile ? 85 : 130;
 
     const resize = () => {
       const parent = canvas.parentElement;
       if (!parent) return;
       const rect = parent.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       width = rect.width;
       height = rect.height;
 
@@ -50,15 +51,17 @@ export function HeroNodeNetwork() {
         nodes.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.45,
-          vy: (Math.random() - 0.5) * 0.45,
-          radius: Math.random() * 1.8 + 1.2,
-          baseAlpha: Math.random() * 0.4 + 0.35,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          radius: Math.random() * 1.5 + 1.1,
+          baseAlpha: Math.random() * 0.35 + 0.3,
         });
       }
     };
 
     const render = () => {
+      if (!isVisible) return;
+
       ctx.clearRect(0, 0, width, height);
 
       // Draw connections
@@ -71,12 +74,12 @@ export function HeroNodeNetwork() {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < maxDistance) {
-            const alpha = (1 - dist / maxDistance) * 0.28;
+            const alpha = (1 - dist / maxDistance) * 0.25;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
             ctx.strokeStyle = `rgba(235, 94, 40, ${alpha})`;
-            ctx.lineWidth = 0.85;
+            ctx.lineWidth = 0.8;
             ctx.stroke();
           }
         }
@@ -94,7 +97,7 @@ export function HeroNodeNetwork() {
 
         // Glow ring
         ctx.beginPath();
-        ctx.arc(node.x, node.y, node.radius * 2.2, 0, Math.PI * 2);
+        ctx.arc(node.x, node.y, node.radius * 2, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(235, 94, 40, 0.08)`;
         ctx.fill();
 
@@ -108,11 +111,27 @@ export function HeroNodeNetwork() {
       animationFrameId = requestAnimationFrame(render);
     };
 
+    // Pause animation when hero is scrolled out of view to save mobile battery & CPU
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = requestAnimationFrame(render);
+        } else {
+          cancelAnimationFrame(animationFrameId);
+        }
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(canvas);
     resize();
     render();
 
     window.addEventListener("resize", resize);
     return () => {
+      observer.disconnect();
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(animationFrameId);
     };
