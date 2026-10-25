@@ -6,10 +6,15 @@ import {
   Check,
   CheckCircle2,
   Clock,
+  Compass,
+  FileCode2,
   Globe,
+  Layers,
   MessageCircle,
+  Rocket,
   ShieldCheck,
   Sparkles,
+  X,
   Zap,
 } from "lucide-react";
 
@@ -106,10 +111,7 @@ function ServiceNotFound() {
 }
 
 function ServiceDetailPage() {
-  const { service, seo, projects, plans, adjacent } = Route.useLoaderData();
-  const siblings = publishedServices
-    .filter((s) => s.group === service.group && s.id !== service.id)
-    .slice(0, 4);
+  const { service, seo, projects, plans } = Route.useLoaderData();
 
   // Normalize deliverables and outcomes safely
   const deliverablesList =
@@ -144,13 +146,11 @@ function ServiceDetailPage() {
   // Right-column 3D Glassmorphic Spec Card
   const heroSpecCard = (
     <div className="relative overflow-hidden rounded-3xl border border-brand/40 bg-card/90 p-6 sm:p-7 shadow-2xl backdrop-blur-2xl transition-all duration-300 hover:border-brand/70 hover:shadow-brand/20">
-      {/* Ambient gradient glow behind card */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -inset-1 rounded-3xl bg-gradient-to-tr from-brand/25 via-sky-500/15 to-indigo-500/25 blur-xl opacity-75 -z-10"
       />
 
-      {/* Card Header with Live Status */}
       <div className="flex items-center justify-between pb-5 border-b border-border/60">
         <div className="flex items-center gap-3">
           <div className="flex size-11 items-center justify-center rounded-2xl bg-brand/10 border border-brand/25 text-brand shadow-inner">
@@ -172,7 +172,6 @@ function ServiceDetailPage() {
         </div>
       </div>
 
-      {/* Quick Specs 2-Column Grid */}
       <div className="mt-5 grid grid-cols-2 gap-3">
         <div className="rounded-2xl border border-border/60 bg-background/70 p-3.5 backdrop-blur-md">
           <div className="text-[11px] font-medium text-muted-foreground">Starting From</div>
@@ -186,7 +185,6 @@ function ServiceDetailPage() {
         </div>
       </div>
 
-      {/* Included Highlights Preview */}
       <div className="mt-5">
         <div className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground mb-3 flex items-center gap-1.5">
           <Sparkles className="size-3 text-brand" />
@@ -202,7 +200,6 @@ function ServiceDetailPage() {
         </ul>
       </div>
 
-      {/* 1-Click WhatsApp Instant Consultation Button inside card */}
       <div className="mt-6 pt-5 border-t border-border/60">
         <a
           href={waInquiryUrl}
@@ -226,7 +223,6 @@ function ServiceDetailPage() {
         rightContent={heroSpecCard}
       >
         <div className="flex flex-col gap-6">
-          {/* Tech stack pill strip */}
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mr-1">
               Tech / Tools:
@@ -241,7 +237,6 @@ function ServiceDetailPage() {
             ))}
           </div>
 
-          {/* Trust Signal Badges */}
           <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
             <div className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/40 px-3 py-1.5 backdrop-blur-md">
               <Zap className="size-3.5 text-amber-400" />
@@ -257,7 +252,6 @@ function ServiceDetailPage() {
             </div>
           </div>
 
-          {/* Dynamic Action Buttons */}
           <div className="flex flex-wrap items-center gap-3.5 pt-2">
             <Link
               to="/contact"
@@ -319,24 +313,14 @@ function ServiceDetailPage() {
         </div>
       </Section>
 
-      {/* TECHNOLOGIES */}
-      <Section className="border-b border-border bg-surface/40">
-        <SectionHeading index="01" label="Technologies & Tools" title="Industry-Standard Tools & Stacks" />
-        <div className="mt-8 flex flex-wrap gap-2.5">
-          {(service.technologies || []).map((tech) => (
-            <span
-              key={tech}
-              className="rounded-full border border-border bg-card px-4 py-2 font-mono text-xs font-medium text-foreground shadow-xs transition-all hover:border-brand"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-      </Section>
-
-      {/* DELIVERABLES */}
+      {/* DELIVERABLES BENTO GRID */}
       <Section className="border-b border-border">
-        <SectionHeading index="02" label="Deliverables" title="What Ships at the End of Every Sprint" />
+        <SectionHeading
+          index="01"
+          label="Deliverables & Assets"
+          title="What Ships at the End of Every Sprint"
+          description="Everything we produce belongs to you. Zero vendor lock-in, complete source ownership."
+        />
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {deliverablesList.map((item: any, i: number) => (
             <Reveal
@@ -357,31 +341,130 @@ function ServiceDetailPage() {
         </div>
       </Section>
 
-      {/* OUTCOMES */}
-      <Section className="border-b border-border bg-surface/40">
-        <SectionHeading index="03" label="Measurable Outcomes" title="Commercial & Operational Return" />
-        <div className="mt-12 grid gap-6 sm:grid-cols-3">
-          {outcomesList.map((item: any, i: number) => (
-            <Reveal
-              key={(item.label || "outcome") + i}
-              delay={i * 80}
-              className="rounded-2xl border border-border/80 bg-card/80 p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-brand/40"
-            >
-              <p className="font-display text-3xl font-extrabold tracking-tight bg-gradient-to-r from-brand via-sky-400 to-indigo-400 bg-clip-text text-transparent">
-                {item.metric}
-              </p>
-              <h3 className="mt-3 font-display text-base font-bold text-foreground">
-                {item.label}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.description}</p>
-            </Reveal>
-          ))}
+      {/* WHY DEVGRONIX VS OTHERS COMPARISON */}
+      <Section className="border-b border-border bg-surface/30">
+        <SectionHeading
+          index="02"
+          label="The DEVGRONIX Difference"
+          title={`Why Choose DEVGRONIX for ${service.title}`}
+          description="How our sprint model beats traditional agency delays, hidden fees, and unreliable freelancers."
+        />
+        <div className="mt-12 overflow-hidden rounded-2xl border border-border/80 bg-card/70 backdrop-blur-xl">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm">
+              <thead className="border-b border-border/80 bg-muted/40 font-display text-xs uppercase tracking-wider text-muted-foreground">
+                <tr>
+                  <th className="py-4 px-6 font-semibold">Deliverable Standard</th>
+                  <th className="py-4 px-6 font-semibold text-muted-foreground">Generic Agencies / Freelancers</th>
+                  <th className="py-4 px-6 font-bold text-brand bg-brand/5">DEVGRONIX Advantage</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border/60">
+                <tr className="transition-colors hover:bg-muted/20">
+                  <td className="py-4 px-6 font-medium text-foreground">Delivery Speed</td>
+                  <td className="py-4 px-6 text-muted-foreground flex items-center gap-2">
+                    <X className="size-4 text-rose-500 shrink-0" />
+                    2–4 weeks with communication gaps
+                  </td>
+                  <td className="py-4 px-6 font-semibold text-emerald-400 bg-brand/5">
+                    <div className="flex items-center gap-2">
+                      <Check className="size-4 text-emerald-400 shrink-0" />
+                      24–48 Hours rapid sprint deployment
+                    </div>
+                  </td>
+                </tr>
+                <tr className="transition-colors hover:bg-muted/20">
+                  <td className="py-4 px-6 font-medium text-foreground">Pricing & Transparency</td>
+                  <td className="py-4 px-6 text-muted-foreground flex items-center gap-2">
+                    <X className="size-4 text-rose-500 shrink-0" />
+                    Hidden fees, surprise hourly rates
+                  </td>
+                  <td className="py-4 px-6 font-semibold text-emerald-400 bg-brand/5">
+                    <div className="flex items-center gap-2">
+                      <Check className="size-4 text-emerald-400 shrink-0" />
+                      100% Upfront transparent packages
+                    </div>
+                  </td>
+                </tr>
+                <tr className="transition-colors hover:bg-muted/20">
+                  <td className="py-4 px-6 font-medium text-foreground">Communication</td>
+                  <td className="py-4 px-6 text-muted-foreground flex items-center gap-2">
+                    <X className="size-4 text-rose-500 shrink-0" />
+                    Account managers, ticket backlogs
+                  </td>
+                  <td className="py-4 px-6 font-semibold text-emerald-400 bg-brand/5">
+                    <div className="flex items-center gap-2">
+                      <Check className="size-4 text-emerald-400 shrink-0" />
+                      Direct WhatsApp access to founder/engineer
+                    </div>
+                  </td>
+                </tr>
+                <tr className="transition-colors hover:bg-muted/20">
+                  <td className="py-4 px-6 font-medium text-foreground">Asset & Code Ownership</td>
+                  <td className="py-4 px-6 text-muted-foreground flex items-center gap-2">
+                    <X className="size-4 text-rose-500 shrink-0" />
+                    Proprietary lock-ins or extra release fees
+                  </td>
+                  <td className="py-4 px-6 font-semibold text-emerald-400 bg-brand/5">
+                    <div className="flex items-center gap-2">
+                      <Check className="size-4 text-emerald-400 shrink-0" />
+                      100% Complete ownership from Day 1
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </Section>
+
+      {/* 3-STEP SPRINT WORKFLOW */}
+      <Section className="border-b border-border">
+        <SectionHeading
+          index="03"
+          label="Execution Process"
+          title="3-Step Frictionless Delivery"
+          description="A clear, predictable sprint sequence from initial brief to live production handoff."
+        />
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <Reveal delay={0} className="rounded-2xl border border-border/80 bg-card/60 p-7 backdrop-blur-xl">
+            <div className="flex size-11 items-center justify-center rounded-2xl bg-brand/10 border border-brand/20 text-brand">
+              <Compass className="size-5" />
+            </div>
+            <div className="mt-5 font-mono text-xs font-bold text-muted-foreground uppercase">Step 01</div>
+            <h3 className="mt-1 font-display text-lg font-bold text-foreground">Scope & Confirmation</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Select your package or share custom requirements on WhatsApp. We lock in the deliverables, pricing, and exact timeline in 15 minutes.
+            </p>
+          </Reveal>
+
+          <Reveal delay={80} className="rounded-2xl border border-border/80 bg-card/60 p-7 backdrop-blur-xl">
+            <div className="flex size-11 items-center justify-center rounded-2xl bg-sky-500/10 border border-sky-500/20 text-sky-400">
+              <Rocket className="size-5" />
+            </div>
+            <div className="mt-5 font-mono text-xs font-bold text-muted-foreground uppercase">Step 02</div>
+            <h3 className="mt-1 font-display text-lg font-bold text-foreground">Rapid Sprint & Review</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              We execute your project within 24–48 hours. You receive a private preview or proof to test, inspect, and request adjustments.
+            </p>
+          </Reveal>
+
+          <Reveal delay={160} className="rounded-2xl border border-border/80 bg-card/60 p-7 backdrop-blur-xl">
+            <div className="flex size-11 items-center justify-center rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+              <CheckCircle2 className="size-5" />
+            </div>
+            <div className="mt-5 font-mono text-xs font-bold text-muted-foreground uppercase">Step 03</div>
+            <h3 className="mt-1 font-display text-lg font-bold text-foreground">Final Launch & Handoff</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              After your approval, we connect your official domain or release all high-res assets, source code, and credentials directly to you.
+            </p>
+          </Reveal>
         </div>
       </Section>
 
       {/* PRICING PLANS */}
       {plans && plans.length > 0 && (
-        <Section id="pricing" className="border-b border-border">
+        <Section id="pricing" className="border-b border-border bg-surface/30">
           <SectionHeading
             index="04"
             label="Packages & Pricing"
@@ -395,7 +478,7 @@ function ServiceDetailPage() {
       )}
 
       {/* SELECTED WORK */}
-      <Section className="border-b border-border bg-surface/40">
+      <Section className="border-b border-border">
         <SectionHeading
           index="05"
           label="Selected Work"
@@ -426,7 +509,7 @@ function ServiceDetailPage() {
 
       {/* FAQS */}
       {seo.faqs && seo.faqs.length > 0 && (
-        <Section className="border-b border-border">
+        <Section className="border-b border-border bg-surface/30">
           <SectionHeading
             index="06"
             label="FAQ"
@@ -456,8 +539,6 @@ function ServiceDetailPage() {
       <CtaSection
         title={homepage.cta.title}
         description={homepage.cta.description}
-        primaryCta={homepage.cta.primaryCta}
-        secondaryCta={homepage.cta.secondaryCta}
       />
     </>
   );
