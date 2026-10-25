@@ -1,5 +1,17 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  Check,
+  CheckCircle2,
+  Clock,
+  Globe,
+  MessageCircle,
+  ShieldCheck,
+  Sparkles,
+  Zap,
+} from "lucide-react";
 
 import {
   breadcrumbSchema,
@@ -100,58 +112,206 @@ function ServiceDetailPage() {
     .slice(0, 4);
 
   // Normalize deliverables and outcomes safely
-  const deliverablesList = (service as any).deliverables || (service.offers || []).map((o: any) => ({
-    title: typeof o === "string" ? o : o.title || "",
-    description: typeof o === "object" && o.description ? o.description : "Professional deliverable tailored to your scope.",
-  }));
+  const deliverablesList =
+    (service as any).deliverables ||
+    (service.offers || []).map((o: any) => ({
+      title: typeof o === "string" ? o : o.title || "",
+      description:
+        typeof o === "object" && o.description
+          ? o.description
+          : "Professional deliverable tailored to your scope and specifications.",
+    }));
 
-  const outcomesList = (service as any).outcomes || (service.helps || []).map((h: any) => ({
-    metric: h.metric || "100%",
-    label: h.title || h.label || "",
-    description: h.body || h.description || "",
-  }));
+  const outcomesList =
+    (service as any).outcomes ||
+    (service.helps || []).map((h: any) => ({
+      metric: h.metric || "100%",
+      label: h.title || h.label || "",
+      description: h.body || h.description || "",
+    }));
+
+  // Lowest starting price for service highlight
+  const lowestPrice =
+    plans && plans.length > 0
+      ? plans.find((p) => p.price && p.price !== "On request")?.price || plans[0]?.price
+      : null;
+
+  // Direct WhatsApp prefilled inquiry message
+  const waInquiryUrl = `https://wa.me/917070519128?text=${encodeURIComponent(
+    `Hi DEVGRONIX, I'm interested in your ${service.title} service. Please share packages, timelines and an estimated quote.`
+  )}`;
+
+  // Right-column 3D Glassmorphic Spec Card
+  const heroSpecCard = (
+    <div className="relative overflow-hidden rounded-3xl border border-brand/40 bg-card/90 p-6 sm:p-7 shadow-2xl backdrop-blur-2xl transition-all duration-300 hover:border-brand/70 hover:shadow-brand/20">
+      {/* Ambient gradient glow behind card */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -inset-1 rounded-3xl bg-gradient-to-tr from-brand/25 via-sky-500/15 to-indigo-500/25 blur-xl opacity-75 -z-10"
+      />
+
+      {/* Card Header with Live Status */}
+      <div className="flex items-center justify-between pb-5 border-b border-border/60">
+        <div className="flex items-center gap-3">
+          <div className="flex size-11 items-center justify-center rounded-2xl bg-brand/10 border border-brand/25 text-brand shadow-inner">
+            <ServiceIcon name={service.icon} className="size-5" />
+          </div>
+          <div>
+            <div className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">
+              {service.group}
+            </div>
+            <div className="text-base font-bold text-foreground line-clamp-1">{service.title}</div>
+          </div>
+        </div>
+        <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-semibold text-emerald-400">
+          <span className="relative flex size-2">
+            <span className="animate-ping absolute inline-flex size-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
+          </span>
+          Sprint Ready
+        </div>
+      </div>
+
+      {/* Quick Specs 2-Column Grid */}
+      <div className="mt-5 grid grid-cols-2 gap-3">
+        <div className="rounded-2xl border border-border/60 bg-background/70 p-3.5 backdrop-blur-md">
+          <div className="text-[11px] font-medium text-muted-foreground">Starting From</div>
+          <div className="text-lg font-bold text-emerald-400 mt-0.5">
+            {lowestPrice || "Custom Quote"}
+          </div>
+        </div>
+        <div className="rounded-2xl border border-border/60 bg-background/70 p-3.5 backdrop-blur-md">
+          <div className="text-[11px] font-medium text-muted-foreground">Turnaround</div>
+          <div className="text-lg font-bold text-foreground mt-0.5">24–48 Hours</div>
+        </div>
+      </div>
+
+      {/* Included Highlights Preview */}
+      <div className="mt-5">
+        <div className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground mb-3 flex items-center gap-1.5">
+          <Sparkles className="size-3 text-brand" />
+          Key Inclusions
+        </div>
+        <ul className="space-y-2.5">
+          {deliverablesList.slice(0, 4).map((d: any, idx: number) => (
+            <li key={idx} className="flex items-start gap-2.5 text-xs text-foreground">
+              <CheckCircle2 className="size-4 text-emerald-400 shrink-0 mt-0.5" />
+              <span className="line-clamp-1 font-medium">{d.title}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* 1-Click WhatsApp Instant Consultation Button inside card */}
+      <div className="mt-6 pt-5 border-t border-border/60">
+        <a
+          href={waInquiryUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="interactive flex w-full items-center justify-center gap-2 rounded-2xl bg-[#25D366] px-4 py-3.5 text-sm font-bold text-white shadow-lg shadow-[#25D366]/25 transition-all hover:bg-[#20bd5a] hover:scale-[1.01]"
+        >
+          <MessageCircle className="size-4" />
+          Instant WhatsApp Consultation
+        </a>
+      </div>
+    </div>
+  );
 
   return (
     <>
-      <PageHero label={service.group} title={seo.h1} description={service.tagline}>
+      <PageHero
+        label={service.group}
+        title={seo.h1}
+        description={service.tagline}
+        rightContent={heroSpecCard}
+      >
         <div className="flex flex-col gap-6">
-          <div className="flex items-center gap-3 text-muted-foreground">
-            <ServiceIcon name={service.icon} className="size-5 text-brand" />
-            <span className="text-sm">{(service.technologies || []).slice(0, 4).join(" · ")}</span>
+          {/* Tech stack pill strip */}
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mr-1">
+              Tech / Tools:
+            </span>
+            {(service.technologies || []).slice(0, 5).map((tech) => (
+              <span
+                key={tech}
+                className="rounded-full border border-border/70 bg-card/60 px-3 py-1 font-mono text-xs text-foreground backdrop-blur-md"
+              >
+                {tech}
+              </span>
+            ))}
           </div>
-          <div className="flex flex-wrap gap-3">
+
+          {/* Trust Signal Badges */}
+          <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/40 px-3 py-1.5 backdrop-blur-md">
+              <Zap className="size-3.5 text-amber-400" />
+              <span>Fast 24–48h Sprints</span>
+            </div>
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/40 px-3 py-1.5 backdrop-blur-md">
+              <ShieldCheck className="size-3.5 text-emerald-400" />
+              <span>100% Quality &amp; Revision Guarantee</span>
+            </div>
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/40 px-3 py-1.5 backdrop-blur-md">
+              <Globe className="size-3.5 text-sky-400" />
+              <span>Serving India, UAE &amp; Global</span>
+            </div>
+          </div>
+
+          {/* Dynamic Action Buttons */}
+          <div className="flex flex-wrap items-center gap-3.5 pt-2">
             <Link
               to="/contact"
               search={{ service: service.slug }}
-              className="interactive inline-flex items-center gap-2 rounded-full bg-brand px-5 py-3 text-sm font-semibold text-brand-foreground hover:opacity-90"
+              className="interactive group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-brand via-sky-500 to-indigo-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-brand/25 transition-all duration-300 hover:scale-[1.02] hover:shadow-brand/40"
             >
-              Get a Quote
-              <ArrowRight className="size-4" />
+              <span>Get a Custom Quote</span>
+              <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
-            <Link
-              to="/pricing/$slug"
-              params={{ slug: service.slug }}
-              className="interactive inline-flex items-center rounded-full border border-border-strong px-5 py-3 text-sm font-semibold text-foreground hover:border-brand hover:text-brand"
+
+            <a
+              href={waInquiryUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="interactive inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-5 py-3.5 text-sm font-semibold text-emerald-400 backdrop-blur-md transition-all duration-300 hover:bg-emerald-500/20 hover:border-emerald-500/70"
             >
-              View pricing
-            </Link>
+              <MessageCircle className="size-4" />
+              Chat on WhatsApp
+            </a>
+
+            {plans && plans.length > 0 && (
+              <a
+                href="#pricing"
+                className="interactive inline-flex items-center rounded-full border border-border-strong px-5 py-3.5 text-sm font-semibold text-foreground backdrop-blur-md transition-all duration-300 hover:border-brand hover:text-brand"
+              >
+                View Packages
+              </a>
+            )}
           </div>
         </div>
       </PageHero>
 
+      {/* OVERVIEW & CORE CAPABILITIES */}
       <Section className="border-b border-border">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
           <Reveal>
             <span className="rule-label">Overview</span>
             <p className="mt-5 text-lg leading-relaxed text-foreground">{service.description}</p>
+            {service.overview && (
+              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+                {service.overview}
+              </p>
+            )}
           </Reveal>
           <div>
-            <span className="rule-label">Core capabilities</span>
-            <ul className="mt-5 space-y-3">
+            <span className="rule-label">Core Capabilities</span>
+            <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
               {(service.capabilities || []).map((cap) => (
-                <li key={cap} className="flex items-start gap-3 text-sm text-foreground">
-                  <span className="mt-1.5 size-1.5 rounded-full bg-brand shrink-0" />
-                  <span>{cap}</span>
+                <li
+                  key={cap}
+                  className="flex items-start gap-3 rounded-xl border border-border/70 bg-card/40 p-3.5 backdrop-blur-md transition-all hover:border-brand/40"
+                >
+                  <span className="mt-1 size-2 rounded-full bg-brand shrink-0" />
+                  <span className="text-sm font-medium text-foreground">{cap}</span>
                 </li>
               ))}
             </ul>
@@ -159,13 +319,14 @@ function ServiceDetailPage() {
         </div>
       </Section>
 
+      {/* TECHNOLOGIES */}
       <Section className="border-b border-border bg-surface/40">
-        <SectionHeading index="01" label="Technologies" title="Tools we use for this work." />
-        <div className="mt-8 flex flex-wrap gap-2">
+        <SectionHeading index="01" label="Technologies & Tools" title="Industry-Standard Tools & Stacks" />
+        <div className="mt-8 flex flex-wrap gap-2.5">
           {(service.technologies || []).map((tech) => (
             <span
               key={tech}
-              className="rounded-full border border-border bg-background px-4 py-2 font-mono text-xs text-foreground"
+              className="rounded-full border border-border bg-card px-4 py-2 font-mono text-xs font-medium text-foreground shadow-xs transition-all hover:border-brand"
             >
               {tech}
             </span>
@@ -173,18 +334,22 @@ function ServiceDetailPage() {
         </div>
       </Section>
 
+      {/* DELIVERABLES */}
       <Section className="border-b border-border">
-        <SectionHeading index="02" label="Deliverables" title="What ships at the end." />
+        <SectionHeading index="02" label="Deliverables" title="What Ships at the End of Every Sprint" />
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {deliverablesList.map((item: any, i: number) => (
             <Reveal
               key={item.title || i}
               delay={i * 60}
-              className="rounded-xl border border-border bg-surface p-7"
+              className="group rounded-2xl border border-border/80 bg-card/60 p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-brand/50 hover:shadow-lg"
             >
-              <span className="font-display text-sm font-semibold text-brand">
-                {String(i + 1).padStart(2, "0")}
-              </span>
+              <div className="flex items-center justify-between">
+                <span className="font-display text-xs font-bold text-brand uppercase tracking-wider">
+                  Deliverable {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="size-2 rounded-full bg-brand/40 group-hover:bg-brand transition-colors" />
+              </div>
               <h3 className="mt-4 font-display text-base font-bold text-foreground">{item.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.description}</p>
             </Reveal>
@@ -192,19 +357,20 @@ function ServiceDetailPage() {
         </div>
       </Section>
 
+      {/* OUTCOMES */}
       <Section className="border-b border-border bg-surface/40">
-        <SectionHeading index="03" label="Outcomes" title="Commercial and operational return." />
+        <SectionHeading index="03" label="Measurable Outcomes" title="Commercial & Operational Return" />
         <div className="mt-12 grid gap-6 sm:grid-cols-3">
           {outcomesList.map((item: any, i: number) => (
             <Reveal
               key={(item.label || "outcome") + i}
               delay={i * 80}
-              className="rounded-xl border border-border bg-background p-7"
+              className="rounded-2xl border border-border/80 bg-card/80 p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-brand/40"
             >
-              <p className="font-display text-3xl font-bold tracking-tight text-brand">
+              <p className="font-display text-3xl font-extrabold tracking-tight bg-gradient-to-r from-brand via-sky-400 to-indigo-400 bg-clip-text text-transparent">
                 {item.metric}
               </p>
-              <h3 className="mt-3 font-display text-base font-semibold text-foreground">
+              <h3 className="mt-3 font-display text-base font-bold text-foreground">
                 {item.label}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.description}</p>
@@ -213,12 +379,14 @@ function ServiceDetailPage() {
         </div>
       </Section>
 
+      {/* PRICING PLANS */}
       {plans && plans.length > 0 && (
-        <Section className="border-b border-border">
+        <Section id="pricing" className="border-b border-border">
           <SectionHeading
             index="04"
-            label="Pricing"
-            title={`${service.title} engagement models.`}
+            label="Packages & Pricing"
+            title={`${service.title} Transparent Packages`}
+            description="Clear upfront pricing with no hidden surprises. Custom quotes available for bespoke requirements."
           />
           <div className="mt-12">
             <PricingPlans service={service} plans={plans} serviceSlug={service.slug} />
@@ -226,11 +394,12 @@ function ServiceDetailPage() {
         </Section>
       )}
 
+      {/* SELECTED WORK */}
       <Section className="border-b border-border bg-surface/40">
         <SectionHeading
           index="05"
-          label="Selected work"
-          title={`Projects featuring ${service.title.toLowerCase()}.`}
+          label="Selected Work"
+          title={`Projects Featuring ${service.title}`}
         />
         {projects && projects.length > 0 ? (
           <div className="mt-12 grid gap-6 md:grid-cols-2">
@@ -239,35 +408,42 @@ function ServiceDetailPage() {
             ))}
           </div>
         ) : (
-          <div className="mt-12 rounded-xl border border-dashed border-border p-12 text-center">
+          <div className="mt-12 rounded-2xl border border-dashed border-border/80 bg-card/40 p-12 text-center backdrop-blur-md">
             <p className="text-sm text-muted-foreground">
-              Case studies for this service are being documented. Contact us for private client references.
+              Case studies for this service are being documented. Contact us for private client references and live walkthroughs.
             </p>
-            <Link
-              to="/contact"
-              className="interactive mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand"
+            <a
+              href={waInquiryUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="interactive mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand hover:underline"
             >
-              Request references <ArrowRight className="size-4" />
-            </Link>
+              Request Live References on WhatsApp <ArrowRight className="size-4" />
+            </a>
           </div>
         )}
       </Section>
 
+      {/* FAQS */}
       {seo.faqs && seo.faqs.length > 0 && (
         <Section className="border-b border-border">
           <SectionHeading
             index="06"
             label="FAQ"
-            title={`Frequently asked questions about ${service.title.toLowerCase()}.`}
+            title={`Frequently Asked Questions About ${service.title}`}
           />
           <div className="mt-12 max-w-3xl">
-            <Accordion type="single" collapsible className="w-full">
+            <Accordion type="single" collapsible className="w-full space-y-3">
               {seo.faqs.map((faq, i) => (
-                <AccordionItem key={faq.question} value={`faq-${i}`}>
-                  <AccordionTrigger className="text-left font-display font-semibold text-foreground">
+                <AccordionItem
+                  key={faq.question}
+                  value={`faq-${i}`}
+                  className="rounded-2xl border border-border/70 bg-card/60 px-5 backdrop-blur-md"
+                >
+                  <AccordionTrigger className="text-left font-display text-base font-semibold text-foreground py-5">
                     {faq.question}
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed">
+                  <AccordionContent className="text-muted-foreground leading-relaxed pb-5 text-sm">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
