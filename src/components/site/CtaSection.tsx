@@ -31,7 +31,7 @@ export function CtaSection({
     );
 
   // Aman Alam LinkedIn Profile
-  const founderLinkedinUrl = "https://www.linkedin.com/in/aman-alam";
+  const founderLinkedinUrl = "https://www.linkedin.com/in/hashmiaman";
 
   return (
     <section className="py-16 sm:py-20 lg:py-24">
@@ -123,7 +123,7 @@ export function CtaSection({
                     <div className="relative size-12 shrink-0 overflow-hidden rounded-full border-2 border-brand/40 bg-gradient-to-tr from-brand to-sky-500 shadow-md">
                       <img
                         src="/aman-alam.jpg"
-                        alt="Aman Alam - Founder of DEVGRONIX"
+                        alt="Aman Hashmi - Founder of DEVGRONIX"
                         className="size-full object-cover"
                         onError={(e) => {
                           // Agar image abhi upload nahi hui, to elegant letter avatar show karega
@@ -139,7 +139,7 @@ export function CtaSection({
                       <div className="flex items-center gap-2">
                         <h3 className="text-base font-bold text-foreground">Aman Hashmi</h3>
                         <a
-                          href={founderLinkedinUrl= "https://www.linkedin.com/in/hashmiaman/"}
+                          href={founderLinkedinUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           title="Connect on LinkedIn"
