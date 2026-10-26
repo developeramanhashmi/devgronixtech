@@ -4,11 +4,11 @@ import {
   CheckCircle2,
   Clock,
   Globe2,
+  Linkedin,
   MessageCircle,
   Phone,
   ShieldCheck,
   Sparkles,
-  Zap,
 } from "lucide-react";
 
 import { homepage } from "@/lib/content/home";
@@ -27,8 +27,11 @@ export function CtaSection({
   const founderWhatsappUrl =
     "https://wa.me/917070519128?text=" +
     encodeURIComponent(
-      "Hi Tahsin, I'm looking to start a new project with DEVGRONIX. Let's discuss scope, timeline and pricing."
+      "Hi Aman, I'm looking to start a new project with DEVGRONIX. Let's discuss scope, timeline and pricing."
     );
+
+  // Aman Alam LinkedIn Profile
+  const founderLinkedinUrl = "https://www.linkedin.com/in/aman-alam";
 
   return (
     <section className="py-16 sm:py-20 lg:py-24">
@@ -113,14 +116,42 @@ export function CtaSection({
             {/* Right Column: Founder Direct-Connect Card */}
             <div className="lg:col-span-5">
               <div className="relative overflow-hidden rounded-2xl border border-border/80 bg-background/80 p-6 shadow-xl backdrop-blur-xl">
+                {/* Header with Avatar + Details + Status */}
                 <div className="flex items-center justify-between pb-4 border-b border-border/60">
-                  <div>
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-                      Direct Founder Line
-                    </span>
-                    <h3 className="text-base font-bold text-foreground">Tahsin Raza</h3>
-                    <p className="text-xs text-muted-foreground">Founder & Lead Engineer</p>
+                  <div className="flex items-center gap-3.5">
+                    {/* Founder Avatar with Graceful Fallback */}
+                    <div className="relative size-12 shrink-0 overflow-hidden rounded-full border-2 border-brand/40 bg-gradient-to-tr from-brand to-sky-500 shadow-md">
+                      <img
+                        src="/aman-alam.jpg"
+                        alt="Aman Alam - Founder of DEVGRONIX"
+                        className="size-full object-cover"
+                        onError={(e) => {
+                          // Agar image abhi upload nahi hui, to elegant letter avatar show karega
+                          e.currentTarget.style.display = "none";
+                        }}
+                      />
+                      <div className="flex size-full items-center justify-center font-display text-sm font-bold text-white">
+                        AA
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-base font-bold text-foreground">Aman Hashmi</h3>
+                        <a
+                          href={founderLinkedinUrl= "https://www.linkedin.com/in/hashmiaman/"}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="Connect on LinkedIn"
+                          className="interactive rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-[#0A66C2] transition-colors"
+                        >
+                          <Linkedin className="size-3.5" />
+                        </a>
+                      </div>
+                      <p className="text-xs text-muted-foreground">Founder & Lead Engineer</p>
+                    </div>
                   </div>
+
                   <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-semibold text-emerald-400">
                     <span className="relative flex size-2">
                       <span className="animate-ping absolute inline-flex size-full rounded-full bg-emerald-400 opacity-75" />
