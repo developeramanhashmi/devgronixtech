@@ -442,7 +442,7 @@ function PartnerPage() {
                 Get Your Official Partner ID
               </h2>
               <p className="mt-3 text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                Fill in your details below. Clicking <strong>Submit Application on WhatsApp</strong> will automatically pre-fill your structured application and send it directly to our team.
+                Fill in your details below. Clicking <strong> Submit Application </strong> will automatically pre-fill your structured application and send it directly to our team.
               </p>
             </div>
 
