@@ -323,7 +323,7 @@ function PartnerPage() {
                       </div>
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
                         <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                        Verified Active
+                        Verified
                       </span>
                     </div>
 
