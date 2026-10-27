@@ -49,7 +49,7 @@ export function Footer() {
 
       <Container className="relative z-10 pt-16 pb-12 sm:pt-20">
         {/* Pre-Footer Action Callout Banner (Lightngear High-Impact Style) */}
-        <div className="relative mb-16 overflow-hidden rounded-3xl border border-border/80 bg-gradient-to-br from-surface via-surface-strong to-surface p-8 shadow-2xl sm:p-12 dark:border-white/10">
+        {/* <div className="relative mb-16 overflow-hidden rounded-3xl border border-border/80 bg-gradient-to-br from-surface via-surface-strong to-surface p-8 shadow-2xl sm:p-12 dark:border-white/10">
           <div
             aria-hidden="true"
             className="absolute -right-20 -top-20 size-72 rounded-full bg-brand/15 blur-3xl pointer-events-none"
@@ -92,7 +92,7 @@ export function Footer() {
               </a>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Footer Columns */}
         <div className="grid gap-12 lg:grid-cols-12">
