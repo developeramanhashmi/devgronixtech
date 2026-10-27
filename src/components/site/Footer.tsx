@@ -262,7 +262,7 @@ export function Footer() {
 
         {/* Bottom bar with Copyright and Back-to-Top */}
         <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-border/60 pt-6 text-xs text-muted-foreground sm:flex-row">
-          <p>© {currentYear} DEVGRONIX. All rights reserved. Crafted for high performance &amp; scale.</p>
+          <p>© {currentYear} DEVGRONIX. All rights reserved.</p>
           <div className="flex items-center gap-5">
             <Link to="/contact" className="hover:text-foreground transition-colors">Privacy &amp; Terms</Link>
             <Link to="/partner" className="hover:text-foreground transition-colors">Affiliate Policy</Link>
