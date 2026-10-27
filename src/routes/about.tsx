@@ -7,12 +7,16 @@ import {
   Cpu,
   Globe2,
   HeartHandshake,
+  Layers,
   Linkedin,
   MessageCircle,
+  Palette,
   Phone,
+  Printer,
   Rocket,
   ShieldCheck,
   Sparkles,
+  Video,
   Zap,
 } from "lucide-react";
 
@@ -26,9 +30,9 @@ export const Route = createFileRoute("/about")({
   staticData: { sitemap: true },
   head: () => ({
     ...seoHead({
-      title: "About DEVGRONIX | Founder, Vision & Digital Engineering",
+      title: "About DEVGRONIX | Team, Founder & Digital Engineering",
       description:
-        "Meet DEVGRONIX and founder Aman Hashmi. We build high-performance websites, custom software, and digital branding for ambitious businesses across India, UAE, and worldwide.",
+        "Meet DEVGRONIX, founder Aman Hashmi, and our multi-disciplinary engineering, design, and branding specialists building digital products for India, UAE, and global clients.",
       path: "/about",
     }),
     scripts: [
@@ -42,6 +46,54 @@ export const Route = createFileRoute("/about")({
   }),
   component: AboutPage,
 });
+
+// Domain specialists team roster
+const teamSpecialists = [
+  {
+    name: "Aman Hashmi",
+    role: "Founder & Lead Full-Stack Architect",
+    discipline: "Engineering & Cloud Infrastructure",
+    superpower: "24–48h Architecture & Edge Deployments",
+    tools: ["React / TanStack", "TypeScript", "Node.js", "Cloud APIs"],
+    avatar: "/aman-alam.jpg",
+    monogram: "AH",
+    linkedin: "https://www.linkedin.com/in/hashmiaman",
+    color: "from-brand via-sky-500 to-indigo-600",
+  },
+  {
+    name: "Design & UX Lead",
+    role: "Principal Product & Brand Designer",
+    discipline: "UI/UX Systems & Visual Identity",
+    superpower: "Conversion-Focused Interfaces & Design Systems",
+    tools: ["Figma", "Tailwind Design Systems", "Vector Branding", "Interactive UI"],
+    avatar: "/team/design-lead.jpg",
+    monogram: "UX",
+    linkedin: null,
+    color: "from-purple-500 via-pink-500 to-rose-500",
+  },
+  {
+    name: "Motion & Media Lead",
+    role: "Lead Video Editor & Motion Artist",
+    discipline: "Commercial Video & Social Narrative",
+    superpower: "High-Retention Visual Storytelling & 4K Edits",
+    tools: ["Adobe Premiere", "After Effects", "Motion Graphics", "Sound Design"],
+    avatar: "/team/media-lead.jpg",
+    monogram: "VD",
+    linkedin: null,
+    color: "from-amber-500 via-orange-500 to-red-500",
+  },
+  {
+    name: "Print & Merch Ops Lead",
+    role: "Merchandise & Production Specialist",
+    discipline: "Custom Apparel & Brand Merchandise",
+    superpower: "Precision Fabrication & Rapid Doorstep Fulfillment",
+    tools: ["Screen / DTF Print", "Embroidery QA", "Stationery Dies", "Packaging"],
+    avatar: "/team/print-lead.jpg",
+    monogram: "PR",
+    linkedin: null,
+    color: "from-emerald-500 via-teal-500 to-cyan-500",
+  },
+];
 
 function AboutPage() {
   const founderWhatsappUrl =
@@ -232,10 +284,103 @@ function AboutPage() {
         </div>
       </Section>
 
-      {/* CORE OPERATING VALUES (BENTO) */}
-      <Section className="border-b border-border bg-surface/30">
+      {/* CORE DISCIPLINES & LEAD SPECIALISTS (NEW TEAM SECTION) */}
+      <Section className="border-b border-border bg-surface/20">
         <SectionHeading
           index="01"
+          label="Domain Experts"
+          title="Specialized Talent Across Every Discipline"
+          description="We do not rely on generic generalists. Each phase of your sprint is engineered by hands-on specialists dedicated to their craft."
+        />
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {teamSpecialists.map((member, i) => (
+            <Reveal
+              key={member.role}
+              delay={i * 80}
+              className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-border/80 bg-card/75 p-6 shadow-xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-brand/50 hover:shadow-2xl"
+            >
+              {/* Subtle top gradient accent */}
+              <div
+                aria-hidden="true"
+                className={`absolute top-0 inset-x-0 h-1 bg-gradient-to-r ${member.color}`}
+              />
+
+              <div>
+                {/* Avatar / Monogram Header */}
+                <div className="flex items-center justify-between">
+                  <div className="relative size-14 overflow-hidden rounded-2xl border border-border/80 bg-muted/60 shadow-inner">
+                    <img
+                      src={member.avatar}
+                      alt={`${member.name} - ${member.role}`}
+                      className="size-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                      }}
+                    />
+                    <div className="flex size-full items-center justify-center font-display text-base font-bold text-foreground">
+                      {member.monogram}
+                    </div>
+                  </div>
+
+                  {member.linkedin ? (
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="LinkedIn"
+                      className="interactive rounded-lg border border-border/60 bg-surface/50 p-2 text-muted-foreground hover:bg-muted hover:text-[#0A66C2] transition-colors"
+                    >
+                      <Linkedin className="size-4" />
+                    </a>
+                  ) : (
+                    <span className="inline-flex items-center rounded-full border border-border/60 bg-muted/40 px-2.5 py-0.5 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+                      Specialist
+                    </span>
+                  )}
+                </div>
+
+                <div className="mt-5">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-brand">
+                    {member.discipline}
+                  </span>
+                  <h3 className="mt-1 font-display text-lg font-bold text-foreground">
+                    {member.name}
+                  </h3>
+                  <p className="text-xs text-muted-foreground">{member.role}</p>
+                </div>
+
+                {/* Superpower tag */}
+                <div className="mt-4 rounded-xl border border-border/70 bg-background/60 p-3 text-xs leading-relaxed text-foreground backdrop-blur-md">
+                  <span className="text-brand font-semibold">Focus: </span>
+                  {member.superpower}
+                </div>
+              </div>
+
+              {/* Tools pills */}
+              <div className="mt-5 pt-4 border-t border-border/60">
+                <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                  Key Arsenal
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {member.tools.map((tool) => (
+                    <span
+                      key={tool}
+                      className="rounded-md border border-border/60 bg-surface/80 px-2 py-0.5 font-mono text-[10px] text-muted-foreground"
+                    >
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* CORE OPERATING VALUES (BENTO) */}
+      <Section className="border-b border-border">
+        <SectionHeading
+          index="02"
           label="Guiding Principles"
           title="How We Deliver Results"
           description="Four core operational rules that protect your time, budget, and business reputation."
@@ -288,9 +433,9 @@ function AboutPage() {
       </Section>
 
       {/* GLOBAL FOOTPRINT */}
-      <Section className="border-b border-border">
+      <Section className="border-b border-border bg-surface/30">
         <SectionHeading
-          index="02"
+          index="03"
           label="Global Reach"
           title="Serving Clients from Hyderabad to the Gulf"
           description="High-standard digital delivery tailored for local Indian businesses and international GCC clients."
