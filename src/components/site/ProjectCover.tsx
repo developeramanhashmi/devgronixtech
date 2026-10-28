@@ -1,9 +1,8 @@
 import { cn } from "@/lib/utils";
 
 /**
- * Original abstract cover artwork for portfolio items — no stock photography.
- * `pattern` comes from the project data layer and can later be replaced by an
- * uploaded image without changing call sites.
+ * Modern portfolio cover renderer.
+ * Supports full-bleed uploaded images (.webp, .png, .jpg) as well as generative patterns.
  */
 export function ProjectCover({
   pattern = "grid",
@@ -14,10 +13,15 @@ export function ProjectCover({
   label?: string;
   className?: string;
 }) {
-  if (pattern.startsWith("/") || /\.(png|jpe?g|webp)$/i.test(pattern)) {
+  if (pattern.startsWith("/") || /\.(png|jpe?g|webp|svg)$/i.test(pattern)) {
     return (
-      <div className={cn("relative flex h-full w-full items-center justify-center overflow-hidden bg-surface-strong/40 p-2 sm:p-3", className)}>
-        <img src={pattern} alt={label || "Project preview"} loading="lazy" className="h-full w-full object-contain" />
+      <div className={cn("relative flex h-full w-full items-center justify-center overflow-hidden bg-surface-subtle", className)}>
+        <img
+          src={pattern}
+          alt={label || "Project preview"}
+          loading="lazy"
+          className="h-full w-full object-cover transition-transform duration-500 will-change-transform group-hover:scale-105"
+        />
       </div>
     );
   }
@@ -25,7 +29,7 @@ export function ProjectCover({
     <div
       aria-hidden="true"
       className={cn(
-        "relative isolate h-full w-full overflow-hidden bg-surface-strong",
+        "relative isolate h-full w-full overflow-hidden bg-surface-strong transition-transform duration-500 will-change-transform group-hover:scale-105",
         className,
       )}
     >
