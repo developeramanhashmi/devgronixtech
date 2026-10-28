@@ -36,7 +36,7 @@ export function ProjectCard({
         className,
       )}
     >
-      {/* 100% Clean Image Container - No badges or text overlay over image */}
+      {/* 100% Clean Image Container - No badges or overlay text over image */}
       <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-border/70 bg-surface-subtle">
         <ProjectCover
           pattern={project.thumbnail}
@@ -48,7 +48,7 @@ export function ProjectCard({
           aria-hidden="true"
           className="pointer-events-none absolute right-3.5 top-3.5 inline-flex size-9 translate-y-1.5 items-center justify-center rounded-full border border-border/50 bg-background/80 text-foreground opacity-0 shadow-md backdrop-blur-md transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-hover:text-brand"
         >
-          <ArrowUpRight className="size-4.5" />
+          <ArrowUpRight className="size-4" />
         </span>
       </div>
 
@@ -59,7 +59,7 @@ export function ProjectCard({
           <span className="font-semibold uppercase tracking-wider text-brand">
             {project.category}
           </span>
-          <span className="text-muted-foreground font-mono text-[0.75rem]">
+          <span className="font-mono text-[0.75rem] text-muted-foreground">
             {project.year}
           </span>
         </div>
