@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Search, X, Sparkles, FolderGit2 } from "lucide-react";
+import { Search, X, FolderGit2 } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { breadcrumbSchema, jsonLdScript, seoHead } from "@/lib/seo";
@@ -32,12 +32,19 @@ export const Route = createFileRoute("/works/")({
   component: WorksPage,
 });
 
-const CURATED_CATEGORIES = [
+interface CategoryTab {
+  id: string;
+  label: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  match?: (p: any) => boolean;
+}
+
+const CURATED_CATEGORIES: CategoryTab[] = [
   { id: "all", label: "All Projects" },
   {
     id: "web",
     label: "Web & Platforms",
-    match: (p: any) =>
+    match: (p) =>
       p.serviceIds.some((s: string) => ["svc-web", "svc-software", "svc-mobile", "svc-cloud"].includes(s)) ||
       p.category.toLowerCase().includes("web") ||
       p.category.toLowerCase().includes("software") ||
@@ -46,7 +53,7 @@ const CURATED_CATEGORIES = [
   {
     id: "branding",
     label: "Custom Print & Branding",
-    match: (p: any) =>
+    match: (p) =>
       p.serviceIds.some((s: string) => ["svc-custom-printing", "svc-branding"].includes(s)) ||
       p.category.toLowerCase().includes("brand") ||
       p.category.toLowerCase().includes("print") ||
@@ -56,7 +63,7 @@ const CURATED_CATEGORIES = [
   {
     id: "uiux",
     label: "UI/UX & Design",
-    match: (p: any) =>
+    match: (p) =>
       p.serviceIds.includes("svc-uiux") ||
       p.category.toLowerCase().includes("ui") ||
       p.category.toLowerCase().includes("design"),
@@ -64,12 +71,12 @@ const CURATED_CATEGORIES = [
   {
     id: "creative",
     label: "Video & Motion",
-    match: (p: any) =>
+    match: (p) =>
       p.serviceIds.some((s: string) => ["svc-video", "svc-social", "svc-content"].includes(s)) ||
       p.category.toLowerCase().includes("video") ||
       p.category.toLowerCase().includes("motion"),
   },
-] as const;
+];
 
 function WorksPage() {
   const [activeTab, setActiveTab] = useState<string>("all");
@@ -81,14 +88,16 @@ function WorksPage() {
 
     return publishedProjects.filter((p) => {
       const matchesCategory =
-        !currentCategory || currentCategory.id === "all" || ("match" in currentCategory && currentCategory.match(p));
+        !currentCategory ||
+        currentCategory.id === "all" ||
+        (Boolean(currentCategory.match) && currentCategory.match!(p));
 
       const matchesQuery =
         q.length === 0 ||
         p.title.toLowerCase().includes(q) ||
         p.shortDescription.toLowerCase().includes(q) ||
         p.category.toLowerCase().includes(q) ||
-        (p.clientName && p.clientName.toLowerCase().includes(q)) ||
+        (Boolean(p.clientName) && p.clientName!.toLowerCase().includes(q)) ||
         p.technologies.some((t) => t.toLowerCase().includes(q));
 
       return matchesCategory && matchesQuery;
@@ -112,7 +121,7 @@ function WorksPage() {
             <div
               role="tablist"
               aria-label="Filter case studies by discipline"
-              className="-mx-4 flex items-center gap-2 overflow-x-auto px-4 pb-2 scrollbar-none sm:mx-0 sm:flex-wrap sm:px-0 sm:pb-0"
+              className="-mx-4 flex items-center gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:px-0 sm:pb-0"
             >
               {CURATED_CATEGORIES.map((tab) => {
                 const isActive = activeTab === tab.id;
