@@ -127,6 +127,18 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="overflow-x-hidden">
       <head>
+        {/* Google Analytics (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-NKMN1MCEZB" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-NKMN1MCEZB');
+            `,
+          }}
+        />
         <HeadContent />
       </head>
       <body className="overflow-x-hidden w-full max-w-full">
@@ -136,6 +148,7 @@ function RootShell({ children }: { children: ReactNode }) {
     </html>
   );
 }
+
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
