@@ -123,6 +123,59 @@ export const organizationSchema = {
   priceRange: "₹₹",
   currenciesAccepted: "INR, SAR, AED, USD",
   paymentAccepted: "UPI, Bank Transfer, Credit Card, Debit Card",
+  sameAs: [
+    "https://www.linkedin.com/in/hashmiaman",
+    "https://search.google.com/local/writereview?placeid=ChIJ30euZCiTyzsR7wkuvUFsb_I",
+  ],
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "5.0",
+    reviewCount: "5",
+    bestRating: "5",
+    worstRating: "1",
+  },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Digital Agency & Web Development Services",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Complete Business Launch & Growth",
+          description: "Complete Custom Business Website + Dedicated Admin Panel + Google Business Profile Setup + Full SEO",
+        },
+        price: "7500",
+        priceCurrency: "INR",
+        availability: "https://schema.org/InStock",
+        url: `${SITE_URL}/pricing/web-development`,
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Basic Business Website",
+          description: "1-4 Pages Website with Free Domain & Hosting",
+        },
+        price: "999",
+        priceCurrency: "INR",
+        availability: "https://schema.org/InStock",
+        url: `${SITE_URL}/pricing/web-development`,
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Custom Printing & Corporate Merchandise",
+          description: "T-Shirts, Hoodies, Mugs, Business Stationery, Stickers & Marketing Materials",
+        },
+        price: "499",
+        priceCurrency: "INR",
+        availability: "https://schema.org/InStock",
+        url: `${SITE_URL}/services/custom-printing-branding`,
+      },
+    ],
+  },
   areaServed: [
     { "@type": "City", name: "Hyderabad" },
     { "@type": "Country", name: "India" },
@@ -131,6 +184,7 @@ export const organizationSchema = {
     { "@type": "AdministrativeArea", name: "Worldwide" },
   ],
 };
+
 
 export const websiteSchema = {
   "@type": "WebSite",
