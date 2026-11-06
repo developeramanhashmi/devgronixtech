@@ -1,38 +1,36 @@
-import { CheckCircle2, Quote, Star } from "lucide-react";
+import { CheckCircle2, ExternalLink, Quote, Star } from "lucide-react";
 
 import { Section, SectionHeading } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
 
-const clientStories = [
+const googleReviews = [
   {
-    id: "review-1",
-    name: "Shiva SS",
-    role: "Founder & Creative Director",
-    company: "SS Fashion Photography Studio",
-    location: "Telangana, India",
-    project: "Dynamic Studio Platform & Booking",
+    id: "g-review-1",
+    author: "Dev Genious",
     rating: 5,
-    text: "DEVGRONIX built our entire studio web platform with dynamic galleries and an automated inquiry system. Within the first month of launch, our client bookings increased noticeably. Incredible design and lightning-fast loading speed.",
+    text: "very affordable and best support 1 year free and free domain and hosting 1 year",
+    timeAgo: "Verified Google Review",
   },
   {
-    id: "review-2",
-    name: "Sapna Majumdar",
-    role: "Founder",
-    company: "DreamSarthi",
-    location: "India",
-    project: "Women-Led Mobility Web Platform",
+    id: "g-review-2",
+    author: "Veerapandiyarguesthouse",
     rating: 5,
-    text: "The dedication and UI/UX clarity the DEVGRONIX team brought to DreamSarthi was exceptional. They understood the nuances of our mission and delivered a smooth, safe, and mobile-responsive experience.",
+    text: "best website development agency in cheap and best price best design.",
+    timeAgo: "Verified Google Review",
   },
   {
-    id: "review-3",
-    name: "Fahad Al-Mansoor",
-    role: "Managing Director",
-    company: "Gulf Retail & Trading LLC",
-    location: "Dubai, UAE",
-    project: "Bilingual E-Commerce & Web Presence",
+    id: "g-review-3",
+    author: "AMAN ALAM",
     rating: 5,
-    text: "Delivered our bilingual Arabic/English digital store on an aggressive 2-week schedule. Communication over WhatsApp and Zoom was real-time and crystal clear despite the cross-border setup. Truly world-class value.",
+    text: "very affordable and best 1 year free support",
+    timeAgo: "Verified Google Review",
+  },
+  {
+    id: "g-review-4",
+    author: "Devgronix",
+    rating: 5,
+    text: "best website designing agency",
+    timeAgo: "Verified Google Review",
   },
 ];
 
@@ -41,59 +39,88 @@ export function TestimonialsSection() {
     <Section id="testimonials" className="border-b border-border bg-surface/40">
       <SectionHeading
         index="06"
-        label="Client Stories"
-        title="Trusted by founders, startups and growing brands."
-        description="Real outcomes delivered for businesses across India, the Middle East and international markets."
+        label="Client Stories & Trust"
+        title="Rated 5.0 Stars by Founders & Businesses."
+        description="Real feedback from verified clients on our official Google Business Profile."
       />
 
-      <div className="mt-14 grid gap-6 lg:grid-cols-3">
-        {clientStories.map((review, i) => (
+      {/* Google Trust Banner */}
+      <Reveal className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-brand/20 bg-brand/5 p-4 sm:p-6 dark:bg-brand/10">
+        <div className="flex items-center gap-3">
+          <div className="flex size-11 items-center justify-center rounded-xl bg-white shadow-xs dark:bg-zinc-900">
+            <span className="font-display text-xl font-bold text-[#4285F4]">G</span>
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="font-display text-base font-bold text-foreground">
+                5.0 Google Rating
+              </span>
+              <div className="flex gap-0.5" aria-label="5 out of 5 stars">
+                {Array.from({ length: 5 }).map((_, s) => (
+                  <Star
+                    key={s}
+                    aria-hidden="true"
+                    className="size-4 fill-amber-400 text-amber-400"
+                  />
+                ))}
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Verified Business Profile · Gachibowli, Hyderabad
+            </p>
+          </div>
+        </div>
+
+        <a
+          href="https://search.google.com/local/writereview?placeid=ChIJ30euZCiTyzsR7wkuvUFsb_I"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-4 py-2 text-xs font-semibold text-foreground transition-colors hover:border-brand/40 hover:text-brand"
+        >
+          <span>Write a Google Review</span>
+          <ExternalLink className="size-3.5" />
+        </a>
+      </Reveal>
+
+      {/* Review Cards Grid */}
+      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {googleReviews.map((review, i) => (
           <Reveal
             key={review.id}
-            delay={i * 70}
-            className="card-interactive relative flex h-full flex-col justify-between rounded-2xl border border-border/80 bg-surface p-8 shadow-xs transition-all duration-300 hover:border-brand/50 hover:shadow-xl dark:border-white/10 dark:bg-surface-strong/80"
+            delay={i * 60}
+            className="card-interactive relative flex h-full flex-col justify-between rounded-2xl border border-border/80 bg-surface p-6 shadow-xs transition-all duration-300 hover:border-brand/50 hover:shadow-lg dark:border-white/10 dark:bg-surface-strong/80"
           >
             <div>
               <div className="flex items-center justify-between">
-                <div className="flex gap-1" aria-label="5 out of 5 stars">
+                <div className="flex gap-0.5" aria-label="5 out of 5 stars">
                   {Array.from({ length: review.rating }).map((_, s) => (
                     <Star
                       key={s}
                       aria-hidden="true"
-                      className="size-4 fill-brand text-brand"
+                      className="size-3.5 fill-amber-400 text-amber-400"
                     />
                   ))}
                 </div>
-                <span className="inline-flex items-center gap-1 rounded-full border border-chart-3/30 bg-chart-3/10 px-2.5 py-0.5 text-[0.6875rem] font-semibold text-chart-3">
-                  <CheckCircle2 className="size-3" />
-                  Verified Client
+                <span className="inline-flex items-center gap-1 rounded-full border border-chart-3/30 bg-chart-3/10 px-2 py-0.5 text-[0.625rem] font-semibold text-chart-3">
+                  <CheckCircle2 className="size-2.5" />
+                  Google Verified
                 </span>
               </div>
 
-              <Quote className="mt-6 size-8 text-brand/20" aria-hidden="true" />
+              <Quote className="mt-4 size-6 text-brand/20" aria-hidden="true" />
 
-              <blockquote className="mt-2 text-sm leading-relaxed text-foreground/90">
+              <blockquote className="mt-2 text-xs leading-relaxed text-foreground/90">
                 "{review.text}"
               </blockquote>
             </div>
 
-            <div className="mt-8 border-t border-border/70 pt-5">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-display text-sm font-bold text-foreground">
-                    {review.name}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {review.role} · <strong className="text-foreground/80">{review.company}</strong>
-                  </p>
-                  <p className="mt-0.5 text-[0.6875rem] text-muted-foreground">
-                    📍 {review.location}
-                  </p>
-                </div>
-              </div>
-              <div className="mt-3 rounded-md bg-background/80 px-2.5 py-1 text-[0.6875rem] font-medium text-brand">
-                🚀 {review.project}
-              </div>
+            <div className="mt-6 border-t border-border/60 pt-4">
+              <p className="font-display text-xs font-bold text-foreground">
+                {review.author}
+              </p>
+              <p className="text-[0.625rem] text-muted-foreground">
+                {review.timeAgo}
+              </p>
             </div>
           </Reveal>
         ))}
