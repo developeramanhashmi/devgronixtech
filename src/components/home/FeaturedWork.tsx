@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, MapPin } from "lucide-react";
 
 import { featuredProjects } from "@/lib/content/projects";
 import { Section, SectionHeading } from "@/components/site/Section";
@@ -9,7 +9,8 @@ import { ProjectCard } from "@/components/site/ProjectCard";
 
 const CATEGORIES = [
   { id: "all", label: "All Projects" },
-  { id: "web", label: "Web & Apps" },
+  { id: "web", label: "Web & Platforms" },
+  { id: "branding", label: "Printing & Branding" },
   { id: "live", label: "Verified Client Work" },
 ] as const;
 
@@ -21,8 +22,18 @@ export function FeaturedWork() {
     if (activeCategory === "web") {
       return (
         project.category.toLowerCase().includes("web") ||
+        project.category.toLowerCase().includes("platform") ||
+        project.category.toLowerCase().includes("e-commerce") ||
         project.title.toLowerCase().includes("website") ||
-        project.title.toLowerCase().includes("studio")
+        project.serviceIds.includes("svc-web")
+      );
+    }
+    if (activeCategory === "branding") {
+      return (
+        project.category.toLowerCase().includes("print") ||
+        project.category.toLowerCase().includes("brand") ||
+        project.serviceIds.includes("svc-printing") ||
+        project.serviceIds.includes("svc-branding")
       );
     }
     if (activeCategory === "live") {
@@ -38,7 +49,7 @@ export function FeaturedWork() {
           index="02"
           label="Selected work"
           title="Featured builds & verified client projects."
-          description="A curated selection of live client websites and engineered software systems delivering measurable business growth."
+          description="A curated selection of live client websites, custom platforms, and production branding across India, UAE, and Saudi Arabia."
         />
         <Reveal delay={100} className="shrink-0">
           <Link
@@ -73,22 +84,36 @@ export function FeaturedWork() {
         })}
       </div>
 
-      {/* 3-Column Clean Uniform Grid */}
+      {/* Grid of Verified & Featured Projects */}
       <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {filteredProjects.slice(0, 6).map((project, i) => (
+        {filteredProjects.map((project, i) => (
           <Reveal key={project.id} delay={i * 60}>
-            <ProjectCard project={project} />
+            <div className="flex flex-col h-full">
+              <ProjectCard project={project} />
+              {project.clientCountry && (
+                <div className="mt-2 flex items-center gap-1.5 px-2 text-[0.6875rem] font-medium text-muted-foreground">
+                  <MapPin className="size-3 text-brand" />
+                  <span>{project.clientCountry}</span>
+                  {project.clientName && (
+                    <>
+                      <span>•</span>
+                      <span className="truncate">{project.clientName}</span>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
           </Reveal>
         ))}
       </div>
 
       {/* Bottom Link to Full Portfolio */}
-      <div className="mt-10 flex justify-center">
+      <div className="mt-12 flex justify-center">
         <Link
           to="/works"
-          className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground transition-colors hover:text-brand"
+          className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3 text-xs font-semibold tracking-wider text-foreground uppercase transition-all hover:border-brand hover:text-brand shadow-sm"
         >
-          View all 15+ engineering and creative case studies
+          View all 15+ engineering & creative case studies
           <ArrowRight className="size-3.5" />
         </Link>
       </div>
