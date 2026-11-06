@@ -4,6 +4,9 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
+User-agent: Applebot
+Allow: /
+
 User-agent: Twitterbot
 Allow: /
 
@@ -14,5 +17,6 @@ User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /admin/
+Disallow: /api/
 
-Sitemap: https://devgronix.com/sitemap.xml
+Sitemap: https://www.devgronix.com/sitemap.xml
