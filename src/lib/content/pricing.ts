@@ -65,7 +65,6 @@ const seeds: ServicePricingSeed[] = [
         description: "Best for Businesses & Startups",
         price: "₹1,999",
         originalPrice: "₹3,999",
-        popular: true,
         features: [
           "5–7 Pages Website",
           "Free Domain (1 Year)",
@@ -94,9 +93,26 @@ const seeds: ServicePricingSeed[] = [
           "Free Advice & Support",
         ],
       },
+      {
+        name: "Complete Business Launch & Growth",
+        description: "Complete Website + Dedicated Admin Panel + Google Business Profile + Full SEO",
+        price: "₹7,500",
+        originalPrice: "₹14,999",
+        popular: true,
+        features: [
+          "Complete Custom Business Website (Mobile, Tablet & Desktop)",
+          "Dedicated Custom Admin Panel (Manage content, orders & enquiries)",
+          "Complete Google Business Profile (Map setup, verification & ranking)",
+          "Full On-Page & Local SEO (Schema.org + Google Search Console)",
+          "Free 1-Year Domain & High-Speed Cloud Hosting",
+          "Direct 1-Click WhatsApp Lead Chat & Form Inquiries",
+          "Priority Technical Support & Admin Training Session",
+        ],
+      },
       customPlan("per project"),
     ],
   },
+
   {
     serviceId: "svc-mobile",
     billingType: "per project",
