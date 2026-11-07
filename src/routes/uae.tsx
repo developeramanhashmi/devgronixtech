@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-import { breadcrumbSchema, jsonLdScript, seoHead } from "@/lib/seo";
+import { breadcrumbSchema, jsonLdScript, organizationSchema, seoHead, SITE_URL } from "@/lib/seo";
 import { PageHero } from "@/components/site/PageHero";
 import { Container, Section, SectionHeading } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
@@ -21,9 +21,9 @@ export const Route = createFileRoute("/uae")({
   staticData: { sitemap: true },
   head: () => ({
     ...seoHead({
-      title: "Web Design & Development Agency Dubai & UAE | DEVGRONIX",
+      title: "Affordable Web Design & Development Agency Dubai, UAE & Saudi | DEVGRONIX",
       description:
-        "Custom websites, web applications, video editing, and digital growth for businesses across Dubai, Abu Dhabi, Sharjah & Saudi Arabia. Transparent pricing in AED.",
+        "High-speed websites, custom admin portals, video editing & branding for businesses across Dubai, Abu Dhabi, Sharjah & Riyadh. Packages from AED 249.",
       path: "/uae",
     }),
     scripts: [
@@ -32,11 +32,82 @@ export const Route = createFileRoute("/uae")({
           { name: "Home", path: "/" },
           { name: "UAE & Gulf Services", path: "/uae" },
         ]),
+        {
+          "@type": "Service",
+          "@id": `${SITE_URL}/uae#service`,
+          name: "Web Development & Digital Growth Services UAE & Gulf",
+          serviceType: "Web Design, Software Engineering, Branding & Video Editing",
+          provider: organizationSchema,
+          areaServed: [
+            { "@type": "City", name: "Dubai" },
+            { "@type": "City", name: "Abu Dhabi" },
+            { "@type": "City", name: "Sharjah" },
+            { "@type": "City", name: "Riyadh" },
+            { "@type": "Country", name: "United Arab Emirates" },
+            { "@type": "Country", name: "Saudi Arabia" },
+          ],
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: "Gulf Web & Digital Packages",
+            itemListElement: [
+              {
+                "@type": "Offer",
+                itemOffered: {
+                  "@type": "Service",
+                  name: "Starter Presence Website",
+                  description: "High-impact single-page mobile website with WhatsApp lead capture.",
+                },
+                price: "249",
+                priceCurrency: "AED",
+              },
+              {
+                "@type": "Offer",
+                itemOffered: {
+                  "@type": "Service",
+                  name: "Business Growth Corporate Web",
+                  description: "Complete 5-page custom business website with speed optimization & email notifications.",
+                },
+                price: "599",
+                priceCurrency: "AED",
+              },
+            ],
+          },
+        },
+        {
+          "@type": "FAQPage",
+          mainEntity: [
+            {
+              "@type": "Question",
+              name: "How fast can DEVGRONIX launch a website for a UAE business?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Our Starter Presence websites launch in 48 to 72 hours, while complete 5-page corporate websites are delivered within 4 to 7 business days.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "Do you accept payment in UAE Dirhams (AED) or Saudi Riyals (SAR)?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Yes, we bill transparently in AED, SAR, and USD with milestone-based invoicing (50% advance, 50% upon final launch).",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "How do Gulf clients communicate during project delivery?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "We operate aligned with Gulf business hours (GMT+4) with direct WhatsApp and Google Meet support throughout development.",
+              },
+            },
+          ],
+        },
       ]),
     ],
   }),
   component: UaeLandingPage,
 });
+
 
 const gulfPerks = [
   {
