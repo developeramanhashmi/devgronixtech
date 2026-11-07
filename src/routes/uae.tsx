@@ -19,6 +19,7 @@ import { useState } from "react";
 
 import { breadcrumbSchema, jsonLdScript, organizationSchema, seoHead, SITE_URL } from "@/lib/seo";
 import { Container, Section, SectionHeading } from "@/components/site/Section";
+import { HeroNodeNetwork } from "@/components/home/HeroNodeNetwork";
 
 export const Route = createFileRoute("/uae")({
   staticData: { sitemap: true },
@@ -132,12 +133,12 @@ const recentProjects: ClientProject[] = [
     title: "Lightngear",
     titleAr: "لايتن جير للتجهيزات (الإمارات)",
     category: "B2B E-Commerce & Catalog",
-    categoryAr: "متجر B2B ومستودع كتالوج رقمي",
+    categoryAr: "متجر B2B وكتالوج معدات رقمي",
     market: "Dubai / UAE & GCC",
-    marketAr: "دبي / الإمارات والخليج",
+    marketAr: "دبي / الإمارات ودول الخليج",
     url: "https://www.devgronix.in",
     metrics: "Amazon-grade UX / 500+ items",
-    metricsAr: "تجربة مستخدم سريعة / +500 منتج",
+    metricsAr: "تجربة تصفح سريعة / +500 منتج",
     summary:
       "Enterprise industrial & film equipment B2B catalog engineered for fast multi-category browsing, real-time quote generation and instant WhatsApp inquiry.",
     summaryAr:
@@ -162,14 +163,14 @@ const recentProjects: ClientProject[] = [
   },
   {
     title: "ScholarHope Corp",
-    titleAr: "سكولار هوب للمنح والتعليم",
+    titleAr: "سكولار هوب للمنح والتعليم الدولي",
     category: "EdTech & Scholarship Portal",
     categoryAr: "منصة تعليمية وبوابة منح دراسية",
     market: "Global Higher Ed",
     marketAr: "التعليم العالي والدولي",
     url: "https://www.scholar.devgronix.com",
     metrics: "Full Eligibility Engine",
-    metricsAr: "محرك فحص الأهلية المسبق",
+    metricsAr: "محرك فحص الأهلية المسبق للطلاب",
     summary:
       "Interactive scholarship and academic advisory platform with multi-step student evaluation, dynamic program filters and streamlined lead qualification.",
     summaryAr:
@@ -178,11 +179,11 @@ const recentProjects: ClientProject[] = [
   },
   {
     title: "Karnataka Bearing Agency",
-    titleAr: "وكالة المحامل الهندسية",
+    titleAr: "وكالة المحامل الهندسية والمعدات",
     category: "Industrial Wholesale & Admin",
-    categoryAr: "تجارة صناعية وتوريدات مع لوحة إدارة",
+    categoryAr: "توريدات صناعية مع لوحة تحكم حية",
     market: "Industrial Supply Chain",
-    marketAr: "سلاسل التوريد الصناعية",
+    marketAr: "سلاسل التوريد والتجارة المباشرة",
     url: "https://www.bearingshop.in",
     metrics: "Live Custom Admin Panel",
     metricsAr: "لوحة تحكم إدارية حية مخصصة",
@@ -194,14 +195,14 @@ const recentProjects: ClientProject[] = [
   },
   {
     title: "Periyapalayam Rooms",
-    titleAr: "بوابة حجز الغرف والضيافة",
+    titleAr: "بوابة حجز الغرف والضيافة الفندقية",
     category: "Hospitality & Room Booking",
-    categoryAr: "ضيافة وحجوزات فندقية",
+    categoryAr: "ضيافة وحجوزات فندقية مباشرة",
     market: "Tourism & Accommodation",
-    marketAr: "السياحة والضيافة",
+    marketAr: "الضيافة والسياحة",
     url: "https://www.periyapalayamrooms.in/",
     metrics: "Direct Booking Engine",
-    metricsAr: "محرك حجز مباشر بدون عمولات",
+    metricsAr: "محرك حجز مباشر بدون عمولات وسطاء",
     summary:
       "Full accommodation showcase and booking reservation system featuring room availability calendars, transparent tariffs, amenity tours and zero-commission direct bookings.",
     summaryAr:
@@ -210,14 +211,14 @@ const recentProjects: ClientProject[] = [
   },
   {
     title: "DEVGRONIX Custom Printing",
-    titleAr: "حلول الطباعة والهوية البصرية",
+    titleAr: "حلول الطباعة التجارية والهوية المؤسسية",
     category: "Corporate Branding & Merchandise",
-    categoryAr: "طباعة تجارية وتجهيز الهوية البصرية",
+    categoryAr: "طباعة فاخرة وهدايا دعائية للشركات",
     market: "GCC & India Merch",
-    marketAr: "الهدايا الدعائية ومطبوعات الشركات",
+    marketAr: "مطبوعات وهدايا الشركات والمؤتمرات",
     url: "https://devgronix.com/services/custom-printing-branding",
     metrics: "Corporate Bulk Ordering",
-    metricsAr: "طلبات الكميات للشركات والمؤتمرات",
+    metricsAr: "طلبات الجملة للمؤتمرات والفعاليات",
     summary:
       "High-finish merchandise, employee onboarding kits, apparel, brochures and luxury packaging with rapid turnaround for exhibitions, corporate gifting and marketing campaigns.",
     summaryAr:
@@ -226,11 +227,11 @@ const recentProjects: ClientProject[] = [
   },
   {
     title: "SS Fashion Photography",
-    titleAr: "إس إس فاشن للتصوير الفني",
+    titleAr: "إس إس فاشن للتصوير الفني والإعلاني",
     category: "High-End Visual Portfolio",
     categoryAr: "معرض أعمال وفوتوغرافيا إبداعية",
     market: "Fashion & Commercial Studios",
-    marketAr: "استوديوهات الأزياء والإعلانات",
+    marketAr: "استوديوهات الأزياء والإعلانات التجارية",
     url: "https://devgronix.com/works",
     metrics: "Curated 4K Showcase",
     metricsAr: "معرض أعمال عالي الدقة وسريع التحميل",
@@ -242,11 +243,11 @@ const recentProjects: ClientProject[] = [
   },
   {
     title: "JobsScope",
-    titleAr: "جوبز سكوب للتوظيف والمهن",
+    titleAr: "جوبز سكوب للتوظيف واستقطاب الكفاءات",
     category: "Recruitment & Job Search Portal",
-    categoryAr: "منصة التوظيف واستقطاب الكفاءات",
+    categoryAr: "منصة التوظيف وإدارة المرشحين",
     market: "Talent Acquisition",
-    marketAr: "سوق العمل والتوظيف",
+    marketAr: "سوق العمل والتوظيف الخليجي",
     url: "https://devgronix.com/works",
     metrics: "Dynamic Career Listings",
     metricsAr: "إعلانات وظائف تفاعلية مع تصفية سريعة",
@@ -277,7 +278,7 @@ function UaeLandingPage() {
     setLoading(true);
 
     const waText = isAr
-      ? `*طلب استفسار مشروع جديد من الخليج - ديفجرونيكس*%0A%0A*الاسم / الشركة:* ${encodeURIComponent(name)}%0A*رقم الواتساب:* ${encodeURIComponent(phone)}%0A*المدينة / الدولة:* ${encodeURIComponent(city || "دبي / الإمارات / السعودية")}%0A*الباقة المختارة:* ${encodeURIComponent(service)}%0A*تفاصيل المشروع:* ${encodeURIComponent(details || "طلب استشارة وبدء مشروع")}`
+      ? `*طلب استفسار مشروع جديد من الخليج - ديفجرونيكس*%0A%0A*الاسم / المؤسسة:* ${encodeURIComponent(name)}%0A*رقم الواتساب:* ${encodeURIComponent(phone)}%0A*المدينة / الدولة:* ${encodeURIComponent(city || "دبي / الإمارات / السعودية")}%0A*الباقة المختارة:* ${encodeURIComponent(service)}%0A*متطلبات المشروع:* ${encodeURIComponent(details || "طلب استشارة وبدء العمل")}`
       : `*New Gulf Project Inquiry - DEVGRONIX UAE*%0A%0A*Name:* ${encodeURIComponent(name)}%0A*WhatsApp:* ${encodeURIComponent(phone)}%0A*Location/City:* ${encodeURIComponent(city || "Dubai / UAE / Saudi")}%0A*Selected Package:* ${encodeURIComponent(service)}%0A*Project Notes:* ${encodeURIComponent(details || "Looking for consultation")}`;
 
     try {
@@ -309,81 +310,95 @@ function UaeLandingPage() {
 
   return (
     <div
-      className={`min-h-screen bg-background text-foreground transition-all duration-200 ${isAr ? "font-sans" : ""}`}
+      className={`min-h-screen bg-background text-foreground transition-colors duration-200 ${
+        isAr ? "font-sans selection:bg-brand/20" : "selection:bg-brand/20"
+      }`}
       dir={isAr ? "rtl" : "ltr"}
     >
-      {/* Floating Language Switcher Bar */}
-      <div className="sticky top-16 z-40 border-b border-border/80 bg-background/95 backdrop-blur-md">
-        <Container>
-          <div className="flex items-center justify-between py-2.5">
-            <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-              <Globe className="size-4 text-brand shrink-0" />
+      {/* Dynamic Gulf Hero Section with Integrated Animated Node Network & Comfortable Navbar Clearance */}
+      <section className="relative isolate overflow-hidden border-b border-border bg-gradient-to-b from-surface/90 via-background to-background pt-28 pb-16 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28">
+        {/* Living Node Network Canvas in Background */}
+        <HeroNodeNetwork />
+
+        {/* Ambient Gulf Light Beams & Glow Gradients */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute -top-32 left-1/2 -translate-x-1/2 size-[32rem] sm:size-[45rem] rounded-full bg-brand/15 blur-3xl opacity-70" />
+          <div className="absolute top-1/3 -right-28 size-[22rem] rounded-full bg-amber-500/10 blur-3xl opacity-50" />
+          <div className="absolute top-1/2 -left-28 size-[24rem] rounded-full bg-cyan-500/10 blur-3xl opacity-40" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:28px_28px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)]" />
+        </div>
+
+        <Container className="relative z-10">
+          {/* Top Floating Control Bar: Ample spacing below the fixed header */}
+          <div className="mx-auto max-w-4xl mb-8 flex flex-col sm:flex-row items-center justify-between gap-3.5 rounded-2xl border border-border/80 bg-surface/75 px-4 py-2.5 shadow-sm backdrop-blur-md">
+            <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground">
+              <span className="relative flex size-2 shrink-0">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500 opacity-75" />
+                <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
+              </span>
               <span>
                 {isAr
-                  ? "خدمات متخصصة لشركات الإمارات (دبي، أبوظبي) والمملكة العربية السعودية (الرياض، جدة)"
-                  : "Dedicated Services for UAE (Dubai, Abu Dhabi) & Saudi Arabia (Riyadh, Jeddah)"}
+                  ? "متاح لتنفيذ المشاريع فوراً • الإمارات (دبي، أبوظبي) والمملكة العربية السعودية (الرياض، جدة)"
+                  : "Live for projects · Serving Dubai, Abu Dhabi, Sharjah, Riyadh & Jeddah"}
               </span>
             </div>
 
-            {/* Language Switcher Pill */}
-            <div className="inline-flex items-center rounded-full border border-border bg-surface p-1 shadow-xs">
+            {/* Language Switcher Button with Clear Active Styling */}
+            <div className="inline-flex items-center rounded-xl border border-border bg-background/90 p-1 shadow-xs">
               <button
                 type="button"
                 onClick={() => setLang("ar")}
-                className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold transition ${
-                  isAr ? "bg-brand text-brand-foreground shadow-xs" : "text-muted-foreground hover:text-foreground"
+                className={`flex items-center gap-1.5 rounded-lg px-3.5 py-1 text-xs font-bold transition-all duration-150 ${
+                  isAr
+                    ? "bg-brand text-brand-foreground shadow-xs scale-[1.02]"
+                    : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 <span>العربية</span>
-                <span className="text-[10px] opacity-75">(SAR / AED)</span>
+                <span className="text-[10px] font-normal opacity-85">(الخليج)</span>
               </button>
               <button
                 type="button"
                 onClick={() => setLang("en")}
-                className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold transition ${
-                  !isAr ? "bg-brand text-brand-foreground shadow-xs" : "text-muted-foreground hover:text-foreground"
+                className={`flex items-center gap-1.5 rounded-lg px-3.5 py-1 text-xs font-bold transition-all duration-150 ${
+                  !isAr
+                    ? "bg-brand text-brand-foreground shadow-xs scale-[1.02]"
+                    : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 <span>English</span>
-                <span className="text-[10px] opacity-75">(Global)</span>
+                <span className="text-[10px] font-normal opacity-85">(Global)</span>
               </button>
             </div>
           </div>
-        </Container>
-      </div>
 
-      {/* Dynamic Gulf Hero Section */}
-      <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-surface/80 via-background to-background py-16 sm:py-24">
-        <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand/10 via-transparent to-transparent opacity-70" />
-
-        <Container>
           <div className="mx-auto max-w-4xl text-center">
             {/* Top Badges */}
-            <div className="flex flex-wrap items-center justify-center gap-2.5">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-brand/40 bg-brand/10 px-3.5 py-1 text-xs font-bold text-brand">
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-brand/40 bg-brand/10 px-3.5 py-1 text-xs font-bold text-brand shadow-2xs backdrop-blur-xs">
                 <Sparkles className="size-3.5" />
-                {isAr ? "دبي • أبوظبي • الرياض • جدة" : "Dubai • Abu Dhabi • Riyadh • Jeddah"}
+                {isAr ? "وكالة الحلول الرقمية الذكية لدول مجلس التعاون" : "GCC Digital Engineering Agency"}
               </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium text-muted-foreground">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface/90 px-3.5 py-1 text-xs font-semibold text-foreground shadow-2xs">
                 <CreditCard className="size-3.5 text-brand" />
                 {isAr ? "تبدأ الأسعار من 249 درهم / 255 ريال" : "Packages from AED 249 / SAR 255"}
               </span>
             </div>
 
-            {/* Main Title */}
-            <h1 className="mt-6 text-3xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl sm:leading-[1.15]">
+            {/* Main Title with Elegant Typography */}
+            <h1 className="mt-6 text-3xl font-extrabold tracking-tight sm:text-5xl lg:text-[3.5rem] leading-[1.2] sm:leading-[1.18]">
               {isAr ? (
                 <>
                   تصميم وتطوير مواقع إلكترونية{" "}
-                  <span className="bg-gradient-to-r from-brand via-brand/90 to-brand/70 bg-clip-text text-transparent">
-                    عالية الأداء والسرعة
+                  <span className="bg-gradient-to-r from-brand via-amber-500 to-brand bg-clip-text text-transparent">
+                    فائقة السرعة والأداء
                   </span>{" "}
-                  للشركات في الخليج
+                  لشركات ومؤسسات الخليج
                 </>
               ) : (
                 <>
                   High-Performance Web Design &{" "}
-                  <span className="bg-gradient-to-r from-brand via-brand/90 to-brand/70 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-brand via-amber-500 to-brand bg-clip-text text-transparent">
                     Digital Growth
                   </span>{" "}
                   for Gulf Businesses
@@ -391,60 +406,68 @@ function UaeLandingPage() {
               )}
             </h1>
 
-            {/* Subtitle */}
-            <p className="mx-auto mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg sm:leading-relaxed">
+            {/* Subtitle with High-Trust Tone */}
+            <p className="mx-auto mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg leading-relaxed">
               {isAr
-                ? "مواقع مخصصة فائقة السرعة بدون قوالب جاهزة، لوحات تحكم إدارية حديثة، وتصميمات مهيأة لتحويل الزوار إلى عملاء فوريين عبر واتساب. توافق زمني كامل مع ساعات العمل في الخليج ودفعات ميسرة وفق مراحل الإنجاز."
+                ? "مواقع وتطبيقات مخصصة تفتح في أجزاء من الثانية دون بطء القوالب الجاهزة. نوفر لوحات تحكم إدارية حية، وتكاملاً مباشراً مع محادثات واتساب لتحويل كل زائر لعميل حقيقي، مع التوافق التام مع ساعات عمل الإمارات والسعودية (GMT+4)."
                 : "Custom-coded websites, mobile web applications, and creative visual content engineered for companies across UAE & Saudi Arabia. Direct Gulf timezone collaboration (GMT+4), sub-second loading, and transparent pricing in AED & SAR."}
             </p>
 
-            {/* Four High-Impact Value Chips */}
-            <div className="mt-8 grid grid-cols-2 gap-2.5 sm:grid-cols-4 sm:gap-3 text-left rtl:text-right">
-              <div className="rounded-xl border border-border bg-surface/70 p-3 shadow-2xs backdrop-blur-xs">
+            {/* Four Dynamic Interactive Highlight Cards */}
+            <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-3.5 text-left rtl:text-right">
+              <div className="group rounded-2xl border border-border bg-surface/80 p-3.5 shadow-sm backdrop-blur-md transition-all duration-300 hover:border-brand/50 hover:shadow-md hover:-translate-y-0.5">
                 <div className="flex items-center gap-2">
-                  <Clock className="size-4 text-brand shrink-0" />
+                  <div className="flex size-7 items-center justify-center rounded-lg bg-brand/10 text-brand group-hover:bg-brand group-hover:text-brand-foreground transition">
+                    <Clock className="size-4" />
+                  </div>
                   <span className="text-xs font-bold text-foreground">
-                    {isAr ? "إطلاق خلال 48-72 ساعة" : "48-72h Sprint Delivery"}
+                    {isAr ? "إطلاق خلال 48-72h" : "48-72h Sprint Delivery"}
                   </span>
                 </div>
-                <p className="mt-1 text-[11px] text-muted-foreground">
-                  {isAr ? "تسليم سريع لموقعك دون أي تأخير" : "Fast turnaround for rapid market launch"}
+                <p className="mt-1.5 text-[11px] leading-snug text-muted-foreground">
+                  {isAr ? "جاهزية وسرعة قياسية للانطلاق بالسوق" : "Fast turnaround for rapid market launch"}
                 </p>
               </div>
 
-              <div className="rounded-xl border border-border bg-surface/70 p-3 shadow-2xs backdrop-blur-xs">
+              <div className="group rounded-2xl border border-border bg-surface/80 p-3.5 shadow-sm backdrop-blur-md transition-all duration-300 hover:border-brand/50 hover:shadow-md hover:-translate-y-0.5">
                 <div className="flex items-center gap-2">
-                  <MessageCircle className="size-4 text-brand shrink-0" />
+                  <div className="flex size-7 items-center justify-center rounded-lg bg-brand/10 text-brand group-hover:bg-brand group-hover:text-brand-foreground transition">
+                    <MessageCircle className="size-4" />
+                  </div>
                   <span className="text-xs font-bold text-foreground">
-                    {isAr ? "ربط فوري بواتساب" : "1-Tap WhatsApp Lead Capture"}
+                    {isAr ? "ربط فوري بواتساب" : "1-Tap WhatsApp Lead"}
                   </span>
                 </div>
-                <p className="mt-1 text-[11px] text-muted-foreground">
-                  {isAr ? "كل زائر يتحول لمحادثة فورية معك" : "Direct customer chats without friction"}
+                <p className="mt-1.5 text-[11px] leading-snug text-muted-foreground">
+                  {isAr ? "كل زائر يتواصل معك بنقرة واحدة" : "Direct customer chats without friction"}
                 </p>
               </div>
 
-              <div className="rounded-xl border border-border bg-surface/70 p-3 shadow-2xs backdrop-blur-xs">
+              <div className="group rounded-2xl border border-border bg-surface/80 p-3.5 shadow-sm backdrop-blur-md transition-all duration-300 hover:border-brand/50 hover:shadow-md hover:-translate-y-0.5">
                 <div className="flex items-center gap-2">
-                  <Languages className="size-4 text-brand shrink-0" />
+                  <div className="flex size-7 items-center justify-center rounded-lg bg-brand/10 text-brand group-hover:bg-brand group-hover:text-brand-foreground transition">
+                    <Languages className="size-4" />
+                  </div>
                   <span className="text-xs font-bold text-foreground">
-                    {isAr ? "عربي وإنجليزي متكامل" : "Full Bilingual RTL + LTR"}
+                    {isAr ? "عربي وإنجليزي متقن" : "Full RTL + LTR Bilingual"}
                   </span>
                 </div>
-                <p className="mt-1 text-[11px] text-muted-foreground">
-                  {isAr ? "تصميم مهيأ للغة العربية بنسبة 100%" : "Flawless Arabic typography & layout"}
+                <p className="mt-1.5 text-[11px] leading-snug text-muted-foreground">
+                  {isAr ? "خطوط عربية عصرية وتصميم متقن 100%" : "Flawless Arabic typography & layout"}
                 </p>
               </div>
 
-              <div className="rounded-xl border border-border bg-surface/70 p-3 shadow-2xs backdrop-blur-xs">
+              <div className="group rounded-2xl border border-border bg-surface/80 p-3.5 shadow-sm backdrop-blur-md transition-all duration-300 hover:border-brand/50 hover:shadow-md hover:-translate-y-0.5">
                 <div className="flex items-center gap-2">
-                  <ShieldCheck className="size-4 text-brand shrink-0" />
+                  <div className="flex size-7 items-center justify-center rounded-lg bg-brand/10 text-brand group-hover:bg-brand group-hover:text-brand-foreground transition">
+                    <ShieldCheck className="size-4" />
+                  </div>
                   <span className="text-xs font-bold text-foreground">
-                    {isAr ? "دفعات مجزأة آمنة" : "Milestone-Based Billing"}
+                    {isAr ? "دفع مرحلي آمن" : "Milestone Billing (50/50)"}
                   </span>
                 </div>
-                <p className="mt-1 text-[11px] text-muted-foreground">
-                  {isAr ? "50% عند البدء و50% بعد الاعتماد النهائي" : "50% advance, 50% on final approval"}
+                <p className="mt-1.5 text-[11px] leading-snug text-muted-foreground">
+                  {isAr ? "50% عند البدء و50% بعد الاعتماد" : "50% advance, 50% on final approval"}
                 </p>
               </div>
             </div>
@@ -455,22 +478,22 @@ function UaeLandingPage() {
                 href={defaultWaUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl bg-brand px-6 py-3.5 text-sm font-bold text-brand-foreground shadow-md transition hover:bg-brand/90 hover:scale-[1.02]"
+                className="inline-flex items-center gap-2 rounded-xl bg-brand px-6 py-3.5 text-sm font-bold text-brand-foreground shadow-md transition-all duration-200 hover:bg-brand/90 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <MessageCircle className="size-4" />
-                {isAr ? "تواصل فوري عبر واتساب (+91 7070519128)" : "Chat on WhatsApp (+91 7070519128)"}
+                {isAr ? "تواصل مباشر عبر واتساب (+91 7070519128)" : "Chat on WhatsApp (+91 7070519128)"}
               </a>
               <a
                 href="#packages"
-                className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface px-5 py-3.5 text-sm font-semibold text-foreground transition hover:bg-surface/80"
+                className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface/90 px-5 py-3.5 text-sm font-semibold text-foreground transition-all duration-200 hover:border-brand/50 hover:bg-surface"
               >
                 {isAr ? "استعراض الباقات والأسعار" : "View Packages & Pricing"}
               </a>
               <a
                 href="#work"
-                className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface px-5 py-3.5 text-sm font-semibold text-foreground transition hover:bg-surface/80"
+                className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface/90 px-5 py-3.5 text-sm font-semibold text-foreground transition-all duration-200 hover:border-brand/50 hover:bg-surface"
               >
-                {isAr ? "مشاريع حية سابقة" : "Explore Live Work"}
+                {isAr ? "استعراض المشاريع الحية" : "Explore Live Work"}
               </a>
             </div>
           </div>
@@ -478,31 +501,31 @@ function UaeLandingPage() {
       </section>
 
       {/* Trust Metrics Strip */}
-      <div className="border-b border-border bg-surface/40 py-5">
+      <div className="border-b border-border bg-surface/50 py-5">
         <Container>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 text-center">
-            <div>
-              <div className="text-2xl font-extrabold text-foreground">48h – 72h</div>
-              <div className="text-xs text-muted-foreground">
+            <div className="rounded-xl border border-border/60 bg-background/60 p-3">
+              <div className="text-2xl sm:text-3xl font-extrabold text-foreground">48h – 72h</div>
+              <div className="mt-0.5 text-xs text-muted-foreground">
                 {isAr ? "متوسط سرعة الإطلاق" : "Average Launch Time"}
               </div>
             </div>
-            <div>
-              <div className="text-2xl font-extrabold text-foreground">0.4s</div>
-              <div className="text-xs text-muted-foreground">
+            <div className="rounded-xl border border-border/60 bg-background/60 p-3">
+              <div className="text-2xl sm:text-3xl font-extrabold text-foreground">0.4s</div>
+              <div className="mt-0.5 text-xs text-muted-foreground">
                 {isAr ? "سرعة تحميل الصفحات" : "Sub-second Page Load"}
               </div>
             </div>
-            <div>
-              <div className="text-2xl font-extrabold text-foreground">AED 249</div>
-              <div className="text-xs text-muted-foreground">
+            <div className="rounded-xl border border-border/60 bg-background/60 p-3">
+              <div className="text-2xl sm:text-3xl font-extrabold text-brand">AED 249</div>
+              <div className="mt-0.5 text-xs text-muted-foreground">
                 {isAr ? "باقة الحضور الرقمي" : "Starter Web Presence"}
               </div>
             </div>
-            <div>
-              <div className="text-2xl font-extrabold text-foreground">100%</div>
-              <div className="text-xs text-muted-foreground">
-                {isAr ? "ملكية كاملة للكود" : "Code & Asset Ownership"}
+            <div className="rounded-xl border border-border/60 bg-background/60 p-3">
+              <div className="text-2xl sm:text-3xl font-extrabold text-foreground">100%</div>
+              <div className="mt-0.5 text-xs text-muted-foreground">
+                {isAr ? "ملكية كاملة للكود والمحتوى" : "Code & Asset Ownership"}
               </div>
             </div>
           </div>
@@ -514,99 +537,111 @@ function UaeLandingPage() {
         <SectionHeading
           index="01"
           label={isAr ? "المزايا المخصصة للخليج" : "Gulf Advantage"}
-          title={isAr ? "لماذا تختار ديفجرونيكس لشركتك في الخليج؟" : "Why Gulf Businesses Partner With DEVGRONIX"}
+          title={isAr ? "لماذا تثق شركات ومؤسسات الخليج في ديفجرونيكس؟" : "Why Gulf Businesses Partner With DEVGRONIX"}
         />
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="rounded-xl border border-border bg-surface p-6">
-            <Clock className="size-6 text-brand" />
-            <h4 className="mt-3 font-display text-base font-bold text-foreground">
+          <div className="group rounded-2xl border border-border bg-surface p-6 shadow-xs transition-all duration-300 hover:border-brand/50 hover:shadow-md hover:-translate-y-1">
+            <div className="flex size-11 items-center justify-center rounded-xl bg-brand/10 text-brand group-hover:bg-brand group-hover:text-brand-foreground transition">
+              <Clock className="size-5" />
+            </div>
+            <h4 className="mt-4 font-display text-base font-bold text-foreground">
               {isAr ? "تنسيق متوافق مع توقيت الخليج (GMT+4)" : "Gulf Timezone Aligned (GMT+4)"}
             </h4>
             <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
               {isAr
-                ? "تواصل مباشر ومستمر خلال ساعات العمل الرسمية في الإمارات والسعودية عبر واتساب واجتماعات جوجل ميت."
+                ? "تواصل مباشر ومستمر خلال ساعات العمل الرسمية في الإمارات والسعودية عبر واتساب واجتماعات جوجل ميت دون أي فوارق زمنية."
                 : "Zero communication delay. We work directly with your schedule across UAE and Saudi Arabia business hours via WhatsApp and Google Meet."}
             </p>
           </div>
 
-          <div className="rounded-xl border border-border bg-surface p-6">
-            <CreditCard className="size-6 text-brand" />
-            <h4 className="mt-3 font-display text-base font-bold text-foreground">
+          <div className="group rounded-2xl border border-border bg-surface p-6 shadow-xs transition-all duration-300 hover:border-brand/50 hover:shadow-md hover:-translate-y-1">
+            <div className="flex size-11 items-center justify-center rounded-xl bg-brand/10 text-brand group-hover:bg-brand group-hover:text-brand-foreground transition">
+              <CreditCard className="size-5" />
+            </div>
+            <h4 className="mt-4 font-display text-base font-bold text-foreground">
               {isAr ? "فوترة واضحة بالدرهم والريال والدولار" : "Transparent Invoicing in AED, SAR & USD"}
             </h4>
             <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
               {isAr
-                ? "أسعار ثابتة بدون أي رسوم خفية. نظام دفع على مرحلتين (50% عند البدء و50% بعد الاعتماد الكامل للموقع)."
+                ? "أسعار ثابتة بدون أي رسوم اشتراك خفية. نظام دفع ميسر على مرحلتين (50% عند البدء و50% بعد الاعتماد الكامل للموقع)."
                 : "Predictable milestone payments (50% upfront, 50% on approval). No hidden hosting markups or surprise maintenance charges."}
             </p>
           </div>
 
-          <div className="rounded-xl border border-border bg-surface p-6">
-            <Smartphone className="size-6 text-brand" />
-            <h4 className="mt-3 font-display text-base font-bold text-foreground">
+          <div className="group rounded-2xl border border-border bg-surface p-6 shadow-xs transition-all duration-300 hover:border-brand/50 hover:shadow-md hover:-translate-y-1">
+            <div className="flex size-11 items-center justify-center rounded-xl bg-brand/10 text-brand group-hover:bg-brand group-hover:text-brand-foreground transition">
+              <Smartphone className="size-5" />
+            </div>
+            <h4 className="mt-4 font-display text-base font-bold text-foreground">
               {isAr ? "تصميم متكامل للجوال وواتساب أولاً" : "Mobile & WhatsApp-First Architecture"}
             </h4>
             <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
               {isAr
-                ? "أكثر من 85% من عملاء الخليج يتصفحون عبر الجوال. نضمن تجربة تصفح سريعة وزر تواصل واتساب فوري."
+                ? "أكثر من 85% من عملاء الخليج يتصفحون عبر الجوال. نضمن تجربة تصفح سريعة وزر تواصل واتساب فوري يرفع معدل التحويل."
                 : "Over 85% of Gulf web traffic is mobile. Every page is built mobile-first with click-to-WhatsApp actions for instant customer capture."}
             </p>
           </div>
 
-          <div className="rounded-xl border border-border bg-surface p-6">
-            <Globe className="size-6 text-brand" />
-            <h4 className="mt-3 font-display text-base font-bold text-foreground">
-              {isAr ? "دعم ثنائي اللغة (عربي وإنجليزي)" : "Bilingual Ready (Arabic + English)"}
+          <div className="group rounded-2xl border border-border bg-surface p-6 shadow-xs transition-all duration-300 hover:border-brand/50 hover:shadow-md hover:-translate-y-1">
+            <div className="flex size-11 items-center justify-center rounded-xl bg-brand/10 text-brand group-hover:bg-brand group-hover:text-brand-foreground transition">
+              <Globe className="size-5" />
+            </div>
+            <h4 className="mt-4 font-display text-base font-bold text-foreground">
+              {isAr ? "دعم كامل للغتين (عربي وإنجليزي)" : "Bilingual Ready (Arabic + English)"}
             </h4>
             <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
               {isAr
-                ? "تصميم متقن يدعم الكتابة من اليمين إلى اليسار (RTL) مع خطوط عربية عصرية تناسب طبيعة جمهورك."
+                ? "تصميم متقن يدعم الكتابة من اليمين إلى اليسار (RTL) مع خطوط عربية فاخرة وسهلة القراءة لجذب العملاء المواطنين والمقيمين."
                 : "Reach both local Arab audiences and international expats with clean Right-to-Left (RTL) Arabic typography and instant toggles."}
             </p>
           </div>
 
-          <div className="rounded-xl border border-border bg-surface p-6">
-            <Zap className="size-6 text-brand" />
-            <h4 className="mt-3 font-display text-base font-bold text-foreground">
+          <div className="group rounded-2xl border border-border bg-surface p-6 shadow-xs transition-all duration-300 hover:border-brand/50 hover:shadow-md hover:-translate-y-1">
+            <div className="flex size-11 items-center justify-center rounded-xl bg-brand/10 text-brand group-hover:bg-brand group-hover:text-brand-foreground transition">
+              <Zap className="size-5" />
+            </div>
+            <h4 className="mt-4 font-display text-base font-bold text-foreground">
               {isAr ? "كود حديث بدون بطء ووردبريس" : "Clean Code, Zero WordPress Bloat"}
             </h4>
             <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
               {isAr
-                ? "مواقع مبنية بأحدث تقنيات الويب العالمية، سرعة تحميل في أجزاء من الثانية مع حماية وأمان عالي."
+                ? "مواقع مبنية بأحدث تقنيات React وTypeScript العالمية، سرعة تحميل في أجزاء من الثانية مع حماية وأمان عالي بدون إضافات مخترقة."
                 : "Built with modern React and TypeScript. Sub-second loading speeds, grade-A Google Core Web Vitals, and zero vulnerable plugins."}
             </p>
           </div>
 
-          <div className="rounded-xl border border-border bg-surface p-6">
-            <Sparkles className="size-6 text-brand" />
-            <h4 className="mt-3 font-display text-base font-bold text-foreground">
-              {isAr ? "تواصل مباشر مع المطور" : "Direct Engineering Contact"}
+          <div className="group rounded-2xl border border-border bg-surface p-6 shadow-xs transition-all duration-300 hover:border-brand/50 hover:shadow-md hover:-translate-y-1">
+            <div className="flex size-11 items-center justify-center rounded-xl bg-brand/10 text-brand group-hover:bg-brand group-hover:text-brand-foreground transition">
+              <Sparkles className="size-5" />
+            </div>
+            <h4 className="mt-4 font-display text-base font-bold text-foreground">
+              {isAr ? "تواصل مباشر مع مهندسي البرمجة" : "Direct Engineering Contact"}
             </h4>
             <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
               {isAr
-                ? "تحدث مباشرة مع المهندس المنفذ لمشروعك، بدون وسطاء مبيعات أو تأخير في نقل الملاحظات."
+                ? "تحدث مباشرة مع الفريق الهندسي المنفذ لمشروعك، بدون وسطاء مبيعات أو تأخير، مع تنفيذ التعديلات بكل مرونة."
                 : "No layers of account managers. Speak directly with the engineers executing your design, code, and growth setup."}
             </p>
           </div>
         </div>
       </Section>
 
-      {/* Packages Section */}
+      {/* Packages Section with Dynamic Cards */}
       <Section id="packages" className="border-b border-border bg-surface/20">
         <SectionHeading
           index="02"
           label={isAr ? "الباقات والأسعار" : "Gulf Packages"}
-          title={isAr ? "باقات واضحة وبأسعار تنافسية تلائم عملك" : "Transparent Packages Engineered for High ROI"}
+          title={isAr ? "باقات واضحة ومناسبة تضمن أعلى عائد لاستثمارك" : "Transparent Packages Engineered for High ROI"}
         />
         <p className="mt-3 max-w-xl text-sm text-muted-foreground">
           {isAr
-            ? "جميع الباقات تشمل سرعة تحميل فائقة، تكامل فوري مع واتساب، وتهيئة لمحركات البحث Google SEO."
+            ? "تشمل جميع الباقات التصميم للجوال، الربط المباشر مع واتساب، تهيئة محركات البحث Google SEO، وملكية الكود بالكامل."
             : "All packages include responsive mobile design, direct WhatsApp conversion, SEO meta tags, and complete asset ownership."}
         </p>
 
         <div className="mt-8 grid gap-6 lg:grid-cols-3">
           {/* Card 1 */}
-          <div className="rounded-2xl border border-border bg-surface p-7 shadow-sm transition hover:border-brand/40 flex flex-col justify-between">
+          <div className="group rounded-2xl border border-border bg-surface p-7 shadow-sm transition-all duration-300 hover:border-brand/50 hover:shadow-lg flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
@@ -616,17 +651,17 @@ function UaeLandingPage() {
                   {isAr ? "48-72 ساعة" : "48-72h"}
                 </span>
               </div>
-              <h3 className="mt-3 font-display text-xl font-bold text-foreground">
+              <h3 className="mt-3 font-display text-xl font-bold text-foreground group-hover:text-brand transition">
                 {isAr ? "باقة الحضور الرقمي السريع" : "Starter Presence"}
               </h3>
               <p className="mt-1 text-xs text-muted-foreground">
                 {isAr
-                  ? "مثالية للمؤسسات والشركات الناشئة لإنشاء واجهة مهنية سريعة لجذب العملاء."
+                  ? "مثالية للمؤسسات، المكاتب، ومقدمي الخدمات لبناء واجهة احترافية سريعة لجذب العملاء."
                   : "Ideal for new businesses, consultants, and service providers launching fast."}
               </p>
               <div className="mt-5 flex items-baseline gap-1.5">
                 <span className="text-3xl font-extrabold text-foreground">AED 249</span>
-                <span className="text-xs text-muted-foreground">/ SAR 255</span>
+                <span className="text-xs font-medium text-muted-foreground">/ SAR 255</span>
               </div>
 
               <ul className="mt-6 space-y-2.5 text-xs text-muted-foreground">
@@ -661,7 +696,7 @@ function UaeLandingPage() {
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-surface py-3 text-xs font-bold text-foreground transition hover:border-brand hover:text-brand"
+              className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-surface py-3 text-xs font-bold text-foreground transition-all duration-200 hover:border-brand hover:text-brand hover:bg-brand/5"
             >
               <MessageCircle className="size-4" />
               {isAr ? "طلب الباقة عبر واتساب" : "Order via WhatsApp"}
@@ -669,8 +704,8 @@ function UaeLandingPage() {
           </div>
 
           {/* Card 2 - Featured */}
-          <div className="relative rounded-2xl border-2 border-brand bg-surface p-7 shadow-lg flex flex-col justify-between">
-            <span className="absolute -top-3 right-6 rounded-full bg-brand px-3 py-0.5 text-[11px] font-bold text-brand-foreground shadow-xs">
+          <div className="relative rounded-2xl border-2 border-brand bg-surface p-7 shadow-xl flex flex-col justify-between transition-all duration-300 hover:shadow-2xl">
+            <span className="absolute -top-3.5 right-6 rounded-full bg-brand px-3.5 py-0.5 text-[11px] font-bold text-brand-foreground shadow-md">
               {isAr ? "الأكثر طلباً للشركات" : "Most Popular"}
             </span>
             <div>
@@ -687,12 +722,12 @@ function UaeLandingPage() {
               </h3>
               <p className="mt-1 text-xs text-muted-foreground">
                 {isAr
-                  ? "موقع رسمي متعدد الصفحات للشركات والمصانع ومقدمي الخدمات في الخليج."
+                  ? "موقع رسمي متعدد الصفحات للشركات والمصانع ومقدمي الخدمات والمقاولات في الخليج."
                   : "Full 5-page corporate website for established businesses, traders & contractors."}
               </p>
               <div className="mt-5 flex items-baseline gap-1.5">
                 <span className="text-3xl font-extrabold text-foreground">AED 599</span>
-                <span className="text-xs text-muted-foreground">/ SAR 615</span>
+                <span className="text-xs font-medium text-muted-foreground">/ SAR 615</span>
               </div>
 
               <ul className="mt-6 space-y-2.5 text-xs text-muted-foreground">
@@ -727,7 +762,7 @@ function UaeLandingPage() {
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl bg-brand py-3 text-xs font-bold text-brand-foreground shadow-sm transition hover:bg-brand/90"
+              className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl bg-brand py-3 text-xs font-bold text-brand-foreground shadow-md transition-all duration-200 hover:bg-brand/90 hover:scale-[1.01]"
             >
               <MessageCircle className="size-4" />
               {isAr ? "طلب الباقة عبر واتساب" : "Start Project on WhatsApp"}
@@ -735,7 +770,7 @@ function UaeLandingPage() {
           </div>
 
           {/* Card 3 */}
-          <div className="rounded-2xl border border-border bg-surface p-7 shadow-sm transition hover:border-brand/40 flex flex-col justify-between">
+          <div className="group rounded-2xl border border-border bg-surface p-7 shadow-sm transition-all duration-300 hover:border-brand/50 hover:shadow-lg flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
@@ -745,17 +780,17 @@ function UaeLandingPage() {
                   {isAr ? "حسب النطاق" : "Custom Scope"}
                 </span>
               </div>
-              <h3 className="mt-3 font-display text-xl font-bold text-foreground">
+              <h3 className="mt-3 font-display text-xl font-bold text-foreground group-hover:text-brand transition">
                 {isAr ? "تطبيقات ومنصات ويب مخصصة" : "Custom Web App / Portal"}
               </h3>
               <p className="mt-1 text-xs text-muted-foreground">
                 {isAr
-                  ? "بوابات عملاء، لوحات تحكم إدارية خاصة، ومتاجر متقدمة بدون اشتراكات شهرية."
+                  ? "بوابات عملاء، لوحات تحكم إدارية خاصة، ومتاجر متقدمة بدون اشتراكات شهرية متكررة."
                   : "Custom client portals, inventory dashboards, and custom web applications."}
               </p>
               <div className="mt-5 flex items-baseline gap-1.5">
                 <span className="text-3xl font-extrabold text-foreground">AED 1,999+</span>
-                <span className="text-xs text-muted-foreground">/ SAR 2,050+</span>
+                <span className="text-xs font-medium text-muted-foreground">/ SAR 2,050+</span>
               </div>
 
               <ul className="mt-6 space-y-2.5 text-xs text-muted-foreground">
@@ -790,7 +825,7 @@ function UaeLandingPage() {
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-surface py-3 text-xs font-bold text-foreground transition hover:border-brand hover:text-brand"
+              className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-surface py-3 text-xs font-bold text-foreground transition-all duration-200 hover:border-brand hover:text-brand hover:bg-brand/5"
             >
               <MessageCircle className="size-4" />
               {isAr ? "استشارة مخصصة عبر واتساب" : "Discuss Custom Scope"}
@@ -799,7 +834,7 @@ function UaeLandingPage() {
         </div>
       </Section>
 
-      {/* Selected Work Showcase */}
+      {/* Selected Work Showcase with Dynamic Cards */}
       <Section id="work" className="border-b border-border">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
@@ -827,7 +862,7 @@ function UaeLandingPage() {
           {recentProjects.map((p) => (
             <div
               key={p.title}
-              className="group relative flex flex-col justify-between rounded-2xl border border-border bg-surface p-6 shadow-xs transition hover:border-brand/40"
+              className="group relative flex flex-col justify-between rounded-2xl border border-border bg-surface p-6 shadow-xs transition-all duration-300 hover:border-brand/50 hover:shadow-md hover:-translate-y-1"
             >
               <div>
                 <div className="flex items-center justify-between gap-2">
@@ -1021,7 +1056,7 @@ function UaeLandingPage() {
           title={isAr ? "الأسئلة الأكثر شيوعاً لعملاء الإمارات والخليج" : "Frequently Asked Questions (UAE & Gulf)"}
         />
         <div className="mt-8 grid gap-4 md:grid-cols-2">
-          <div className="rounded-xl border border-border bg-surface p-6">
+          <div className="rounded-xl border border-border bg-surface p-6 shadow-xs">
             <h4 className="font-display text-sm font-bold text-foreground">
               {isAr ? "كم يستغرق تسليم وإطلاق الموقع لشركة في الخليج؟" : "How fast can DEVGRONIX launch a website for a UAE business?"}
             </h4>
@@ -1032,7 +1067,7 @@ function UaeLandingPage() {
             </p>
           </div>
 
-          <div className="rounded-xl border border-border bg-surface p-6">
+          <div className="rounded-xl border border-border bg-surface p-6 shadow-xs">
             <h4 className="font-display text-sm font-bold text-foreground">
               {isAr ? "هل تقبلون الدفع بالدرهم الإماراتي أو الريال السعودي؟" : "Do you accept payment in UAE Dirhams (AED) or Saudi Riyals (SAR)?"}
             </h4>
@@ -1043,7 +1078,7 @@ function UaeLandingPage() {
             </p>
           </div>
 
-          <div className="rounded-xl border border-border bg-surface p-6">
+          <div className="rounded-xl border border-border bg-surface p-6 shadow-xs">
             <h4 className="font-display text-sm font-bold text-foreground">
               {isAr ? "هل تدعم المواقع اللغتين العربية والإنجليزية؟" : "Can our website support both Arabic and English?"}
             </h4>
@@ -1054,7 +1089,7 @@ function UaeLandingPage() {
             </p>
           </div>
 
-          <div className="rounded-xl border border-border bg-surface p-6">
+          <div className="rounded-xl border border-border bg-surface p-6 shadow-xs">
             <h4 className="font-display text-sm font-bold text-foreground">
               {isAr ? "كيف يتم التواصل وإدارة التعديلات أثناء العمل؟" : "How do Gulf clients communicate during project delivery?"}
             </h4>
