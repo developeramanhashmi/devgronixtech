@@ -43,13 +43,14 @@ export function FeaturedWork() {
   });
 
   return (
-    <Section id="work" className="border-b border-border bg-surface/40">
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+    <Section id="work" className="border-b border-border bg-surface/40 overflow-hidden w-full max-w-full">
+      <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between w-full min-w-0">
         <SectionHeading
           index="02"
           label="Selected work"
           title="Featured builds & verified client projects."
           description="A curated selection of live client websites, custom platforms, and production branding across India, UAE, and Saudi Arabia."
+          className="w-full min-w-0"
         />
         <Reveal delay={100} className="shrink-0">
           <Link
@@ -63,7 +64,7 @@ export function FeaturedWork() {
       </div>
 
       {/* Interactive Category Filter Pills */}
-      <div className="mt-8 flex flex-wrap items-center gap-2">
+      <div className="mt-8 flex flex-wrap items-center gap-2 w-full max-w-full min-w-0">
         {CATEGORIES.map((cat) => {
           const isActive = activeCategory === cat.id;
           return (
@@ -71,7 +72,7 @@ export function FeaturedWork() {
               key={cat.id}
               type="button"
               onClick={() => setActiveCategory(cat.id)}
-              className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold transition-all ${
+              className={`inline-flex items-center gap-1.5 rounded-full px-3.5 sm:px-4 py-2 text-xs font-semibold transition-all shrink-0 ${
                 isActive
                   ? "bg-brand text-brand-foreground shadow-sm"
                   : "border border-border bg-surface text-muted-foreground hover:border-border-strong hover:text-foreground"
@@ -84,20 +85,20 @@ export function FeaturedWork() {
         })}
       </div>
 
-      {/* Grid of Verified & Featured Projects */}
-      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Grid of Verified & Featured Projects - 100% Mobile Safe */}
+      <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-full min-w-0">
         {filteredProjects.map((project, i) => (
-          <Reveal key={project.id} delay={i * 60}>
-            <div className="flex flex-col h-full">
-              <ProjectCard project={project} />
+          <Reveal key={project.id} delay={i * 60} className="w-full min-w-0 max-w-full">
+            <div className="flex flex-col h-full w-full min-w-0 max-w-full">
+              <ProjectCard project={project} className="w-full min-w-0 max-w-full" />
               {project.clientCountry && (
-                <div className="mt-2 flex items-center gap-1.5 px-2 text-[0.6875rem] font-medium text-muted-foreground">
-                  <MapPin className="size-3 text-brand" />
-                  <span>{project.clientCountry}</span>
+                <div className="mt-2 flex items-center gap-1.5 px-2 text-[0.6875rem] font-medium text-muted-foreground w-full min-w-0">
+                  <MapPin className="size-3 shrink-0 text-brand" />
+                  <span className="shrink-0">{project.clientCountry}</span>
                   {project.clientName && (
                     <>
-                      <span>•</span>
-                      <span className="truncate">{project.clientName}</span>
+                      <span className="shrink-0">•</span>
+                      <span className="truncate min-w-0">{project.clientName}</span>
                     </>
                   )}
                 </div>
@@ -107,14 +108,14 @@ export function FeaturedWork() {
         ))}
       </div>
 
-      {/* Bottom Link to Full Portfolio */}
-      <div className="mt-12 flex justify-center">
+      {/* Bottom Link to Full Portfolio - Auto-Wrapping & Screen-Safe */}
+      <div className="mt-12 flex justify-center w-full px-2 sm:px-4">
         <Link
           to="/works"
-          className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3 text-xs font-semibold tracking-wider text-foreground uppercase transition-all hover:border-brand hover:text-brand shadow-sm"
+          className="inline-flex max-w-full items-center justify-center gap-2 rounded-full border border-border bg-surface px-5 py-3 text-center text-xs font-semibold tracking-wider text-foreground uppercase transition-all hover:border-brand hover:text-brand shadow-sm"
         >
-          View all 15+ engineering & creative case studies
-          <ArrowRight className="size-3.5" />
+          <span className="truncate sm:whitespace-normal">View all 15+ case studies</span>
+          <ArrowRight className="size-3.5 shrink-0" />
         </Link>
       </div>
     </Section>
