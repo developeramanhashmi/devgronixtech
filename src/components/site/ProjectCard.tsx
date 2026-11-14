@@ -32,12 +32,12 @@ export function ProjectCard({
       to="/works/$slug"
       params={{ slug: project.slug }}
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/80 bg-surface/90 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/50 hover:shadow-xl hover:shadow-brand/5",
+        "group relative flex h-full w-full min-w-0 max-w-full flex-col overflow-hidden rounded-2xl border border-border/80 bg-surface/90 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/50 hover:shadow-xl hover:shadow-brand/5",
         className,
       )}
     >
       {/* 100% Clean Image Container - No badges or overlay text over image */}
-      <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-border/70 bg-surface-subtle">
+      <div className="relative aspect-[16/10] w-full min-w-0 max-w-full overflow-hidden border-b border-border/70 bg-surface-subtle">
         <ProjectCover
           pattern={project.thumbnail}
           className="h-full w-full object-cover"
@@ -53,34 +53,34 @@ export function ProjectCard({
       </div>
 
       {/* Card Info Area */}
-      <div className="flex flex-1 flex-col p-5 sm:p-6">
+      <div className="flex flex-1 flex-col p-4 sm:p-6 w-full min-w-0 max-w-full">
         {/* Category & Year */}
-        <div className="flex items-center justify-between text-xs">
-          <span className="font-semibold uppercase tracking-wider text-brand">
+        <div className="flex items-center justify-between text-xs gap-2 min-w-0">
+          <span className="font-semibold uppercase tracking-wider text-brand truncate min-w-0">
             {project.category}
           </span>
-          <span className="font-mono text-[0.75rem] text-muted-foreground">
+          <span className="font-mono text-[0.75rem] text-muted-foreground shrink-0">
             {project.year}
           </span>
         </div>
 
         {/* Title */}
-        <h3 className="mt-2.5 line-clamp-1 font-display text-lg font-bold text-foreground transition-colors duration-200 group-hover:text-brand">
+        <h3 className="mt-2.5 line-clamp-1 font-display text-base sm:text-lg font-bold text-foreground transition-colors duration-200 group-hover:text-brand break-words min-w-0">
           {project.title}
         </h3>
 
         {/* Short Description */}
-        <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-muted-foreground sm:text-sm">
+        <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-muted-foreground sm:text-sm break-words min-w-0">
           {project.shortDescription}
         </p>
 
         {/* Tech Stack Pills */}
         {project.technologies && project.technologies.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-1.5">
+          <div className="mt-4 flex flex-wrap gap-1.5 w-full min-w-0">
             {project.technologies.slice(0, 3).map((tech) => (
               <span
                 key={tech}
-                className="rounded-md border border-border/70 bg-surface-subtle px-2 py-0.5 text-[0.6875rem] font-medium text-muted-foreground"
+                className="rounded-md border border-border/70 bg-surface-subtle px-2 py-0.5 text-[0.6875rem] font-medium text-muted-foreground truncate max-w-full"
               >
                 {tech}
               </span>
@@ -89,9 +89,9 @@ export function ProjectCard({
         )}
 
         {/* Bottom Case Study CTA Link */}
-        <div className="mt-5 flex items-center justify-between border-t border-border/60 pt-3.5 text-xs font-semibold text-brand">
-          <span>View project details</span>
-          <ArrowUpRight className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+        <div className="mt-5 flex items-center justify-between border-t border-border/60 pt-3.5 text-xs font-semibold text-brand w-full min-w-0">
+          <span className="truncate">View project details</span>
+          <ArrowUpRight className="size-4 shrink-0 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         </div>
       </div>
     </Link>
