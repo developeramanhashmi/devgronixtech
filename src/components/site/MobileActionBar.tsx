@@ -20,6 +20,7 @@ import { ThemeToggle } from "./ThemeToggle";
 
 const navItems = [
   { label: "Home", to: "/" as const, icon: Home },
+  { label: "Products", to: "/products" as const, icon: Laptop },
   { label: "Services", to: "/services" as const, icon: Layers },
   { label: "Works", to: "/works" as const, icon: Briefcase },
   { label: "Pricing", to: "/pricing" as const, icon: Tag },
@@ -27,6 +28,7 @@ const navItems = [
   { label: "About", to: "/about" as const, icon: Info },
   { label: "Contact", to: "/contact" as const, icon: Mail },
 ];
+
 
 export function MobileActionBar() {
   const [isOpen, setIsOpen] = useState(false);
