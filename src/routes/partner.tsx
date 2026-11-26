@@ -878,7 +878,7 @@ function PartnerPage() {
                 Get Your Official Partner ID
               </h2>
               <p className="mt-3 text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                Fill in your basic details below. Clicking <strong> Submit Application </strong> will automatically format your structured application and send it directly to our onboarding desk.
+                Fill in your basic details below. Clicking <strong> Submit Application on WhatsApp </strong> will automatically format your structured application and send it directly to our onboarding desk.
               </p>
             </div>
 
@@ -989,7 +989,7 @@ function PartnerPage() {
                 className="interactive inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-emerald-600 to-green-600 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-emerald-500/25 hover:from-emerald-700 hover:to-green-700 hover:scale-[1.02] active:scale-[0.98] transition-all"
               >
                 <MessageCircle className="size-5" />
-                <span>Submit Application on WhatsApp</span>
+                <span>Submit Application</span>
                 <ArrowRight className="size-4" />
               </a>
 
