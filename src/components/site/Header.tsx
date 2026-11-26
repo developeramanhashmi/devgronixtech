@@ -7,6 +7,7 @@ import { ThemeToggle } from "./ThemeToggle";
 
 const nav = [
   { label: "Home", to: "/" as const },
+  { label: "Products", to: "/products" as const },
   { label: "Services", to: "/services" as const },
   { label: "Works", to: "/works" as const },
   { label: "About", to: "/about" as const },
@@ -14,6 +15,7 @@ const nav = [
   { label: "Partner", to: "/partner" as const },
   { label: "Contact", to: "/contact" as const },
 ];
+
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
