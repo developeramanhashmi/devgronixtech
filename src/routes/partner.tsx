@@ -878,7 +878,7 @@ function PartnerPage() {
                 Get Your Official Partner ID
               </h2>
               <p className="mt-3 text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                Fill in your basic details below. Clicking <strong>Submit Application on WhatsApp</strong> will automatically format your structured application and send it directly to our onboarding desk.
+                Fill in your basic details below. Clicking <strong> Submit Application </strong> will automatically format your structured application and send it directly to our onboarding desk.
               </p>
             </div>
 
