@@ -8,7 +8,7 @@ import {
   CheckCircle2,
   ChevronDown,
   Cloud,
-  Laptop,
+  Laptop as LaptopIcon,
   MessageCircle,
   Phone,
   ShieldCheck,
@@ -76,7 +76,7 @@ function getProductIcon(name: Product["iconName"]) {
     case "BookOpen":
       return BookOpen;
     case "Laptop":
-      return Laptop;
+      return LaptopIcon;
     case "Users":
       return Users;
     case "Zap":
