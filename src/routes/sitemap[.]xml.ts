@@ -5,14 +5,8 @@ import { sitemapPathForLocation, sitemapStaticPaths, sitemapXML, type SitemapEnt
 import { SITE_URL } from "@/lib/seo";
 import { publishedServices } from "@/lib/content/services";
 import { publishedProjects } from "@/lib/content/projects";
-
 import { publishedProducts } from "@/lib/content/products";
-// and inside the dynamic array:
-{
-  routeId: "/products/$slug",
-  to: "/products/$slug",
-  slugs: publishedProducts.map((p) => p.slug),
-},
+
 const BASE_URL = SITE_URL;
 
 export const Route = createFileRoute("/sitemap.xml")({
@@ -30,6 +24,12 @@ export const Route = createFileRoute("/sitemap.xml")({
             routeId: "/services/$slug",
             to: "/services/$slug",
             slugs: publishedServices.map((s) => s.slug),
+          },
+          // and inside the dynamic array:
+          {
+            routeId: "/products/$slug",
+            to: "/products/$slug",
+            slugs: publishedProducts.map((p) => p.slug),
           },
           {
             routeId: "/pricing/$slug",
