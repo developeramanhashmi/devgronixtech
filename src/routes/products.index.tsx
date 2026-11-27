@@ -7,20 +7,13 @@ import {
   CheckCircle2,
   ChevronDown,
   ChevronRight,
-  Clock,
-  Cloud,
-  ExternalLink,
-  HelpCircle,
   Laptop,
-  Layers,
   MessageCircle,
   Phone,
   Send,
   ShieldCheck,
   Smartphone,
   Sparkles,
-  TrendingUp,
-  UserCheck,
   Users,
   Zap,
 } from "lucide-react";
@@ -82,25 +75,25 @@ function getProductIcon(name: Product["iconName"]) {
   }
 }
 
-// Interactive Micro-UI Previews
+// Interactive Micro-UI Previews - Mobile Responsive & Professional UI
 function LibraryMockup() {
   const [activeShift, setActiveShift] = useState<"morning" | "evening" | "full">("morning");
   return (
-    <div className="flex flex-col h-full rounded-xl border border-border/70 bg-card/95 p-4 sm:p-5 text-xs shadow-inner">
-      <div className="flex items-center justify-between border-b border-border/60 pb-3">
-        <div className="flex items-center gap-2">
-          <div className="flex size-6 items-center justify-center rounded-lg bg-brand/10 text-brand font-bold text-[10px]">
+    <div className="flex flex-col h-full rounded-xl border border-border/70 bg-card/95 p-3 sm:p-5 text-xs shadow-inner">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border/60 pb-3">
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-brand/10 text-brand font-bold text-[10px]">
             OS
           </div>
-          <div>
-            <div className="font-semibold text-foreground text-[11px] flex items-center gap-1.5">
+          <div className="min-w-0">
+            <div className="font-semibold text-foreground text-[11px] flex items-center gap-1.5 truncate">
               <span>Central Study Library</span>
-              <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="size-1.5 rounded-full bg-emerald-500 shrink-0 animate-pulse" />
             </div>
-            <span className="text-[10px] text-muted-foreground">Floor 1 · 48 Total Desks</span>
+            <span className="text-[10px] text-muted-foreground block truncate">Floor 1 · 48 Total Desks</span>
           </div>
         </div>
-        <div className="flex rounded-md border border-border/60 bg-muted/40 p-0.5">
+        <div className="flex rounded-md border border-border/60 bg-muted/40 p-0.5 shrink-0">
           {(["morning", "evening", "full"] as const).map((shift) => (
             <button
               key={shift}
@@ -119,7 +112,7 @@ function LibraryMockup() {
         </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-2 py-3 border-b border-border/50">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 py-3 border-b border-border/50">
         <div className="rounded-lg bg-surface-strong/60 p-2 text-center">
           <div className="text-[10px] text-muted-foreground">Occupied</div>
           <div className="font-bold text-foreground text-xs">42 / 48</div>
@@ -133,7 +126,7 @@ function LibraryMockup() {
           <div className="font-bold text-foreground text-xs">₹24.8K</div>
         </div>
         <div className="rounded-lg bg-surface-strong/60 p-2 text-center">
-          <div className="text-[10px] text-muted-foreground">Dues</div>
+          <div className="text-[10px] text-muted-foreground">Dues Alert</div>
           <div className="font-bold text-amber-600 dark:text-amber-400 text-xs">3 Alerts</div>
         </div>
       </div>
@@ -141,9 +134,9 @@ function LibraryMockup() {
       <div className="mt-3 flex-1 flex flex-col justify-between">
         <div className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-2 flex items-center justify-between">
           <span>Live Desk Allocation</span>
-          <span className="text-emerald-500 font-normal">Shift: {activeShift}</span>
+          <span className="text-emerald-500 font-normal capitalize">Shift: {activeShift}</span>
         </div>
-        <div className="grid grid-cols-6 gap-1.5 sm:gap-2">
+        <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5 sm:gap-2">
           {[
             { id: "D-01", status: "occ", name: "Rahul" },
             { id: "D-02", status: "occ", name: "Ananya" },
@@ -161,10 +154,10 @@ function LibraryMockup() {
             <div
               key={desk.id}
               className={cn(
-                "rounded-md border p-1 text-center transition-all flex flex-col justify-center items-center h-12",
+                "rounded-md border p-1 text-center transition-all flex flex-col justify-center items-center h-11 sm:h-12",
                 desk.status === "occ" && "border-brand/30 bg-brand/5 text-foreground",
                 desk.status === "due" && "border-amber-500/40 bg-amber-500/10 text-amber-600 dark:text-amber-400",
-                desk.status === "vac" && "border-emerald-500/30 bg-emerald-500/5 text-emerald-600 dark:text-emerald-400 hover:border-emerald-500"
+                desk.status === "vac" && "border-emerald-500/30 bg-emerald-500/5 text-emerald-600 dark:text-emerald-400"
               )}
             >
               <span className="font-bold text-[9px] leading-tight">{desk.id}</span>
@@ -173,10 +166,10 @@ function LibraryMockup() {
           ))}
         </div>
 
-        <div className="mt-3 rounded-lg border border-brand/20 bg-brand/5 px-2.5 py-1.5 flex items-center justify-between text-[10px]">
-          <span className="flex items-center gap-1.5 text-foreground font-medium truncate">
+        <div className="mt-3 rounded-lg border border-brand/20 bg-brand/5 px-2.5 py-1.5 flex items-center justify-between text-[10px] min-w-0">
+          <span className="flex items-center gap-1.5 text-foreground font-medium truncate min-w-0">
             <span className="size-1.5 rounded-full bg-brand shrink-0" />
-            Auto WhatsApp Fee Alert sent to Zaid K. (Due: Today)
+            <span className="truncate">Auto WhatsApp Fee Alert sent to Zaid K. (Due: Today)</span>
           </span>
           <span className="text-brand font-semibold shrink-0 ml-2">Delivered</span>
         </div>
@@ -187,23 +180,23 @@ function LibraryMockup() {
 
 function LedgerMockup() {
   return (
-    <div className="flex flex-col h-full rounded-xl border border-border/70 bg-card/95 p-4 sm:p-5 text-xs shadow-inner">
+    <div className="flex flex-col h-full rounded-xl border border-border/70 bg-card/95 p-3 sm:p-5 text-xs shadow-inner">
       <div className="flex items-center justify-between border-b border-border/60 pb-3">
-        <div className="flex items-center gap-2">
-          <div className="flex size-6 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-[10px]">
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-[10px]">
             ₹
           </div>
-          <div>
-            <div className="font-semibold text-foreground text-[11px]">Bharat Daily Khata &amp; Cashbook</div>
-            <span className="text-[10px] text-muted-foreground">Realtime Ledger Sync</span>
+          <div className="min-w-0">
+            <div className="font-semibold text-foreground text-[11px] truncate">Bharat Daily Khata &amp; Cashbook</div>
+            <span className="text-[10px] text-muted-foreground block truncate">Realtime Ledger Sync</span>
           </div>
         </div>
-        <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[9px] font-bold text-emerald-600 dark:text-emerald-400">
+        <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[9px] font-bold text-emerald-600 dark:text-emerald-400 shrink-0">
           Sync Online
         </span>
       </div>
 
-      <div className="grid grid-cols-2 gap-2 py-3 border-b border-border/50">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 py-3 border-b border-border/50">
         <div className="rounded-lg bg-emerald-500/5 border border-emerald-500/20 p-2.5">
           <span className="text-[10px] text-muted-foreground block">Cash in Hand / UPI</span>
           <span className="font-display font-bold text-emerald-600 dark:text-emerald-400 text-sm">
@@ -211,7 +204,7 @@ function LedgerMockup() {
           </span>
         </div>
         <div className="rounded-lg bg-rose-500/5 border border-rose-500/20 p-2.5">
-          <span className="text-[10px] text-muted-foreground block">Total Udhar / Customer Due</span>
+          <span className="text-[10px] text-muted-foreground block">Total Udhar / Due</span>
           <span className="font-display font-bold text-rose-600 dark:text-rose-400 text-sm">
             -₹14,200.00
           </span>
@@ -229,15 +222,15 @@ function LedgerMockup() {
         ].map((tx) => (
           <div
             key={tx.party}
-            className="rounded-lg border border-border/60 bg-surface-strong/40 p-2 flex items-center justify-between"
+            className="rounded-lg border border-border/60 bg-surface-strong/40 p-2 flex items-center justify-between gap-2"
           >
-            <div>
-              <div className="font-semibold text-foreground text-[11px]">{tx.party}</div>
-              <div className="text-[9px] text-muted-foreground">
+            <div className="min-w-0">
+              <div className="font-semibold text-foreground text-[11px] truncate">{tx.party}</div>
+              <div className="text-[9px] text-muted-foreground truncate">
                 {tx.time} · {tx.method}
               </div>
             </div>
-            <div className="text-right">
+            <div className="text-right shrink-0">
               <span
                 className={cn(
                   "font-bold text-xs",
@@ -249,7 +242,7 @@ function LedgerMockup() {
                 {tx.type === "in" ? `+${tx.amt}` : tx.type === "due" ? `Due ${tx.amt}` : `-${tx.amt}`}
               </span>
               {tx.type === "due" && (
-                <div className="text-[9px] text-brand font-semibold cursor-pointer flex items-center gap-0.5 justify-end mt-0.5">
+                <div className="text-[9px] text-brand font-semibold flex items-center gap-0.5 justify-end mt-0.5">
                   <span>Send Reminder</span>
                   <Send className="size-2.5" />
                 </div>
@@ -264,33 +257,33 @@ function LedgerMockup() {
 
 function StaffMockup() {
   return (
-    <div className="flex flex-col h-full rounded-xl border border-border/70 bg-card/95 p-4 sm:p-5 text-xs shadow-inner">
+    <div className="flex flex-col h-full rounded-xl border border-border/70 bg-card/95 p-3 sm:p-5 text-xs shadow-inner">
       <div className="flex items-center justify-between border-b border-border/60 pb-3">
-        <div className="flex items-center gap-2">
-          <div className="flex size-6 items-center justify-center rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold text-[10px]">
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold text-[10px]">
             HR
           </div>
-          <div>
-            <div className="font-semibold text-foreground text-[11px]">Staff Attendance &amp; Payroll</div>
-            <span className="text-[10px] text-muted-foreground">Live Geofence / Selfie Check-In</span>
+          <div className="min-w-0">
+            <div className="font-semibold text-foreground text-[11px] truncate">Staff Attendance &amp; Payroll</div>
+            <span className="text-[10px] text-muted-foreground block truncate">Mobile / QR Check-In</span>
           </div>
         </div>
-        <span className="rounded-full bg-brand/10 px-2 py-0.5 text-[9px] font-bold text-brand">
+        <span className="rounded-full bg-brand/10 px-2 py-0.5 text-[9px] font-bold text-brand shrink-0">
           14 / 16 Present
         </span>
       </div>
 
-      <div className="grid grid-cols-3 gap-2 py-3 border-b border-border/50 text-center">
+      <div className="grid grid-cols-3 gap-1.5 sm:gap-2 py-3 border-b border-border/50 text-center">
         <div className="rounded-lg bg-surface-strong/60 p-2">
-          <span className="text-[9px] text-muted-foreground block">On Time</span>
+          <span className="text-[9px] text-muted-foreground block truncate">On Time</span>
           <span className="font-bold text-emerald-600 dark:text-emerald-400 text-xs">13 Staff</span>
         </div>
         <div className="rounded-lg bg-surface-strong/60 p-2">
-          <span className="text-[9px] text-muted-foreground block">Late Arrival</span>
+          <span className="text-[9px] text-muted-foreground block truncate">Late</span>
           <span className="font-bold text-amber-600 dark:text-amber-400 text-xs">1 Staff</span>
         </div>
         <div className="rounded-lg bg-surface-strong/60 p-2">
-          <span className="text-[9px] text-muted-foreground block">Leaves</span>
+          <span className="text-[9px] text-muted-foreground block truncate">Leaves</span>
           <span className="font-bold text-muted-foreground text-xs">2 Approved</span>
         </div>
       </div>
@@ -306,15 +299,15 @@ function StaffMockup() {
         ].map((staff) => (
           <div
             key={staff.name}
-            className="rounded-lg border border-border/60 bg-surface-strong/40 p-2 flex items-center justify-between"
+            className="rounded-lg border border-border/60 bg-surface-strong/40 p-2 flex items-center justify-between gap-2"
           >
-            <div>
-              <div className="font-semibold text-foreground text-[11px]">{staff.name}</div>
-              <div className="text-[9px] text-muted-foreground">
+            <div className="min-w-0">
+              <div className="font-semibold text-foreground text-[11px] truncate">{staff.name}</div>
+              <div className="text-[9px] text-muted-foreground truncate">
                 {staff.role} · Punched In {staff.inTime}
               </div>
             </div>
-            <div className="text-right">
+            <div className="text-right shrink-0">
               <span
                 className={cn(
                   "rounded px-1.5 py-0.5 text-[9px] font-semibold",
@@ -336,26 +329,26 @@ function StaffMockup() {
 
 function CrmMockup() {
   return (
-    <div className="flex flex-col h-full rounded-xl border border-border/70 bg-card/95 p-4 sm:p-5 text-xs shadow-inner">
+    <div className="flex flex-col h-full rounded-xl border border-border/70 bg-card/95 p-3 sm:p-5 text-xs shadow-inner">
       <div className="flex items-center justify-between border-b border-border/60 pb-3">
-        <div className="flex items-center gap-2">
-          <div className="flex size-6 items-center justify-center rounded-lg bg-brand/10 text-brand font-bold text-[10px]">
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-brand/10 text-brand font-bold text-[10px]">
             CRM
           </div>
-          <div>
-            <div className="font-semibold text-foreground text-[11px]">Sales Pipeline &amp; WhatsApp CRM</div>
-            <span className="text-[10px] text-muted-foreground">Visual Kanban Lead Stages</span>
+          <div className="min-w-0">
+            <div className="font-semibold text-foreground text-[11px] truncate">Sales Pipeline &amp; WhatsApp CRM</div>
+            <span className="text-[10px] text-muted-foreground block truncate">Visual Kanban Deal Stages</span>
           </div>
         </div>
-        <span className="rounded-full bg-brand/10 px-2 py-0.5 text-[9px] font-bold text-brand">
+        <span className="rounded-full bg-brand/10 px-2 py-0.5 text-[9px] font-bold text-brand shrink-0">
           ₹1.2L Pipeline
         </span>
       </div>
 
-      <div className="grid grid-cols-3 gap-2 mt-3 flex-1">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-3 flex-1">
         <div className="rounded-lg bg-surface-strong/40 p-2 flex flex-col">
-          <div className="flex items-center justify-between text-[10px] font-bold text-foreground mb-2">
-            <span>New Inquiries</span>
+          <div className="flex items-center justify-between text-[10px] font-bold text-foreground mb-1.5">
+            <span>New Leads</span>
             <span className="rounded bg-muted px-1 text-[9px]">2</span>
           </div>
           <div className="space-y-1.5">
@@ -364,7 +357,7 @@ function CrmMockup() {
               <div className="text-[9px] text-muted-foreground">Web + Portal · ₹18K</div>
               <div className="mt-1 text-[8px] text-brand font-medium">WhatsApp Today</div>
             </div>
-            <div className="rounded-md border border-border/70 bg-card p-2 text-[10px]">
+            <div className="rounded-md border border-border/70 bg-card p-2 text-[10px] hidden sm:block">
               <div className="font-semibold text-foreground">Royal Cafe</div>
               <div className="text-[9px] text-muted-foreground">QR Menu · ₹6.5K</div>
             </div>
@@ -372,7 +365,7 @@ function CrmMockup() {
         </div>
 
         <div className="rounded-lg bg-surface-strong/40 p-2 flex flex-col">
-          <div className="flex items-center justify-between text-[10px] font-bold text-foreground mb-2">
+          <div className="flex items-center justify-between text-[10px] font-bold text-foreground mb-1.5">
             <span>Demo Done</span>
             <span className="rounded bg-amber-500/20 text-amber-600 dark:text-amber-400 px-1 text-[9px]">1</span>
           </div>
@@ -388,8 +381,8 @@ function CrmMockup() {
         </div>
 
         <div className="rounded-lg bg-surface-strong/40 p-2 flex flex-col">
-          <div className="flex items-center justify-between text-[10px] font-bold text-foreground mb-2">
-            <span>Closed Won</span>
+          <div className="flex items-center justify-between text-[10px] font-bold text-foreground mb-1.5">
+            <span>Won &amp; Paid</span>
             <span className="rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 px-1 text-[9px]">4</span>
           </div>
           <div className="space-y-1.5">
@@ -448,12 +441,14 @@ function ProductsIndexPage() {
         label="DEVGRONIX In-House Software"
         title={
           <>
-            Smart Cloud Software Built to <span className="text-brand">Run Your Daily Business</span>.
+            Modern Business Software.{" "}
+            <span className="text-gradient">Affordable For Everyone.</span>
           </>
         }
-        description="High-performance, ultra-affordable subscription tools designed specifically for Indian study libraries, retail shops, offices, and growing agencies. Starting at just ₹99/month with zero setup fees."
+        description="Replace messy paper registers, missed fee collections, and scattered WhatsApp chats with our lightning-fast cloud web apps. Starting at just ₹99/month."
       >
-        <div className="flex flex-wrap items-center gap-4">
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          {/* Monthly / Yearly Billing Toggle */}
           <div className="inline-flex items-center rounded-full border border-border bg-surface p-1 shadow-xs">
             <button
               type="button"
@@ -490,11 +485,11 @@ function ProductsIndexPage() {
       </PageHero>
 
       {/* ================= SECTION 01: INTERACTIVE PRODUCT SPOTLIGHT ================= */}
-      <Section className="border-b border-border">
-        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between mb-8">
+      <Section className="border-b border-border py-10 sm:py-14">
+        <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between mb-6 sm:mb-8">
           <div>
             <span className="rule-label">01 — Interactive Spotlight</span>
-            <h2 className="mt-2 font-display text-2xl font-bold text-foreground sm:text-3xl">
+            <h2 className="mt-1 font-display text-xl sm:text-2xl lg:text-3xl font-bold text-foreground">
               Preview our in-house software in action
             </h2>
           </div>
@@ -504,7 +499,7 @@ function ProductsIndexPage() {
         </div>
 
         {/* Product Selector Pill Tabs */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 mb-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-2.5 mb-6 sm:mb-8">
           {publishedProducts.map((p) => {
             const Icon = getProductIcon(p.iconName);
             const isSelected = p.id === activeProductId;
@@ -516,7 +511,7 @@ function ProductsIndexPage() {
                 type="button"
                 onClick={() => setActiveProductId(p.id)}
                 className={cn(
-                  "relative flex items-center gap-3 rounded-xl border p-3 sm:p-3.5 text-left transition-all duration-200",
+                  "relative flex items-center gap-2.5 sm:gap-3 rounded-xl border p-2.5 sm:p-3.5 text-left transition-all duration-200 min-w-0",
                   isSelected
                     ? "border-brand bg-brand/5 shadow-sm ring-1 ring-brand/30"
                     : "border-border/80 bg-surface/80 hover:border-border hover:bg-surface"
@@ -524,7 +519,7 @@ function ProductsIndexPage() {
               >
                 <div
                   className={cn(
-                    "flex size-9 sm:size-10 shrink-0 items-center justify-center rounded-lg transition-colors",
+                    "flex size-8 sm:size-10 shrink-0 items-center justify-center rounded-lg transition-colors",
                     isSelected
                       ? "bg-brand text-brand-foreground"
                       : "bg-surface-strong text-muted-foreground"
@@ -553,34 +548,34 @@ function ProductsIndexPage() {
           <div className="overflow-hidden rounded-2xl border border-border/80 bg-surface shadow-md">
             <div className="grid lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-border/70">
               {/* Left Column: Product Blueprint & CTAs */}
-              <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between">
+              <div className="lg:col-span-5 min-w-0 p-5 sm:p-7 lg:p-8 flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="rounded-full border border-brand/20 bg-brand/5 px-2.5 py-0.5 text-[10px] font-bold text-brand">
+                  <div className="flex flex-wrap items-center gap-2 mb-3">
+                    <span className="rounded-full border border-brand/20 bg-brand/5 px-2.5 py-0.5 text-[10px] font-bold text-brand shrink-0">
                       {activeProduct.badge}
                     </span>
-                    <span className="text-[11px] text-muted-foreground flex items-center gap-1">
-                      <span className="size-1.5 rounded-full bg-emerald-500" />
-                      v2.6 Enterprise Cloud
+                    <span className="text-[11px] text-muted-foreground flex items-center gap-1.5 shrink-0">
+                      <span className="size-1.5 rounded-full bg-emerald-500 shrink-0" />
+                      <span>Cloud Software · Ready to Use</span>
                     </span>
                   </div>
 
-                  <h3 className="font-display text-2xl font-bold text-foreground sm:text-3xl">
+                  <h3 className="font-display text-xl sm:text-2xl font-bold text-foreground leading-tight">
                     {activeProduct.title}
                   </h3>
 
-                  <p className="mt-2 text-xs font-semibold text-brand">
-                    Target: {activeProduct.targetAudience}
+                  <p className="mt-1.5 text-xs font-semibold text-brand">
+                    Best for: {activeProduct.targetAudience}
                   </p>
 
-                  <p className="mt-3 text-xs sm:text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-2 text-xs sm:text-sm leading-relaxed text-muted-foreground">
                     {activeProduct.tagline}
                   </p>
 
-                  <div className="mt-6 rounded-xl border border-border/70 bg-surface-strong/50 p-4">
-                    <div className="flex items-baseline justify-between">
+                  <div className="mt-4 sm:mt-5 rounded-xl border border-border/70 bg-surface-strong/50 p-3.5 sm:p-4">
+                    <div className="flex items-baseline justify-between gap-2">
                       <div>
-                        <span className="font-display text-3xl font-extrabold text-foreground">
+                        <span className="font-display text-2xl sm:text-3xl font-extrabold text-foreground">
                           {billingCycle === "monthly" ? `₹${activeProduct.monthlyPrice}` : `₹${activeProduct.yearlyPrice}`}
                         </span>
                         <span className="ml-1 text-xs text-muted-foreground">
@@ -588,42 +583,42 @@ function ProductsIndexPage() {
                         </span>
                       </div>
                       {billingCycle === "yearly" && (
-                        <span className="rounded-md bg-emerald-500/10 px-2 py-0.5 text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
+                        <span className="rounded-md bg-emerald-500/10 px-2 py-0.5 text-[10px] sm:text-[11px] font-bold text-emerald-600 dark:text-emerald-400 shrink-0">
                           Save ~17% (2 Mo Free)
                         </span>
                       )}
                     </div>
                     <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
                       <span className="flex items-center gap-1">
-                        <Check className="size-3 text-emerald-500" /> Zero Setup Fees
+                        <Check className="size-3 text-emerald-500 shrink-0" /> Zero Setup Fees
                       </span>
                       <span className="flex items-center gap-1">
-                        <Check className="size-3 text-emerald-500" /> Cancel Anytime
+                        <Check className="size-3 text-emerald-500 shrink-0" /> Cancel Anytime
                       </span>
                     </div>
                   </div>
 
-                  <div className="mt-6">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-foreground mb-2.5">
+                  <div className="mt-4 sm:mt-5">
+                    <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-foreground mb-2">
                       Core Built-in Capabilities:
                     </div>
-                    <ul className="space-y-2 text-xs text-muted-foreground">
+                    <ul className="space-y-1.5 sm:space-y-2 text-xs text-muted-foreground">
                       {activeProduct.highlights.slice(0, 4).map((h) => (
                         <li key={h} className="flex items-start gap-2">
                           <CheckCircle2 className="size-3.5 text-brand shrink-0 mt-0.5" />
-                          <span className="text-[11px] sm:text-xs">{h}</span>
+                          <span className="text-[11px] sm:text-xs leading-tight">{h}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
                 </div>
 
-                <div className="mt-8 pt-6 border-t border-border/70 flex flex-col sm:flex-row gap-3">
+                <div className="mt-6 pt-5 border-t border-border/70 flex flex-col sm:flex-row gap-2.5">
                   <a
                     href={`https://wa.me/917070519128?text=${encodeURIComponent(activeProduct.whatsappMessage)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="interactive flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3 text-xs font-bold text-white shadow-sm transition-all hover:opacity-95 active:scale-[0.98]"
+                    className="interactive flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-all hover:opacity-95 active:scale-[0.98]"
                   >
                     <MessageCircle className="size-4" />
                     <span>Book Free Live Demo</span>
@@ -632,7 +627,7 @@ function ProductsIndexPage() {
                   <Link
                     to="/products/$slug"
                     params={{ slug: activeProduct.slug }}
-                    className="interactive inline-flex items-center justify-center gap-1.5 rounded-xl border border-border bg-surface px-4 py-3 text-xs font-semibold text-foreground transition-all hover:border-brand hover:text-brand"
+                    className="interactive inline-flex items-center justify-center gap-1.5 rounded-xl border border-border bg-surface px-4 py-2.5 text-xs font-semibold text-foreground transition-all hover:border-brand hover:text-brand"
                   >
                     <span>Full Specs</span>
                     <ArrowRight className="size-3.5" />
@@ -641,23 +636,24 @@ function ProductsIndexPage() {
               </div>
 
               {/* Right Column: High-Craft Live UI Canvas */}
-              <div className="lg:col-span-7 bg-muted/20 p-5 sm:p-8 flex flex-col justify-center">
-                <div className="flex items-center justify-between rounded-t-xl border border-border/80 bg-surface px-4 py-2.5 text-xs text-muted-foreground shadow-xs">
-                  <div className="flex items-center gap-1.5">
-                    <span className="size-2.5 rounded-full bg-rose-500/70" />
-                    <span className="size-2.5 rounded-full bg-amber-500/70" />
-                    <span className="size-2.5 rounded-full bg-emerald-500/70" />
+              <div className="lg:col-span-7 min-w-0 bg-muted/20 p-3 sm:p-6 lg:p-8 flex flex-col justify-center">
+                <div className="flex items-center justify-between rounded-t-xl border border-border/80 bg-surface px-3 py-2 text-xs text-muted-foreground shadow-xs gap-2 min-w-0">
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <span className="size-2 rounded-full bg-rose-500/70" />
+                    <span className="size-2 rounded-full bg-amber-500/70" />
+                    <span className="size-2 rounded-full bg-emerald-500/70" />
                   </div>
-                  <div className="rounded-md border border-border/50 bg-muted/40 px-3 py-0.5 text-[10px] font-mono text-muted-foreground">
-                    https://app.devgronix.com/{activeProduct.slug}
+                  <div className="rounded-md border border-border/50 bg-muted/40 px-2 sm:px-3 py-0.5 text-[9px] sm:text-[10px] font-mono text-muted-foreground truncate max-w-[140px] sm:max-w-[240px]">
+                    app.devgronix.com/{activeProduct.slug}
                   </div>
-                  <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
+                  <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1 shrink-0">
                     <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    Live Cloud Sandbox
+                    <span className="hidden sm:inline">Live Sandbox</span>
+                    <span className="sm:hidden">Live</span>
                   </span>
                 </div>
 
-                <div className="rounded-b-xl border-x border-b border-border/80 bg-surface p-1 min-h-[360px] sm:min-h-[420px]">
+                <div className="rounded-b-xl border-x border-b border-border/80 bg-surface p-1 min-h-[320px] sm:min-h-[380px] overflow-hidden">
                   {activeProduct.id === "prod-library" && <LibraryMockup />}
                   {activeProduct.id === "prod-ledger" && <LedgerMockup />}
                   {activeProduct.id === "prod-staff" && <StaffMockup />}
@@ -670,11 +666,11 @@ function ProductsIndexPage() {
       </Section>
 
       {/* ================= SECTION 02: REFINED FULL CATALOG TILES ================= */}
-      <Section className="border-b border-border bg-surface/30">
-        <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
+      <Section className="border-b border-border bg-surface/30 py-10 sm:py-14">
+        <div className="flex flex-wrap items-end justify-between gap-4 mb-6 sm:mb-8">
           <div>
             <span className="rule-label">02 — Full Software Catalog</span>
-            <h2 className="mt-2 font-display text-2xl font-bold text-foreground sm:text-3xl">
+            <h2 className="mt-1 font-display text-xl sm:text-2xl lg:text-3xl font-bold text-foreground">
               All 4 business management modules
             </h2>
           </div>
@@ -683,7 +679,7 @@ function ProductsIndexPage() {
           </p>
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {publishedProducts.map((product, i) => {
             const Icon = getProductIcon(product.iconName);
             const isMonthly = billingCycle === "monthly";
@@ -693,7 +689,7 @@ function ProductsIndexPage() {
 
             return (
               <Reveal key={product.id} delay={i * 50}>
-                <div className="group flex h-full flex-col justify-between rounded-xl border border-border/80 bg-surface p-5 shadow-xs transition-all duration-200 hover:border-brand/40 hover:shadow-md">
+                <div className="group flex h-full flex-col justify-between rounded-xl border border-border/80 bg-surface p-4 sm:p-5 shadow-xs transition-all duration-200 hover:border-brand/40 hover:shadow-md">
                   <div>
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex size-9 items-center justify-center rounded-lg bg-brand/10 text-brand group-hover:bg-brand group-hover:text-brand-foreground transition-colors">
@@ -766,12 +762,12 @@ function ProductsIndexPage() {
         </div>
       </Section>
 
-      {/* ================= SECTION 03: BENTO GRID VALUE PROPOSITIONS ================= */}
-      <Section className="border-b border-border">
-        <div className="text-center max-w-2xl mx-auto mb-10">
+      {/* ================= SECTION 03: VALUE PROPOSITIONS ================= */}
+      <Section className="border-b border-border py-10 sm:py-14">
+        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
           <span className="rule-label">03 — Architecture &amp; Reliability</span>
-          <h2 className="mt-2 font-display text-2xl font-bold text-foreground sm:text-3xl">
-            Why Indian businesses choose DEVGRONIX Cloud Software
+          <h2 className="mt-1 font-display text-xl sm:text-2xl lg:text-3xl font-bold text-foreground">
+            Why Indian businesses choose DEVGRONIX Software
           </h2>
           <p className="mt-2 text-xs sm:text-sm text-muted-foreground">
             Built from the ground up for Bharat: lightning-fast on 4G, zero hardware cost, and WhatsApp native.
@@ -779,13 +775,13 @@ function ProductsIndexPage() {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="sm:col-span-2 rounded-2xl border border-border bg-surface p-6 sm:p-7 flex flex-col justify-between">
+          <div className="sm:col-span-2 rounded-2xl border border-border bg-surface p-5 sm:p-7 flex flex-col justify-between">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <div className="flex size-10 items-center justify-center rounded-xl bg-brand/10 text-brand mb-4">
+                <div className="flex size-9 sm:size-10 items-center justify-center rounded-xl bg-brand/10 text-brand mb-3 sm:mb-4">
                   <Smartphone className="size-5" />
                 </div>
-                <h3 className="font-display text-lg font-bold text-foreground">
+                <h3 className="font-display text-base sm:text-lg font-bold text-foreground">
                   Engineered for Mobile &amp; 4G/5G Networks
                 </h3>
                 <p className="mt-2 text-xs sm:text-sm leading-relaxed text-muted-foreground max-w-xl">
@@ -796,7 +792,7 @@ function ProductsIndexPage() {
                 &lt; 50KB Payload
               </span>
             </div>
-            <div className="mt-6 flex flex-wrap gap-2 text-[11px] font-medium text-foreground">
+            <div className="mt-5 sm:mt-6 flex flex-wrap gap-2 text-[11px] font-medium text-foreground">
               <span className="rounded-md border border-border bg-surface-strong px-2.5 py-1">
                 Zero Installation Required
               </span>
@@ -809,9 +805,9 @@ function ProductsIndexPage() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-border bg-surface p-6 flex flex-col justify-between">
+          <div className="rounded-2xl border border-border bg-surface p-5 sm:p-6 flex flex-col justify-between">
             <div>
-              <div className="flex size-10 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 mb-4">
+              <div className="flex size-9 sm:size-10 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 mb-3 sm:mb-4">
                 <MessageCircle className="size-5" />
               </div>
               <h3 className="font-display text-base font-bold text-foreground">
@@ -826,9 +822,9 @@ function ProductsIndexPage() {
             </span>
           </div>
 
-          <div className="rounded-2xl border border-border bg-surface p-6 flex flex-col justify-between">
+          <div className="rounded-2xl border border-border bg-surface p-5 sm:p-6 flex flex-col justify-between">
             <div>
-              <div className="flex size-10 items-center justify-center rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 mb-4">
+              <div className="flex size-9 sm:size-10 items-center justify-center rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 mb-3 sm:mb-4">
                 <ShieldCheck className="size-5" />
               </div>
               <h3 className="font-display text-base font-bold text-foreground">
@@ -843,13 +839,13 @@ function ProductsIndexPage() {
             </span>
           </div>
 
-          <div className="sm:col-span-2 rounded-2xl border border-border bg-surface p-6 sm:p-7 flex flex-col justify-between">
+          <div className="sm:col-span-2 rounded-2xl border border-border bg-surface p-5 sm:p-7 flex flex-col justify-between">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <div className="flex size-10 items-center justify-center rounded-xl bg-brand/10 text-brand mb-4">
+                <div className="flex size-9 sm:size-10 items-center justify-center rounded-xl bg-brand/10 text-brand mb-3 sm:mb-4">
                   <Phone className="size-5" />
                 </div>
-                <h3 className="font-display text-lg font-bold text-foreground">
+                <h3 className="font-display text-base sm:text-lg font-bold text-foreground">
                   Direct Founder &amp; Developer WhatsApp Support
                 </h3>
                 <p className="mt-2 text-xs sm:text-sm leading-relaxed text-muted-foreground max-w-xl">
@@ -860,7 +856,7 @@ function ProductsIndexPage() {
                 &lt; 15-Min Response
               </span>
             </div>
-            <div className="mt-6 flex flex-wrap gap-2 text-[11px] font-medium text-foreground">
+            <div className="mt-5 sm:mt-6 flex flex-wrap gap-2 text-[11px] font-medium text-foreground">
               <span className="rounded-md border border-border bg-surface-strong px-2.5 py-1">
                 WhatsApp Live Help
               </span>
@@ -876,10 +872,10 @@ function ProductsIndexPage() {
       </Section>
 
       {/* ================= SECTION 04: DETAILED COMPARISON TABLE ================= */}
-      <Section className="border-b border-border">
-        <div className="max-w-2xl mb-8">
+      <Section className="border-b border-border py-10 sm:py-14">
+        <div className="max-w-2xl mb-6 sm:mb-8">
           <span className="rule-label">04 — Specifications Matrix</span>
-          <h2 className="mt-2 font-display text-2xl font-bold text-foreground sm:text-3xl">
+          <h2 className="mt-1 font-display text-xl sm:text-2xl lg:text-3xl font-bold text-foreground">
             Software Comparison At A Glance
           </h2>
           <p className="mt-2 text-xs sm:text-sm text-muted-foreground">
@@ -888,58 +884,58 @@ function ProductsIndexPage() {
         </div>
 
         <div className="overflow-x-auto rounded-2xl border border-border bg-surface shadow-xs">
-          <table className="w-full min-w-[640px] text-left text-xs">
+          <table className="w-full min-w-[600px] text-left text-xs">
             <thead>
               <tr className="border-b border-border bg-muted/40 text-foreground">
-                <th className="py-3.5 px-4 font-semibold">Features &amp; Specs</th>
-                <th className="py-3.5 px-4 font-semibold text-brand">Library Management</th>
-                <th className="py-3.5 px-4 font-semibold">Khata &amp; Ledger</th>
-                <th className="py-3.5 px-4 font-semibold">Staff &amp; Payroll</th>
-                <th className="py-3.5 px-4 font-semibold">CRM &amp; Leads</th>
+                <th className="py-3 px-3.5 sm:px-4 font-semibold">Features &amp; Specs</th>
+                <th className="py-3 px-3.5 sm:px-4 font-semibold text-brand">Library Management</th>
+                <th className="py-3 px-3.5 sm:px-4 font-semibold">Khata &amp; Ledger</th>
+                <th className="py-3 px-3.5 sm:px-4 font-semibold">Staff &amp; Payroll</th>
+                <th className="py-3 px-3.5 sm:px-4 font-semibold">CRM &amp; Leads</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border/70 text-muted-foreground">
               <tr>
-                <td className="py-3 px-4 font-medium text-foreground">Monthly Price</td>
-                <td className="py-3 px-4 font-bold text-foreground">₹149 / mo</td>
-                <td className="py-3 px-4 font-bold text-foreground">₹99 / mo</td>
-                <td className="py-3 px-4 font-bold text-foreground">₹99 / mo</td>
-                <td className="py-3 px-4 font-bold text-foreground">₹199 / mo</td>
+                <td className="py-2.5 px-3.5 sm:px-4 font-medium text-foreground">Monthly Price</td>
+                <td className="py-2.5 px-3.5 sm:px-4 font-bold text-foreground">₹149 / mo</td>
+                <td className="py-2.5 px-3.5 sm:px-4 font-bold text-foreground">₹99 / mo</td>
+                <td className="py-2.5 px-3.5 sm:px-4 font-bold text-foreground">₹99 / mo</td>
+                <td className="py-2.5 px-3.5 sm:px-4 font-bold text-foreground">₹199 / mo</td>
               </tr>
               <tr>
-                <td className="py-3 px-4 font-medium text-foreground">Yearly Price (Save ~17%)</td>
-                <td className="py-3 px-4 text-emerald-600 dark:text-emerald-400 font-semibold">₹1,499 / yr</td>
-                <td className="py-3 px-4 text-emerald-600 dark:text-emerald-400 font-semibold">₹999 / yr</td>
-                <td className="py-3 px-4 text-emerald-600 dark:text-emerald-400 font-semibold">₹999 / yr</td>
-                <td className="py-3 px-4 text-emerald-600 dark:text-emerald-400 font-semibold">₹1,999 / yr</td>
+                <td className="py-2.5 px-3.5 sm:px-4 font-medium text-foreground">Yearly Price (Save ~17%)</td>
+                <td className="py-2.5 px-3.5 sm:px-4 text-emerald-600 dark:text-emerald-400 font-semibold">₹1,499 / yr</td>
+                <td className="py-2.5 px-3.5 sm:px-4 text-emerald-600 dark:text-emerald-400 font-semibold">₹999 / yr</td>
+                <td className="py-2.5 px-3.5 sm:px-4 text-emerald-600 dark:text-emerald-400 font-semibold">₹999 / yr</td>
+                <td className="py-2.5 px-3.5 sm:px-4 text-emerald-600 dark:text-emerald-400 font-semibold">₹1,999 / yr</td>
               </tr>
               <tr>
-                <td className="py-3 px-4 font-medium text-foreground">WhatsApp Automation</td>
-                <td className="py-3 px-4">Fee dues &amp; renewal receipts</td>
-                <td className="py-3 px-4">Balance reminder &amp; UPI QR</td>
-                <td className="py-3 px-4">Monthly salary slip delivery</td>
-                <td className="py-3 px-4">1-tap prospect messaging</td>
+                <td className="py-2.5 px-3.5 sm:px-4 font-medium text-foreground">WhatsApp Automation</td>
+                <td className="py-2.5 px-3.5 sm:px-4">Fee dues &amp; renewal receipts</td>
+                <td className="py-2.5 px-3.5 sm:px-4">Balance reminder &amp; UPI QR</td>
+                <td className="py-2.5 px-3.5 sm:px-4">Monthly salary slip delivery</td>
+                <td className="py-2.5 px-3.5 sm:px-4">1-tap prospect messaging</td>
               </tr>
               <tr>
-                <td className="py-3 px-4 font-medium text-foreground">Core Visual Tool</td>
-                <td className="py-3 px-4">Visual Seat &amp; Shift Grid</td>
-                <td className="py-3 px-4">Customer &amp; Supplier Tally</td>
-                <td className="py-3 px-4">QR / Selfie Attendance Punch</td>
-                <td className="py-3 px-4">Visual Kanban Deal Pipeline</td>
+                <td className="py-2.5 px-3.5 sm:px-4 font-medium text-foreground">Core Visual Tool</td>
+                <td className="py-2.5 px-3.5 sm:px-4">Visual Seat &amp; Shift Grid</td>
+                <td className="py-2.5 px-3.5 sm:px-4">Customer &amp; Supplier Tally</td>
+                <td className="py-2.5 px-3.5 sm:px-4">QR / Mobile Punch</td>
+                <td className="py-2.5 px-3.5 sm:px-4">Visual Kanban Deal Pipeline</td>
               </tr>
               <tr>
-                <td className="py-3 px-4 font-medium text-foreground">Statement &amp; Reports</td>
-                <td className="py-3 px-4">PDF receipts &amp; collection tally</td>
-                <td className="py-3 px-4">PDF account ledger export</td>
-                <td className="py-3 px-4">PDF salary pay slip generator</td>
-                <td className="py-3 px-4">PDF quotation &amp; proposal</td>
+                <td className="py-2.5 px-3.5 sm:px-4 font-medium text-foreground">Statement &amp; Reports</td>
+                <td className="py-2.5 px-3.5 sm:px-4">PDF receipts &amp; collection tally</td>
+                <td className="py-2.5 px-3.5 sm:px-4">PDF account ledger export</td>
+                <td className="py-2.5 px-3.5 sm:px-4">PDF salary pay slip generator</td>
+                <td className="py-2.5 px-3.5 sm:px-4">PDF quotation &amp; proposal</td>
               </tr>
               <tr>
-                <td className="py-3 px-4 font-medium text-foreground">Live Demo Experience</td>
-                <td className="py-3 px-4 text-brand font-semibold">Free WhatsApp Demo</td>
-                <td className="py-3 px-4 text-brand font-semibold">Free WhatsApp Demo</td>
-                <td className="py-3 px-4 text-brand font-semibold">Free WhatsApp Demo</td>
-                <td className="py-3 px-4 text-brand font-semibold">Free WhatsApp Demo</td>
+                <td className="py-2.5 px-3.5 sm:px-4 font-medium text-foreground">Live Demo Experience</td>
+                <td className="py-2.5 px-3.5 sm:px-4 text-brand font-semibold">Free WhatsApp Demo</td>
+                <td className="py-2.5 px-3.5 sm:px-4 text-brand font-semibold">Free WhatsApp Demo</td>
+                <td className="py-2.5 px-3.5 sm:px-4 text-brand font-semibold">Free WhatsApp Demo</td>
+                <td className="py-2.5 px-3.5 sm:px-4 text-brand font-semibold">Free WhatsApp Demo</td>
               </tr>
             </tbody>
           </table>
@@ -947,15 +943,15 @@ function ProductsIndexPage() {
       </Section>
 
       {/* ================= SECTION 05: FAQ ACCORDION ================= */}
-      <Section className="border-b border-border bg-surface/30">
-        <div className="max-w-2xl mx-auto text-center mb-10">
+      <Section className="border-b border-border bg-surface/30 py-10 sm:py-14">
+        <div className="max-w-2xl mx-auto text-center mb-8 sm:mb-10">
           <span className="rule-label">05 — Frequently Asked Questions</span>
-          <h2 className="mt-2 font-display text-2xl font-bold text-foreground sm:text-3xl">
+          <h2 className="mt-1 font-display text-xl sm:text-2xl lg:text-3xl font-bold text-foreground">
             Everything you need to know about DEVGRONIX Software
           </h2>
         </div>
 
-        <div className="max-w-3xl mx-auto space-y-3">
+        <div className="max-w-3xl mx-auto space-y-2.5 sm:space-y-3">
           {generalFaqs.map((faq, idx) => (
             <div
               key={faq.q}
@@ -964,17 +960,17 @@ function ProductsIndexPage() {
               <button
                 type="button"
                 onClick={() => toggleFaq(idx)}
-                className="flex w-full items-center justify-between p-4 sm:p-5 text-left text-sm font-semibold text-foreground hover:text-brand transition-colors"
+                className="flex w-full items-center justify-between p-3.5 sm:p-5 text-left text-xs sm:text-sm font-semibold text-foreground hover:text-brand transition-colors gap-2"
               >
                 <span>{faq.q}</span>
                 <ChevronDown
-                  className={`size-4 text-muted-foreground transition-transform duration-200 ${
+                  className={`size-4 shrink-0 text-muted-foreground transition-transform duration-200 ${
                     openFaq === idx ? "rotate-180 text-brand" : ""
                   }`}
                 />
               </button>
               {openFaq === idx && (
-                <div className="px-4 pb-4 sm:px-5 sm:pb-5 text-xs sm:text-sm text-muted-foreground leading-relaxed border-t border-border/50 pt-3">
+                <div className="px-3.5 pb-3.5 sm:px-5 sm:pb-5 text-xs sm:text-sm text-muted-foreground leading-relaxed border-t border-border/50 pt-3">
                   {faq.a}
                 </div>
               )}
